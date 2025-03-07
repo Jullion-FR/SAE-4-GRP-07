@@ -1,10 +1,13 @@
 <?php
+include_once __DIR__ . "/loadenv.php";
+?>
+<?php
 
 
-$utilisateur = "inf2pj02";
-$serveur = "localhost";
-$motdepasse = "ahV4saerae";
-$basededonnees = "inf2pj_02";
+$utilisateur = $_ENV['DB_USER'];
+$serveur = $_ENV['DB_HOST'];
+$motdepasse = $_ENV['DB_PASS'];
+$basededonnees = $_ENV['DB_NAME'];
 $bdd = new PDO('mysql:host=' . $serveur . ';dbname=' . $basededonnees, $utilisateur, $motdepasse);
 $message = $_POST['message'];
 if (isset($_SESSION["Id_Uti"]) && isset($message)) {

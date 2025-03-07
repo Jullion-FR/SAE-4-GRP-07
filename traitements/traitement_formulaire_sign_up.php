@@ -1,4 +1,7 @@
 <?php
+include_once __DIR__ . "/loadenv.php";
+?>
+<?php
     require "language.php" ; 
 ?>
 <?php
@@ -14,10 +17,10 @@ $Mail_Uti = $_POST['mail'];
 $_SESSION['Mail_Temp']=$Mail_Uti;
 
 // Connexion à la base de données 
-$utilisateur = "inf2pj02";
-$serveur = "localhost";
-$motdepasse = "ahV4saerae";
-$basededonnees = "inf2pj_02";
+$utilisateur = $_ENV['DB_USER'];
+$serveur = $_ENV['DB_HOST'];
+$motdepasse = $_ENV['DB_PASS'];
+$basededonnees = $_ENV['DB_NAME'];
 $connexion = new mysqli($serveur, $utilisateur, $motdepasse, $basededonnees);
 
 // Récupération de la valeur maximum de Id_Uti
