@@ -1,3 +1,6 @@
+<?php
+include_once __DIR__ . "/loadenv.php";
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -16,11 +19,11 @@
             session_start();
         }
     	function dbConnect(){
-            $host = 'localhost';
-            $dbname = 'inf2pj_02';
-            $user = 'inf2pj02';
-            $password = 'ahV4saerae';
-            return new PDO('mysql:host='.$host.';dbname='.$dbname,$user,$password);
+            $utilisateur = $_ENV['DB_USER'];
+            $serveur = $_ENV['DB_HOST'];
+            $motdepasse = $_ENV['DB_PASS'];
+            $basededonnees = $_ENV['DB_NAME'];
+            return new PDO('mysql:host='.$serveur.';dbname='.$basededonnees,$utilisateur,$motdepasse);
       }
 
 	  $bdd=dbConnect();
