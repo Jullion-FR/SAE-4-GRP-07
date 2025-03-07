@@ -1,5 +1,6 @@
 <?php
-    require "language.php" ; 
+include_once __DIR__ . "/loadenv.php";
+require "language.php" ; 
 ?>
 <?php
 // Vérifier si le formulaire a été soumis
@@ -9,10 +10,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Spécifier le chemin du dossier de destination
         $targetDir = __DIR__ . "/img_produit/";
         // Obtenir le nom du fichier téléchargé
-        $utilisateur = "inf2pj02";
-        $serveur = "localhost";
-        $motdepasse = "ahV4saerae";
-        $basededonnees = "inf2pj_02";
+        $utilisateur = $_ENV['DB_USER'];
+        $serveur = $_ENV['DB_HOST'];
+        $motdepasse = $_ENV['DB_PASS'];
+        $basededonnees = $_ENV['DB_NAME'];
         session_start();
 
 

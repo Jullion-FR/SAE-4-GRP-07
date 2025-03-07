@@ -280,10 +280,10 @@ include_once __DIR__ . "/loadenv.php";
                 if (isset($_GET["categorie"])) {
                     $categorie = htmlspecialchars($_GET["categorie"]);
                     // Connexion à la base de données 
-                    $utilisateur = "inf2pj02";
-                    $serveur = "localhost";
-                    $motdepasse = "ahV4saerae";
-                    $basededonnees = "inf2pj_02";
+                    $utilisateur = $_ENV['DB_USER'];
+                    $serveur = $_ENV['DB_HOST'];
+                    $motdepasse = $_ENV['DB_PASS'];
+                    $basededonnees = $_ENV['DB_NAME'];
                     $connexion = new mysqli($serveur, $utilisateur, $motdepasse, $basededonnees);
                     // Vérifiez la connexion
                     if ($connexion->connect_error) {

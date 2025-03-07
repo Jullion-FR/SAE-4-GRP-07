@@ -3,6 +3,7 @@
 <head>
 <?php
     require "language.php" ; 
+include_once __DIR__ . "/loadenv.php";
 ?>
     <title><?php echo $htmlMarque; ?></title>
     <meta charset="UTF-8">
@@ -13,10 +14,10 @@
     <?php
 
      function dbConnect(){
-        $utilisateur = "inf2pj02";
-        $serveur = "localhost";
-        $motdepasse = "ahV4saerae";
-        $basededonnees = "inf2pj_02";
+        $utilisateur = $_ENV['DB_USER'];
+        $serveur = $_ENV['DB_HOST'];
+        $motdepasse = $_ENV['DB_PASS'];
+        $basededonnees = $_ENV['DB_NAME'];
     
         // Connect to database
         return new PDO('mysql:host=' . $serveur . ';dbname=' . $basededonnees, $utilisateur, $motdepasse);
