@@ -1,6 +1,6 @@
 <?php
 include_once __DIR__ . "/loadenv.php";
-require "language.php" ; 
+require "language.php";
 ?>
 <?php
 // Vérifier si le formulaire a été soumis
@@ -25,20 +25,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Créer le chemin complet du fichier de destination
         $targetPath = $targetDir . $newFileName;
-        
-        unlink( $targetPath ); 
+
+        unlink($targetPath);
         // Déplacer le fichier téléchargé vers le dossier de destination
         if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetPath)) {
             echo "<br><?php echo $htmlImgTelecSucces?> $newFileName<br>";
         } else {
             echo "$htmlImgTelecRate " . error_get_last()['message'] . "<br>";
-            header('Location: mes_produits.php?erreur='. error_get_last()['message'] );
+            header('Location: mes_produits.php?erreur=' . error_get_last()['message']);
         }
-
     } else {
-        echo $htmlSelecImg."<br>";
+        echo $htmlSelecImg . "<br>";
     }
-    
-    header('Location: produits.php');    
+
+    header('Location: produits.php');
 }
 ?>

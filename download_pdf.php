@@ -4,12 +4,13 @@ include_once __DIR__ . "/loadenv.php";
 <?php
 header('Content-Type: text/html; charset=utf-8');
 
-function dbConnect(){
+function dbConnect()
+{
     $utilisateur = $_ENV['DB_USER'];
     $serveur = $_ENV['DB_HOST'];
     $motdepasse = $_ENV['DB_PASS'];
     $basededonnees = $_ENV['DB_NAME'];
-    return new PDO('mysql:host='.$serveur.';dbname='.$basededonnees,$utilisateur,$motdepasse);
+    return new PDO('mysql:host=' . $serveur . ';dbname=' . $basededonnees, $utilisateur, $motdepasse);
 }
 
 $bdd = dbConnect();
@@ -93,13 +94,13 @@ $pdf->AddPage();
 // Ajouter les valeurs
 $pdf->SetFont('Arial', '', 12, 'UTF-8');
 
-$pdf->Cell(0, 5, $Prenom_Prod.' '.$Nom_Prod, 0, 1);
+$pdf->Cell(0, 5, $Prenom_Prod . ' ' . $Nom_Prod, 0, 1);
 $pdf->Cell(0, 5, $Prof_Prod, 0, 1);
 $pdf->Cell(0, 5, $Mail_Prod, 0, 1);
 $pdf->Cell(0, 5, $Adr_Prod, 0, 1);
 
 // Informations sur le client
-$pdf->Cell(0, 5, $Prenom_Uti.' '.$Nom_Uti, 0, 0, 'R');
+$pdf->Cell(0, 5, $Prenom_Uti . ' ' . $Nom_Uti, 0, 0, 'R');
 $pdf->Ln();
 $pdf->Cell(0, 5, $Mail_Uti, 0, 0, 'R');
 $pdf->Ln();
@@ -107,7 +108,7 @@ $pdf->Cell(0, 5, $Adr_Uti, 0, 0, 'R');
 $pdf->Ln(5); // Sauts de ligne réduits
 
 // Informations sur la commande
-$pdf->Cell(0, 5, 'COMMANDE '.$Id_Commande.' :', 0, 1);
+$pdf->Cell(0, 5, 'COMMANDE ' . $Id_Commande . ' :', 0, 1);
 
 $pdf->SetFont('Arial', 'B', 12, 'UTF-8');
 $pdf->Cell(40, 8, 'PRODUIT', 1);
@@ -117,7 +118,7 @@ $pdf->Cell(40, 8, 'PRIX', 1);
 $pdf->Ln();
 
 
-$total=0;
+$total = 0;
 $query = 'SELECT Nom_Produit, Qte_Produit_Commande, Prix_Produit_Unitaire, Nom_Unite_Prix 
           FROM produits_commandes  
           WHERE Id_Commande = :idCommande';
@@ -126,19 +127,19 @@ $queryGetProduitCommande = $bdd->prepare($query);
 $queryGetProduitCommande->bindParam(':idCommande', $Id_Commande, PDO::PARAM_INT);
 $queryGetProduitCommande->execute();
 $returnQueryGetProduitCommande = $queryGetProduitCommande->fetchAll(PDO::FETCH_ASSOC);
-$iterateurProduit=0;
-$nbProduit=count($returnQueryGetProduitCommande);
+$iterateurProduit = 0;
+$nbProduit = count($returnQueryGetProduitCommande);
 
 
 $produits = [];
 
-while ($iterateurProduit<$nbProduit){
-    $Nom_Produit=$returnQueryGetProduitCommande[$iterateurProduit]["Nom_Produit"];
-    $Qte_Produit_Commande=$returnQueryGetProduitCommande[$iterateurProduit]["Qte_Produit_Commande"];
-    $Nom_Unite_Prix=$returnQueryGetProduitCommande[$iterateurProduit]["Nom_Unite_Prix"];
-    $Prix_Produit_Unitaire=$returnQueryGetProduitCommande[$iterateurProduit]["Prix_Produit_Unitaire"];
-    array_push($produits, [$Nom_Produit, $Prix_Produit_Unitaire, $Qte_Produit_Commande.' '.$Nom_Unite_Prix]);
-    $total=$total+intval($Prix_Produit_Unitaire)*intval($Qte_Produit_Commande);
+while ($iterateurProduit < $nbProduit) {
+    $Nom_Produit = $returnQueryGetProduitCommande[$iterateurProduit]["Nom_Produit"];
+    $Qte_Produit_Commande = $returnQueryGetProduitCommande[$iterateurProduit]["Qte_Produit_Commande"];
+    $Nom_Unite_Prix = $returnQueryGetProduitCommande[$iterateurProduit]["Nom_Unite_Prix"];
+    $Prix_Produit_Unitaire = $returnQueryGetProduitCommande[$iterateurProduit]["Prix_Produit_Unitaire"];
+    array_push($produits, [$Nom_Produit, $Prix_Produit_Unitaire, $Qte_Produit_Commande . ' ' . $Nom_Unite_Prix]);
+    $total = $total + intval($Prix_Produit_Unitaire) * intval($Qte_Produit_Commande);
     $iterateurProduit++;
 }
 
@@ -147,9 +148,9 @@ while ($iterateurProduit<$nbProduit){
 $pdf->SetFont('Arial', '', 12, 'UTF-8');
 foreach ($produits as $produit) {
     $pdf->Cell(40, 8, $produit[0], 1);
-    $pdf->Cell(40, 8, $produit[1].' euros', 1); 
+    $pdf->Cell(40, 8, $produit[1] . ' euros', 1);
     $pdf->Cell(30, 8, $produit[2], 1);
-    $pdf->Cell(40, 8, intval($produit[1]) * intval($produit[2]).' euros', 1); 
+    $pdf->Cell(40, 8, intval($produit[1]) * intval($produit[2]) . ' euros', 1);
     $pdf->Ln();
 }
 
@@ -159,7 +160,7 @@ $pdf->Ln(5); // Saut de ligne réduit
 // Total
 $pdf->SetFont('Arial', 'B', 12, 'UTF-8');
 $pdf->Cell(110, 8, 'TOTAL', 1);
-$pdf->Cell(40, 8, $total.' euros', 1);
+$pdf->Cell(40, 8, $total . ' euros', 1);
 $pdf->Ln(); // Saut de ligne
 
 // Impression
@@ -179,7 +180,7 @@ $pdf->Output($nom_fichier, 'F', true, 'UTF-8');
 
 // Envoi des en-têtes pour le téléchargement
 header('Content-Type: application/pdf');
-header('Content-Disposition: attachment; filename="Commande_'.$Id_Commande.'.pdf"');
+header('Content-Disposition: attachment; filename="Commande_' . $Id_Commande . '.pdf"');
 header('Content-Length: ' . filesize($nom_fichier));
 
 // Envoyer le contenu du fichier

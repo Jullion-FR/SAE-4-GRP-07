@@ -1,36 +1,37 @@
 <?php
 include_once __DIR__ . "/loadenv.php";
-function dbConnect(){
-        $utilisateur = $_ENV['DB_USER'];
-        $serveur = $_ENV['DB_HOST'];
-        $motdepasse = $_ENV['DB_PASS'];
-        $basededonnees = $_ENV['DB_NAME'];
-        // Connect to database
-        return new PDO('mysql:host=' . $serveur . ';dbname=' . $basededonnees, $utilisateur, $motdepasse);
-    }
-    $bdd=dbConnect();
-    //var_dump($_POST);
-    $Id_Produit = htmlspecialchars($_POST["IdProductAModifier"]);
-    $Nom_Produit = htmlspecialchars($_POST["nomProduit"]);
-    $Categorie = htmlspecialchars($_POST["categorie"]);
-    $Prix = htmlspecialchars($_POST["prix"]);
-    $Prix_Unite = htmlspecialchars($_POST["unitPrix"]);
-    $Quantite = htmlspecialchars($_POST["quantite"]);
-    $Quantite_Unite = htmlspecialchars($_POST["unitQuantite"]);
+function dbConnect()
+{
+    $utilisateur = $_ENV['DB_USER'];
+    $serveur = $_ENV['DB_HOST'];
+    $motdepasse = $_ENV['DB_PASS'];
+    $basededonnees = $_ENV['DB_NAME'];
+    // Connect to database
+    return new PDO('mysql:host=' . $serveur . ';dbname=' . $basededonnees, $utilisateur, $motdepasse);
+}
+$bdd = dbConnect();
+//var_dump($_POST);
+$Id_Produit = htmlspecialchars($_POST["IdProductAModifier"]);
+$Nom_Produit = htmlspecialchars($_POST["nomProduit"]);
+$Categorie = htmlspecialchars($_POST["categorie"]);
+$Prix = htmlspecialchars($_POST["prix"]);
+$Prix_Unite = htmlspecialchars($_POST["unitPrix"]);
+$Quantite = htmlspecialchars($_POST["quantite"]);
+$Quantite_Unite = htmlspecialchars($_POST["unitQuantite"]);
 
 
-    $updateProduit = "UPDATE PRODUIT SET Nom_Produit = :Nom_Produit, Id_Type_Produit = :Categorie, Qte_Produit = :Quantite, Id_Unite_Stock = :Quantite_Unite, Prix_Produit_Unitaire = :Prix, Id_unite_Prix = :Prix_Unite WHERE Id_Produit = :Id_Produit";
-    $stmt = $bdd->prepare($updateProduit);
-    $stmt->bindParam(':Nom_Produit', $Nom_Produit);
-    $stmt->bindParam(':Categorie', $Categorie);
-    $stmt->bindParam(':Quantite', $Quantite);
-    $stmt->bindParam(':Quantite_Unite', $Quantite_Unite);
-    $stmt->bindParam(':Prix', $Prix);
-    $stmt->bindParam(':Prix_Unite', $Prix_Unite);
-    $stmt->bindParam(':Id_Produit', $Id_Produit);
-    $stmt->execute();
+$updateProduit = "UPDATE PRODUIT SET Nom_Produit = :Nom_Produit, Id_Type_Produit = :Categorie, Qte_Produit = :Quantite, Id_Unite_Stock = :Quantite_Unite, Prix_Produit_Unitaire = :Prix, Id_unite_Prix = :Prix_Unite WHERE Id_Produit = :Id_Produit";
+$stmt = $bdd->prepare($updateProduit);
+$stmt->bindParam(':Nom_Produit', $Nom_Produit);
+$stmt->bindParam(':Categorie', $Categorie);
+$stmt->bindParam(':Quantite', $Quantite);
+$stmt->bindParam(':Quantite_Unite', $Quantite_Unite);
+$stmt->bindParam(':Prix', $Prix);
+$stmt->bindParam(':Prix_Unite', $Prix_Unite);
+$stmt->bindParam(':Id_Produit', $Id_Produit);
+$stmt->execute();
 
-    //modification de l'image
+//modification de l'image
 // Vérifier si le formulaire a été soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Vérifier si le fichier a été correctement téléchargé
@@ -42,9 +43,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $serveur = "localhost";
         $motdepasse = "ahV4saerae";
         $basededonnees = "inf2pj_02";
-        if(!isset($_SESSION)){
+        if (!isset($_SESSION)) {
             session_start();
-            }
+        }
 
 
         // Obtenir l'extension du fichie
@@ -55,19 +56,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Créer le chemin complet du fichier de destination
         $targetPath = $targetDir . $newFileName;
-        
-        unlink( $targetPath ); 
+
+        unlink($targetPath);
         // Déplacer le fichier téléchargé vers le dossier de destination
         if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetPath)) {
             echo "<br>' $htmlImgTelecSucces  $newFileName<br>";
         } else {
             echo $htmlImgTelecRate . error_get_last()['message'] . "<br>";
-            header('Location: mes_produits.php?erreur='. error_get_last()['message'] );
+            header('Location: mes_produits.php?erreur=' . error_get_last()['message']);
         }
     } else {
-        echo $htmlSelecImg."<br>";
+        echo $htmlSelecImg . "<br>";
     }
-    header('Location: produits.php');    
-}
     header('Location: produits.php');
-?>
+}
+header('Location: produits.php');
