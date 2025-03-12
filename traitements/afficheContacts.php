@@ -1,5 +1,5 @@
 <?php
-include_once __DIR__ . "/loadenv.php";
+include_once __DIR__ . "/../loadenv.php";
 ?>
 <?php
     require "./language.php" ; 

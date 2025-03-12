@@ -1,5 +1,5 @@
 <?php
-include_once __DIR__ . "/loadenv.php";
+include_once __DIR__ . "/../loadenv.php";
 ?>
 <?php
 if (isset($_POST['new_nom'], $_POST['new_prenom'], $_POST['rue'], $_POST['code'], $_POST['ville'], $_POST['pwd'])) {
