@@ -107,7 +107,6 @@ CREATE TABLE CONTENU(
    FOREIGN KEY(Id_Produit) REFERENCES PRODUIT(Id_Produit)
 );
 
-
 -- Script d'exploitation de la base de données sous MySQL : 
 -- I - Rôles
 -- II - Vues
@@ -123,7 +122,7 @@ CREATE TABLE CONTENU(
 -- 1) Rôle permettant de modifier ses informations personnelles
 
 -- DROP ROLE IF EXISTS modif_info_perso;
-CREATE OR REPLACE ROLE modif_info_perso;
+CREATE ROLE modif_info_perso;
 
 GRANT SELECT, UPDATE ON UTILISATEUR TO modif_info_perso;
 
@@ -237,8 +236,9 @@ SELECT * FROM Produits_d_un_producteur;
 -- III) PROCÉDURES
 
 -- 1) Procédure qui envoie un message à tous les utilisateurs
+DROP PROCEDURE IF EXISTS broadcast_Utilisateur;
 DELIMITER $$
-CREATE OR REPLACE PROCEDURE broadcast_Utilisateur(
+CREATE PROCEDURE broadcast_Utilisateur(
   IN emetteur INT,
   IN contenuMsg VARCHAR(4096)
 )
@@ -280,9 +280,9 @@ DELIMITER ;
 
 
 -- 2) Procédure qui envoie un message à tous les producteurs
-
+DROP PROCEDURE IF EXISTS broadcast_Producteur;
 DELIMITER $$
-CREATE OR REPLACE PROCEDURE broadcast_Producteur(
+CREATE PROCEDURE broadcast_Producteur(
   IN emetteur INT,
   IN contenuMsg VARCHAR(4096)
 )
@@ -325,9 +325,9 @@ DELIMITER ;
 
 
 -- 3) Procedure prenant en paramètre un identifiant d'utilisateur et qui affiche tous les autres utilisateurs avec qui il est en contact
-
+DROP PROCEDURE IF EXISTS listeContact;
 DELIMITER $$
-CREATE OR REPLACE PROCEDURE listeContact(IN id_uti INT)
+CREATE PROCEDURE listeContact(IN id_uti INT)
 BEGIN
         SELECT UTILISATEUR.Id_Uti, Nom_Uti, Prenom_Uti, MAX(Date_Msg) as Date_Msg
         FROM UTILISATEUR
@@ -350,10 +350,10 @@ DELIMITER ;
 
 
 -- 4) Procédure qui renvoie la discussion entre deux utilisateurs
-
+DROP PROCEDURE IF EXISTS conversation;
 DELIMITER $$
 -- conversation prend en paramètre deux identifiants d'utilisateurs
-CREATE OR REPLACE PROCEDURE conversation(IN moi INT, IN autrePersonne INT)
+CREATE PROCEDURE conversation(IN moi INT, IN autrePersonne INT)
 BEGIN
         SELECT Contenu_Msg, Date_Msg, Emetteur 
         FROM MESSAGE 
@@ -372,10 +372,10 @@ DELIMITER;
 
 
 -- 5) deleteMsg est une procédure qui supprime tous les messages dont la date est expirée
-
+DROP PROCEDURE IF EXISTS deleteMsg;
 DELIMITER $$
 -- deleteMsg ne prend pas de paramètres
-CREATE OR REPLACE PROCEDURE deleteMsg()
+CREATE PROCEDURE deleteMsg()
 BEGIN
   -- Il faut supprimer tous les messages dont la date d'expiration est passée.
   -- Pour ce faire, nous comparons la différence entre la date d'expiration et l'heure actuelle. Si la différence est négative, le délai est dépassé.
@@ -398,8 +398,9 @@ END $$
 -- Il permet ainsi de chiffrer de manière différente le même mot ou la même lettre en fonction de la clé.
 
 -- La procédure prend en paramètre un mot de passe et un utilisateur
+DROP PROCEDURE IF EXISTS chiffrementV;
 DELIMITER $$
-CREATE OR REPLACE PROCEDURE chiffrementV(IN id_Uti INT, INOUT monMdp VARCHAR(50))
+CREATE PROCEDURE chiffrementV(IN id_Uti INT, INOUT monMdp VARCHAR(50))
 BEGIN
   -- Itérateur qui va parcourir le mot de passe
   DECLARE iterator INT DEFAULT 1;
@@ -441,8 +442,9 @@ DELIMITER ;
 -- Procédure de vérification du mot de passe
 
 -- La procédure prend en paramètre un mot de passe et un utilisateur
+DROP PROCEDURE IF EXISTS verifMotDePasse;
 DELIMITER $$
-CREATE OR REPLACE PROCEDURE verifMotDePasse(IN id_Uti INT, IN mdpAVerifier VARCHAR(50))
+CREATE PROCEDURE verifMotDePasse(IN id_Uti INT, IN mdpAVerifier VARCHAR(50))
 BEGIN
   -- Itérateur qui va parcourir le mot de passe
   DECLARE iterator INT DEFAULT 1;
@@ -490,9 +492,9 @@ DELIMITER ;
 
 
 -- procedure pour envoyer un message 👍😁
-
+DROP PROCEDURE IF EXISTS envoyerMessage;
 DELIMITER $$
-CREATE OR REPLACE PROCEDURE envoyerMessage(
+CREATE PROCEDURE envoyerMessage(
   IN emetteur INT,
   IN destinataire INT,
   IN contenuMsg VARCHAR(4096)
@@ -507,10 +509,9 @@ BEGIN
 END $$
 
 -- procedure pour savoir si l'utilisateur est un producteur et nous renvoie sa profession si oui 👍😁
-
+DROP PROCEDURE IF EXISTS isProducteur;
 DELIMITER $$
-
-CREATE OR REPLACE PROCEDURE isProducteur(
+CREATE PROCEDURE isProducteur(
 	IN Id_Uti INT
 )
 BEGIN
@@ -529,8 +530,9 @@ DELIMITER ;
 
 
 -- Procédure qui envoie un report de bug à tous les administrateurs
+DROP PROCEDURE IF EXISTS broadcast_Admin;
 DELIMITER $$
-CREATE OR REPLACE PROCEDURE broadcast_Admin(
+CREATE PROCEDURE broadcast_Admin(
   IN emetteur INT,
   IN contenuMsg VARCHAR(4096)
 )
@@ -573,10 +575,9 @@ CALL broadcast_Admin(7, 'ceci est un bogue');
 -- DÉCLENCHEURS
 
 -- 1) Chiffrement du mot de passe lors de la création (insertion) d'un nouvel utilisateur
-
+DROP TRIGGER IF EXISTS trigger_insert_verif_cryptage;
 DELIMITER $$
-
-CREATE OR REPLACE TRIGGER trigger_insert_verif_cryptage 
+CREATE TRIGGER trigger_insert_verif_cryptage 
 	BEFORE INSERT
     ON UTILISATEUR
 	FOR EACH ROW
@@ -597,10 +598,9 @@ END $$
 
 DELIMITER ;
 
-
+DROP TRIGGER IF EXISTS trigger_update_verif_cryptage;
 DELIMITER $$
-
-CREATE OR REPLACE TRIGGER trigger_update_verif_cryptage 
+CREATE TRIGGER trigger_update_verif_cryptage 
 	BEFORE UPDATE
     ON UTILISATEUR
 	FOR EACH ROW
