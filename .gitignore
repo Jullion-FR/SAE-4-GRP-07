@@ -3,3 +3,4 @@
 /.vscode/
 /.env
 .vscode/launch.json
+.DS_Store
