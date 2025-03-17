@@ -2,7 +2,7 @@
 include_once __DIR__ . "/../loadenv.php";
 ?>
 <?php
-    require "./language.php" ; 
+    require "../language.php" ; 
 ?>
 <?php
 error_reporting(E_ALL);
