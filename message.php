@@ -13,7 +13,7 @@
 <body>
 	<div class="container">
 		<div class="left-column">
-			<img class="logo" src="img/logo.png">
+			<a href="index.php"><img class="logo" href="index.php" src="img/logo.png"></a>
 
 			<p>Contacts récents :</p>
 			<?php

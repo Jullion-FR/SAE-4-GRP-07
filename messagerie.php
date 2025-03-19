@@ -21,7 +21,7 @@ require "language.php";
     ?>
     <div class="container">
         <div class="leftColumn">
-            <img class="logo" src="img/logo.png">
+            <a href="index.php"><img class="logo" href="index.php" src="img/logo.png"></a>
             <p><?php echo $htmlContactsRecentsDeuxPoints ?></p>
             <?php
             require 'traitements/afficheContacts.php';

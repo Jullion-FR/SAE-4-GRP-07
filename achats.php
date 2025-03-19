@@ -40,7 +40,7 @@ include_once __DIR__ . "/loadenv.php";
 
     <div class="container">
         <div class="leftColumn">
-			<img class="logo" href="index.php" src="img/logo.png">
+            <a href="index.php"><img class="logo" href="index.php" src="img/logo.png"></a>
             <div class="contenuBarre">
                 
             
@@ -48,7 +48,7 @@ include_once __DIR__ . "/loadenv.php";
                 <p><strong><?php echo $htmlFiltrerParDeuxPoints; ?></strong></p>
                 <br>
             </center>
-            <?php echo $htmlStatut; ?> 
+            <?php echo $htmlStatut; ?>
             <br>
             
             <form action="achats.php" method="post">

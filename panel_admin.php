@@ -41,7 +41,7 @@
 
     <div class="container">
         <div class="leftColumn">
-            <img class="logo" href="index.php" src="img/logo.png">
+            <a href="index.php"><img class="logo" href="index.php" src="img/logo.png"></a>
             <div class="contenuBarre">
 
             </div>
