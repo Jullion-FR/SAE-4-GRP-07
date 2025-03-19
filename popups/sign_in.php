@@ -1,7 +1,6 @@
 <?php
-    require "language.php" ; 
-?>
-<?php
+require "language.php" ; 
+
 if (isset($_POST['formClicked'])){
     if((isset($_SESSION['tempIsAdmin']) and $_SESSION['tempIsAdmin'])){
         $_SESSION['debug'][0]=0;
@@ -39,6 +38,9 @@ if (isset($_POST['formClicked'])){
                     if (isset($_SESSION['erreur'])) {
                         $erreur = $_SESSION['erreur'];
                         echo '<p class="erreur">'.$erreur.'</p>';
+                        if (isset($_SESSION['erreur'])) {
+                            unset($_SESSION['erreur']);
+                        }
                     }
                     ?>
                 </div>

@@ -1,10 +1,6 @@
 <?php
 include_once __DIR__ . "/../loadenv.php";
-?>
-<?php
-    require "language.php" ; 
-?>
-<?php
+require "language.php" ; 
 
 // Error handling with try-catch block
 try {
@@ -73,7 +69,10 @@ try {
                 $_SESSION["isAdmin"]=false;
             }
             $_SESSION['erreur'] = '';
-        } else {
+            $_POST['popup'] = '';
+            echo '<script>window.location.reload()</script>';
+            die();
+} else {
             $_SESSION['test_pwd']--;
             $_SESSION['erreur'] = $htmlMauvaisMdp . $_SESSION['test_pwd'] . $htmlTentatives;
         }

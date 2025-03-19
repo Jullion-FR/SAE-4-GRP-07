@@ -1,5 +1,6 @@
 <?php
 $htmlMarque = "L'étal en ligne";
+$htmlChangementPPMaj  = "简介图片";
 $htmlRechercherPar = "搜索条件：";
 $htmlParVille = "- 按城市：";
 $htmlParProfession = "- 按职业：";

@@ -1,8 +1,5 @@
 <?php
 include_once __DIR__ . "/../loadenv.php";
-?>
-<?php
-
 
 // Error handling with try-catch block
 try {
@@ -59,7 +56,10 @@ try {
                 $_SESSION['Mail_Uti'] = $Mail_Uti;
                 $_SESSION['Id_Uti'] = $Id_Uti;
                 $_SESSION['erreur'] = '';
-                header('Location: panel_admin.php');
+                header('Location: panel_admin.php'); // je suppose que sa vas pas marcher pdr
+                $_POST['popup'] = '';
+                echo '<script>window.location.reload()</script>';
+                die();
             }
         } else {
             $_SESSION['test_pwd']--;

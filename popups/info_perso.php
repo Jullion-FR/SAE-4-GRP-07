@@ -16,11 +16,12 @@
     <div class="popup">
     <div class="contenuPopup">
         <div style="display:flex;justify-content:space-between;">
-            <form method="post">
+            <a href="./traitements/signout.php"><?=$htmlSeDeconnecter?></a>
+            <!--<form method="post">
 				<input class="lienPopup" type="submit" value="<?php echo $htmlSeDeconnecter?>" name="formClicked">
                 <input type="hidden" value='info_perso' name="popup">
                 <input type="hidden" name="deconnexion">
-		    </form>
+		    </form>-->
             <form method="post">
 				<input type="submit" value="" class="boutonQuitPopup">
                 <input type="hidden" name="popup" value="">
@@ -68,13 +69,20 @@
                         if (isset($_SESSION['erreur'])) {
                             $erreur = $_SESSION['erreur'];
                             echo '<p class="erreur">'.$erreur.'</p>';
+                            if (isset($_SESSION['erreur'])) {
+                                unset($_SESSION['erreur']);
+                            }
                         }
                         ?>
                     </div>
                     <input class="boutonPopup" type="submit" name="formClicked" value="<?php echo $htmlModifier?>">
-                </form>
-                <a href="traitements/del_acc.php"><button><?php echo $htmlSupprimerCompte?></button></a>
-                
+                </form>                
+                <?php 
+                    require "delete_account_warning.php"
+                ?>
+                <button onclick="openPopup()">Supprimer le compte</button>
+
+
                 <?php if((isset($_SESSION['isProd']) and $_SESSION['isProd'])){?> 
                 <a href="./addProfilPicture.php"><button><?php echo 'ajouter une photo de profil'?></button></a>
                 <?php } ?>
@@ -87,3 +95,4 @@
         </div>
     </div>
 </div>
+

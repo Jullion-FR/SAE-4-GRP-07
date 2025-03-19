@@ -1,5 +1,6 @@
 <?php
 $htmlMarque = "L'étal en ligne";
+$htmlChangementPPMaj  = "Profilbild";
 $htmlRechercherPar = "Suchen nach: ";
 $htmlParVille = "- Nach Stadt: ";
 $htmlParProfession ="- Beruf: ";

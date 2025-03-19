@@ -6,6 +6,7 @@ if (isset($_POST['formClicked'])){
     require 'traitements/traitement_formulaire_sign_up.php';
     unset($_POST['formClicked']);
     $_SESSION['actualiser'] = true;
+
 }
 ?>
 <div class="popup">
@@ -70,6 +71,9 @@ if (isset($_POST['formClicked'])){
                 
                 $erreur = $_SESSION['erreur'];
                 echo '<p class="erreur">'.$erreur.'</p>';
+                if (isset($_SESSION['erreur'])) {
+                    unset($_SESSION['erreur']);
+                }
             }
             ?>
         </div>

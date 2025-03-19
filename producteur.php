@@ -173,7 +173,7 @@
                         <p>
                             <center><U><?php echo $htmlProduitsProposesDeuxPoints; ?></U></center>
                         </p>
-                        <div class="gallery-container">
+                        <div class="boutique-container">
                             <?php
                             $bdd = dbConnect();
                             //filtre type
@@ -228,22 +228,35 @@
                                     $unitePrixProduit = $returnQueryGetProducts[$i]["Nom_Unite_Prix"];
 
                                     if ($QteProduit > 0) {
-                                        echo '<div class="squareProduct" >';
-                                        echo $htmlProduitDeuxPoints, $nomProduit . "<br>";
-                                        echo $htmlTypeDeuxPoints, $typeProduit . "<br>";
-                                        echo $htmlPrix, $prixProduit . ' €/' . $unitePrixProduit . "<br>";
-                                        echo '<img class="img-produit" src="img_produit/' . $Id_Produit  . '.png" alt="' . $htmlImageNonFournie . '" style="width: 100%; height: 85%;" ><br>';
+                                        echo '<div class="squareProduct">';
+                                        echo '<img class="img-produit" src="img_produit/' . $Id_Produit  . '.png" alt="' . $htmlImageNonFournie . '" ><br>';
+                                        
+                                        echo '<div class="product-info"><span>' . $htmlProduitDeuxPoints . '</span><span class="value">' . $nomProduit . '</span></div>';
+                                        echo '<div class="product-info"><span>' . $htmlTypeDeuxPoints . '</span><span class="value">' . $typeProduit . '</span></div>';
+                                        echo '<div class="product-info"><span>' . $htmlPrix . '</span><span class="value">' . $prixProduit . ' €/' . $unitePrixProduit . '</span></div>';
+                                    
                                         if (isset($_SESSION["Id_Uti"])) {
-                                            echo '<input type="number" name="' . $Id_Produit . '" placeholder="max ' . $QteProduit . '" max="' . $QteProduit . '" min="0" value="0"> ' . $unitePrixProduit;
+                                            echo '<div class="quantity-container">';
+                                            echo '<input type="number" name="' . $Id_Produit . '" placeholder="max ' . $QteProduit . '" max="' . $QteProduit . '" min="0" value="0">';
+                                            echo '<span class="unit"> ' . $unitePrixProduit . '</span>';
+                                            echo '</div>';
                                         } else {
                                             echo '<input type="number" placeholder="Connectez-vous" disabled>';
-                                        }                                        
-                                        echo '</div> ';
-                                    }
+                                        }
+                                    
+                                        echo '</div>';
+                                    }                                                                        
                                     $i++;
                                 }
                             }
                             ?>
+                            <?php if (sizeof($returnQueryGetProducts) > 0 and isset($_SESSION["Id_Uti"]) and $idUti != $_SESSION["Id_Uti"]) {
+                            ?>
+                                <br>
+                                <div class="commande-container">
+                                    <button type="submit" class="commande-btn"><?php echo $htmlPasserCommande; ?></button>
+                                </div>
+                            <?php } ?>
                         </div>
                     </div>
                     <div class="producteur">
@@ -275,7 +288,6 @@
 
 
                         <?php
-                        //bloquer les 2 boutons pour les visiteurs non connectés
                         if (isset($_SESSION["Id_Uti"])  and $idUti != $_SESSION["Id_Uti"]) {
                         ?>
                             <input type="button" onclick="window.location.href='messagerie.php?Id_Interlocuteur=<?php echo $idUti; ?>'" value="<?php echo $htmlEnvoyerMessage; ?>">
@@ -290,12 +302,6 @@
                         ?>
                             <iframe class="map-frame" src="https://maps.google.com/maps?&q=<?php echo $address; ?>&output=embed "
                                 width="100%" height="100%"></iframe>
-                        <?php }
-
-                        if (sizeof($returnQueryGetProducts) > 0 and isset($_SESSION["Id_Uti"]) and $idUti != $_SESSION["Id_Uti"]) {
-                        ?>
-                            <br>
-                            <button type="submit"><?php echo $htmlPasserCommande; ?></button>
                         <?php } ?>
             </form>
         </div>
@@ -316,4 +322,20 @@
     </div>
     </div>
     <?php require "popups/gestion_popups.php"; ?>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll("form").forEach(function (form) {
+                form.addEventListener("keypress", function (event) {
+                    if (event.key === "Enter") {
+                        event.preventDefault();
+                    }
+                });
+
+                form.addEventListener("submit", function (event) {
+                    event.preventDefault();
+                });
+            });
+        });
+</script>
+
 </body>
