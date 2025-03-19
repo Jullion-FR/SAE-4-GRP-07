@@ -60,6 +60,16 @@ if ($nb == 0) {
         $insertionProducteur = $connexion->prepare("INSERT INTO PRODUCTEUR (Id_Uti, Id_Prod, Prof_Prod) VALUES (?, ?, ?)");
         $insertionProducteur->execute([$iduti, $id_max_prod, $profession]);
 
+        $documentRoot = $_SERVER['DOCUMENT_ROOT'];
+        $default = "default.png";
+        $new_img = $id_max_prod.".png";
+
+
+        $source = $documentRoot."/img_producteur/".$default;
+
+        $destination = $documentRoot."/img_producteur/".$new_img;
+        copy($source, $destination);
+
     }
 
     // Fermeture de la connexion

@@ -78,7 +78,7 @@
                     <input class="boutonPopup" type="submit" name="formClicked" value="<?php echo $htmlModifier?>">
                 </form>                
                 <?php 
-                    require "delete_account_warning.php"
+                    require "delete_account_warning.php";
                 ?>
                 <button onclick="openPopup()">Supprimer le compte</button>
 
