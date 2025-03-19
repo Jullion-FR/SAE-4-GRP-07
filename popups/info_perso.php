@@ -76,9 +76,13 @@
                         ?>
                     </div>
                     <input class="boutonPopup" type="submit" name="formClicked" value="<?php echo $htmlModifier?>">
-                </form>
-                <a href="traitements/del_acc.php"><button><?php echo $htmlSupprimerCompte?></button></a>
-                
+                </form>                
+                <?php 
+                    require "delete_account_warning.php"
+                ?>
+                <button onclick="openPopup()">Supprimer le compte</button>
+
+
                 <?php if((isset($_SESSION['isProd']) and $_SESSION['isProd'])){?> 
                 <a href="./addProfilPicture.php"><button><?php echo 'ajouter une photo de profil'?></button></a>
                 <?php } ?>
@@ -91,3 +95,4 @@
         </div>
     </div>
 </div>
+
