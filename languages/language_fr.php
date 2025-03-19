@@ -1,6 +1,6 @@
 <?php
 $htmlMarque = "L'étal en ligne";
-$htmlRechercherPar = "Rechercher par : ";
+$htmlRechercherPar = "Filtrer les résultats";
 $htmlParVille = "- Par ville : ";
 $htmlParProfession ="- Profession : ";
 $htmlTout="Tout";
@@ -36,7 +36,7 @@ $htmlAucunResultat="Aucun résultat ne correspond à ces critères";
 $htmlSignalerDys="Signaler un dysfonctionnement";
 $htmlCGU="CGU";
 $htmlSeDeconnecter="Se deconnecter";
-$htmlInformationsPersonelles="Informations personelles";
+$htmlInformationsPersonelles="Informations personnelles";
 $htmlNomDeuxPoints="Nom : ";
 $htmlPrénomDeuxPoints="Prénom : ";
 $htmlAdrPostDeuxPoints="Adresse postale actuelle : ";
@@ -122,7 +122,7 @@ $htmlImgProducteur="Image producteur";
 $htmlEnvoyerMessage="Envoyer un message";
 $htmlPasserCommande="Passer commande";
 $htmlSuppImgSucces="L'ancienne image a été supprimée avec succès";
-$htmlFiltrerParDeuxPoints="Filtrer par : ";
+$htmlFiltrerParDeuxPoints="Filtrer les résultats";
 $htmlStatut="Statut";
 $htmlTOUT="TOUT";
 $htmlENCOURS="EN COURS";
@@ -182,4 +182,5 @@ $htmlCodeIncorrect="code incorrect";
 $htmlChoisirLangue="Choisir une langue";
 $htmlValider="Valider";
 $htmlBroadcast="Listes de diffusion : ";
+$htmlConversations="Conversations";
 ?>

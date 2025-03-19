@@ -133,6 +133,10 @@ body{
     font-size: 22px;
 }
 
+.bontonDeNavigation:first-of-type{
+    border-left: none;
+}
+
 .bontonDeNavigation:hover{
     background: #DFEDE1;
     font-size: 21px;
