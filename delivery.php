@@ -181,9 +181,9 @@
 
                         if (($nbProduit > 0)) {
                             echo '<div class="commande" >';
-                            echo $htmlClient, $Prenom_Client . " " . $Nom_Client;
+                            echo $htmlClient." : ", $Prenom_Client . " " . $Nom_Client;
                             echo '</br>';
-                            echo $htmlCOMMANDE, $Desc_Statut . " <br>";
+                            echo $htmlCOMMANDE." : ", $Desc_Statut . " <br>";
                             if (($Id_Statut != 4) and ($Id_Statut != 3)) {
                 ?>
                                 <form action="change_status_commande.php" method="post">
