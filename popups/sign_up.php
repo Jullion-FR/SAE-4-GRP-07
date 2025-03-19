@@ -26,6 +26,10 @@ if (isset($_POST['formClicked'])){
             <input class="zoneDeTextePopup" type="text" name="prenom" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôéâêàôââîââçâœççœâôœêëâôè ]{0,100}" title="<?php echo $htmlConditionsPrenomDetails; ?>" required>
         </div>
         <div>
+            <label for="mail"><?php echo $htmlMailDeuxPoints; ?></label>
+            <input class="zoneDeTextePopup" type="mail"  name="mail" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" size="40" required >
+        </div>
+        <div>
             <label for="rue"><?php echo $htmlRueDeuxPoints; ?></label>
             <input class="zoneDeTextePopup" type="text" name="rue" pattern="[A-Za-z0-9îçôââêœîâôëçââÿââœçêôïëœœôââôêâçôâêàéôââîââçâœççœâôœêëâôè ]{0,120}" title="<?php echo $htmlConditionsRueDetails; ?>" required>
         </div>
@@ -40,10 +44,6 @@ if (isset($_POST['formClicked'])){
         <div>
             <label for="pwd"><?php echo $htmlMdpDeuxPoints; ?></label>
             <input class="zoneDeTextePopup" type="password" name="pwd" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}".{8,50}" title="<?php echo $htmlConditionsMdp; ?>" required>
-        </div>
-        <div>
-            <label for="mail"><?php echo $htmlMailDeuxPoints; ?></label>
-            <input class="zoneDeTextePopup" type="mail"  name="mail" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" size="40" required >
         </div>
         <?php if((isset($_SESSION['tempIsProd']) and $_SESSION['tempIsProd'])){?> 
         <div>
