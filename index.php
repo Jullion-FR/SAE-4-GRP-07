@@ -286,7 +286,6 @@ include_once __DIR__ . "/loadenv.php";
             <div class="gallery-container">
                 <?php
 
-
                 if ($_SERVER["REQUEST_METHOD"] == "GET") {
                     if (isset($_GET["categorie"])) {
                         $categorie = htmlspecialchars($_GET["categorie"]);
