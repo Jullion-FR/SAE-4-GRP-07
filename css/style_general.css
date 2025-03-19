@@ -264,3 +264,27 @@ body{
     margin-top: 24px;
     
 }
+
+.commande-container {
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 30px 0;
+}
+
+.commande-btn {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.commande-btn:hover {
+    background-color: #388E3C;
+}
