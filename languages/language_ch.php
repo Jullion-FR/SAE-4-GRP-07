@@ -255,4 +255,5 @@ $htmlCodeIncorrect="错误的代码";
 $htmlChoisirLangue="选择一种语言";
 $htmlValider="确认";
 $htmlBroadcast="邮件列表 : ";
+$htmlModifierProduit="修改产品";
 ?>

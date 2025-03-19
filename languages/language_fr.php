@@ -57,6 +57,7 @@ $htmlAdresseDeuxPoints="Adresse : ";
 $htmlErrorDevTeam="Erreur, contactez l'équipe de dévelopeurs ";
 $htmlUtilisateurs="- Utilisateurs : ";
 $htmlAjouterProduit="Ajouter un produit";
+$htmlModifierProduit="Modifier un produit";
 $htmlProduitDeuxPoints="Produit : ";
 $htmlFruit="Fruit";
 $htmlAnimaux="Animaux";

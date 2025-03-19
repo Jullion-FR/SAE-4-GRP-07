@@ -52,7 +52,7 @@
 
 
                 <center>
-                    <p><strong><?php echo $htmlAjouterProduit ?></strong></p>
+                    <p><strong><?php echo $htmlModifierProduit ?></strong></p>
                     <form action="modify_product.php" method="post" enctype="multipart/form-data">
 
                         <label for="pwd"><?php echo $htmlProduitDeuxPoints ?> </label>

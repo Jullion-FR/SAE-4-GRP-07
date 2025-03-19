@@ -183,4 +183,5 @@ $htmlCodeIncorrect="falscher Code";
 $htmlChoisirLangue="Sprache wählen";
 $htmlValider="Bestätigen";
 $htmlBroadcast="Mailinglisten : ";
+$htmlModifierProduit="Ein Produkt bearbeiten";
 ?>
