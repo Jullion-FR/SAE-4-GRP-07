@@ -1,7 +1,6 @@
 <?php
-    require "language.php" ; 
-?>
-<?php
+require "language.php" ; 
+
 if (isset($_POST['formClicked'])){
     if((isset($_SESSION['tempIsAdmin']) and $_SESSION['tempIsAdmin'])){
         $_SESSION['debug'][0]=0;
