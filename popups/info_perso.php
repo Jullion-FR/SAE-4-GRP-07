@@ -16,11 +16,12 @@
     <div class="popup">
     <div class="contenuPopup">
         <div style="display:flex;justify-content:space-between;">
-            <form method="post">
+            <a href="./traitements/signout.php"><?=$htmlSeDeconnecter?></a>
+            <!--<form method="post">
 				<input class="lienPopup" type="submit" value="<?php echo $htmlSeDeconnecter?>" name="formClicked">
                 <input type="hidden" value='info_perso' name="popup">
                 <input type="hidden" name="deconnexion">
-		    </form>
+		    </form>-->
             <form method="post">
 				<input type="submit" value="" class="boutonQuitPopup">
                 <input type="hidden" name="popup" value="">

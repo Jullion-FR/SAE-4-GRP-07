@@ -3,7 +3,6 @@
 if (!isset($_SESSION)) {
     session_start();
 }
-//require "./language.php" ; 
 
 $_SESSION = array();
 // Effacez le cookie de session
@@ -20,11 +19,9 @@ if (ini_get("session.use_cookies")) {
         $params["httponly"]
     );
 }
-if (isset($_GET["msg"])){
-    echo $_GET["msg"];
-}
+
 // Détruisez la session
 session_destroy();
-header('Location: index.php');
+header('Location: ../index.php');
 die()
 ?>

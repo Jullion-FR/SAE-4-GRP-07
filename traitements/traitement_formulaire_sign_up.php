@@ -35,7 +35,6 @@ $requete2 = "SELECT COUNT(*) AS nb FROM UTILISATEUR WHERE Mail_Uti = '$Mail_Uti'
 $resultat2 = $connexion->query($requete2);
 $nb = $resultat2->fetch_assoc()['nb'];
 // Exécution de la requête d'insertion si l'adresse mail n'est pas déjà utilisée
-echo($nb);
 if ($nb == 0) {
     // Connexion à la base de données avec PDO
     $connexion = new PDO("mysql:host=$serveur;dbname=$basededonnees", $utilisateur, $motdepasse);
@@ -47,7 +46,6 @@ if ($nb == 0) {
     $insertionUtilisateur = $connexion->prepare("INSERT INTO UTILISATEUR (Id_Uti, Prenom_Uti, Nom_Uti, Adr_Uti, Pwd_Uti, Mail_Uti) VALUES (?, ?, ?, ?, ?, ?)");
     $insertionUtilisateur->execute([$iduti, $prenom, $nom, $adresse, $pwd, $Mail_Uti]);
 
-    echo $htmlEnregistrementUtilisateurReussi;
 
     // Création du producteur si la profession est définie
     if (isset($_POST['profession'])) {
@@ -62,7 +60,6 @@ if ($nb == 0) {
         $insertionProducteur = $connexion->prepare("INSERT INTO PRODUCTEUR (Id_Uti, Id_Prod, Prof_Prod) VALUES (?, ?, ?)");
         $insertionProducteur->execute([$iduti, $id_max_prod, $profession]);
 
-        echo $htmlEnregistrementProducteurReussi;
     }
 
     // Fermeture de la connexion

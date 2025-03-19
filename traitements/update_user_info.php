@@ -17,10 +17,10 @@ if (isset($_POST['new_nom'], $_POST['new_prenom'], $_POST['rue'], $_POST['code']
 
     $update="UPDATE UTILISATEUR SET Nom_Uti = '".$_POST["new_nom"]."',". "Prenom_Uti = '".$_POST["new_prenom"]."',". "Adr_Uti = '".$adr."',". "Pwd_Uti = '".$_POST['pwd']."' WHERE Mail_Uti = '".$_SESSION["Mail_Uti"] ."';";
 
-    echo ($update);
+    //echo ($update);
     $bdd->exec($update);
     
-   header('Location: ../index.php');  
+    header('Location: ../index.php');  
 }else{
     header('Location: ../index.php');    
 
