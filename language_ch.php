@@ -27,8 +27,8 @@ $htmlAchats = "购物";
 $htmlProduits = "产品";
 $htmlCommandes = "订单";
 $htmlPanelAdmin = "管理员面板";
-$htmlbroadcastuser = "用户消息";
-$htmlbroadcastprod = "生产者消息";
+$htmlbroadcastuser = "所有用户";
+$htmlbroadcastprod = "所有生产商";
 $htmlSeConnecter = "登录";
 $htmlProducteursEnMaj = "生产者：";
 $htmlImageUtilisateur = "用户图片";
@@ -253,5 +253,5 @@ $htmlConditionsRueDetails="街道名称必须包含0到120个字母数字字符�
 $htmlCodeIncorrect="错误的代码";
 $htmlChoisirLangue="选择一种语言";
 $htmlValider="确认";
-$htmlBroadcast="播送 : ";
+$htmlBroadcast="邮件列表 : ";
 ?>

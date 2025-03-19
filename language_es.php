@@ -27,8 +27,8 @@ $htmlAchats = "Compras";
 $htmlProduits = "Productos";
 $htmlCommandes = "Pedidos";
 $htmlPanelAdmin = "Panel de administración";
-$htmlbroadcastuser = "mensaje a usuarios";
-$htmlbroadcastprod = "mensaje a productores";
+$htmlbroadcastuser = "Todos los usuarios";
+$htmlbroadcastprod = "Todos los productores";
 $htmlSeConnecter = "Iniciar sesión";
 $htmlProducteursEnMaj = "PRODUCTORES: ";
 $htmlImageUtilisateur = "Imagen de usuario";
@@ -181,5 +181,5 @@ $htmlConditionsRueDetails="La calle debe tener entre 0 y 120 caracteres alfanum�
 $htmlCodeIncorrect="Código incorrecto";
 $htmlChoisirLangue="Elegir un idioma";
 $htmlValider="Validar";
-$htmlBroadcast="Transmisión : ";
+$htmlBroadcast="Listas de correo : ";
 ?>

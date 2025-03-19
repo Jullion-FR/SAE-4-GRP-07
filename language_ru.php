@@ -27,8 +27,8 @@ $htmlAchats="Покупки";
 $htmlProduits="Продукты";
 $htmlCommandes="Заказы";
 $htmlPanelAdmin="Панель администратора";
-$htmlbroadcastuser="Сообщение пользователям";
-$htmlbroadcastprod="Сообщение продавцам";
+$htmlbroadcastuser="Все пользователи";
+$htmlbroadcastprod="Все производители";
 $htmlSeConnecter="Войти";
 $htmlProducteursEnMaj="ПРОИЗВОДИТЕЛИ: ";
 $htmlImageUtilisateur="Изображение пользователя";
@@ -183,5 +183,5 @@ $htmlConditionsNomDetails = "Имя должно содержать от 0 до 
 $htmlConditionsPrenomDetails = "Имя должно содержать от 0 до 100 символов, включая буквы и цифры, с допуском пробелов, и следующие символы допускаются: î, ç, ô, â, ê, œ, î, â, ô, ë, ç, ÿ, œ, ç, ê, ô, ï, è";
 $htmlConditionsRueDetails = "Улица должна содержать от 0 до 120 символов, включая буквы и цифры, с допуском пробелов, и следующие символы допускаются: î, ç, ô, â, ê, œ, î, â, ô, ë, ç, ÿ, œ, ç, ê, ô, ï, è";
 $htmlCodeIncorrect = "Неверный код";
-$htmlBroadcast="Транслировать : ";
+$htmlBroadcast="Списки рассылки : ";
 ?>

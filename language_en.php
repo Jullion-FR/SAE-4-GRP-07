@@ -27,8 +27,8 @@ $htmlAchats = "Purchases";
 $htmlProduits = "Products";
 $htmlCommandes = "Orders";
 $htmlPanelAdmin = "Admin Panel";
-$htmlbroadcastuser = "user messages";
-$htmlbroadcastprod = "producer messages";
+$htmlbroadcastuser = "All users";
+$htmlbroadcastprod = "All producers";
 $htmlSeConnecter = "Log In";
 $htmlProducteursEnMaj = "PRODUCERS:";
 $htmlImageUtilisateur = "User image";
@@ -181,5 +181,5 @@ $htmlConditionsRueDetails = "The street must be between 0 and 120 alphanumeric c
 $htmlCodeIncorrect = "Incorrect code";
 $htmlChooseLanguage = "Choose a language";
 $htmlValidate = "Validate";
-$htmlBroadcast="Broadcast: ";
+$htmlBroadcast="Mailing lists: ";
 ?>

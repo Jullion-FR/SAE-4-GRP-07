@@ -27,8 +27,8 @@ $htmlAchats="Achats";
 $htmlProduits="Produits";
 $htmlCommandes="Commandes";
 $htmlPanelAdmin="Panel Admin";
-$htmlbroadcastuser="message utilisateurs";
-$htmlbroadcastprod="message producteurs";
+$htmlbroadcastuser="Tous les utilisateurs";
+$htmlbroadcastprod="Tous les producteurs";
 $htmlSeConnecter="Se Connecter";
 $htmlProducteursEnMaj="PRODUCTEURS : ";
 $htmlImageUtilisateur="Image utilisateur";
@@ -181,5 +181,5 @@ $htmlConditionsRueDetails="La rue doit faire entre 0 et 120 caractères alphanum
 $htmlCodeIncorrect="code incorrect";
 $htmlChoisirLangue="Choisir une langue";
 $htmlValider="Valider";
-$htmlBroadcast="Broadcast : ";
+$htmlBroadcast="Listes de diffusion : ";
 ?>

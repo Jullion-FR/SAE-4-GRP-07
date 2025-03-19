@@ -24,11 +24,15 @@ require "language.php";
             <a href="index.php"><img class="logo" href="index.php" src="img/logo.png"></a>
             <p><?php echo $htmlBroadcast ?></p>
             <?php
-                    if (isset($_SESSION["isAdmin"]) and ($_SESSION["isAdmin"] == true)) {
-                        echo '<a class="bontonDeNavigation" href="broadcastuser.php">' . $htmlbroadcastuser . '</a>';
-                        echo '<a class="bontonDeNavigation" href="broadcastprod.php">' . $htmlbroadcastprod . '</a>';
-                    }
-                    ?>
+            if (isset($_SESSION["isAdmin"]) and ($_SESSION["isAdmin"] == true)) {
+                echo '<form method="post" action="broadcastuser.php" style="display:block; margin-bottom: 10px;">
+                        <input type="submit" value="' . $htmlbroadcastuser . '">
+                      </form>';
+                echo '<form method="post" action="broadcastprod.php" style="display:block;">
+                        <input type="submit" value="' . $htmlbroadcastprod . '">
+                      </form>';
+            }
+            ?>
             <p><?php echo $htmlContactsRecentsDeuxPoints ?></p>
             <?php
             require 'traitements/afficheContacts.php';
@@ -72,12 +76,6 @@ require "language.php";
                                                             } else {
                                                                 echo '"sign_in"';
                                                             } ?>>
-                    <?php
-                    if (isset($_SESSION["isAdmin"]) and ($_SESSION["isAdmin"] == true)) {
-                        echo '<a class="bontonDeNavigation" href="broadcastuser.php">' . $htmlbroadcastuser . '</a>';
-                        echo '<a class="bontonDeNavigation" href="broadcastprod.php">' . $htmlbroadcastprod . '</a>';
-                    }
-                    ?>
                 </form>
             </div>
             <div class="contenuPage">

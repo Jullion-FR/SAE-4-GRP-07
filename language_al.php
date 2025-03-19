@@ -27,8 +27,8 @@ $htmlAchats="Einkäufe";
 $htmlProduits="Produkte";
 $htmlCommandes="Bestellungen";
 $htmlPanelAdmin="Admin-Panel";
-$htmlbroadcastuser="Nutzer-Nachrichten";
-$htmlbroadcastprod="Produzenten-Nachrichten";
+$htmlbroadcastuser="Alle Nutzer";
+$htmlbroadcastprod="Alle Produzenten";
 $htmlSeConnecter="Einloggen";
 $htmlProducteursEnMaj="PRODUZENTEN: ";
 $htmlImageUtilisateur="Nutzerbild";
@@ -181,5 +181,5 @@ $htmlConditionsRueDetails="Die Straße muss zwischen 0 und 120 alphanumerische Z
 $htmlCodeIncorrect="falscher Code";
 $htmlChoisirLangue="Sprache wählen";
 $htmlValider="Bestätigen";
-$htmlBroadcast="Übertragen : ";
+$htmlBroadcast="Mailinglisten : ";
 ?>
