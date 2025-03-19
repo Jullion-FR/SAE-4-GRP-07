@@ -181,4 +181,5 @@ $htmlConditionsRueDetails="Die Straße muss zwischen 0 und 120 alphanumerische Z
 $htmlCodeIncorrect="falscher Code";
 $htmlChoisirLangue="Sprache wählen";
 $htmlValider="Bestätigen";
+$htmlBroadcast="Übertragen : ";
 ?>

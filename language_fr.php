@@ -181,4 +181,5 @@ $htmlConditionsRueDetails="La rue doit faire entre 0 et 120 caractères alphanum
 $htmlCodeIncorrect="code incorrect";
 $htmlChoisirLangue="Choisir une langue";
 $htmlValider="Valider";
+$htmlBroadcast="Broadcast : ";
 ?>

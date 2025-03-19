@@ -181,4 +181,5 @@ $htmlConditionsRueDetails = "The street must be between 0 and 120 alphanumeric c
 $htmlCodeIncorrect = "Incorrect code";
 $htmlChooseLanguage = "Choose a language";
 $htmlValidate = "Validate";
+$htmlBroadcast="Broadcast: ";
 ?>

@@ -181,4 +181,5 @@ $htmlConditionsRueDetails="La calle debe tener entre 0 y 120 caracteres alfanum�
 $htmlCodeIncorrect="Código incorrecto";
 $htmlChoisirLangue="Elegir un idioma";
 $htmlValider="Validar";
+$htmlBroadcast="Transmisión : ";
 ?>
