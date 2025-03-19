@@ -50,7 +50,7 @@
     <div class="container">
         <div class="leftColumn">
             <a href="index.php"><img class="logo" href="index.php" src="img/logo.png"></a>
-            <div class="contenuBarre">
+            <div class="contenuBarre"><form method="get" action="insert_commande.php">
                 <!-- some code -->
 
                 <center>
@@ -233,7 +233,11 @@
                                         echo $htmlTypeDeuxPoints, $typeProduit . "<br>";
                                         echo $htmlPrix, $prixProduit . ' €/' . $unitePrixProduit . "<br>";
                                         echo '<img class="img-produit" src="img_produit/' . $Id_Produit  . '.png" alt="' . $htmlImageNonFournie . '" style="width: 100%; height: 85%;" ><br>';
-                                        echo '<input type="number" name="' . $Id_Produit . '" placeholder="max ' . $QteProduit . '" max="' . $QteProduit . '" min="0" value="0"> ' . $unitePrixProduit;
+                                        if (isset($_SESSION["Id_Uti"])) {
+                                            echo '<input type="number" name="' . $Id_Produit . '" placeholder="max ' . $QteProduit . '" max="' . $QteProduit . '" min="0" value="0"> ' . $unitePrixProduit;
+                                        } else {
+                                            echo '<input type="number" placeholder="Connectez-vous" disabled>';
+                                        }                                        
                                         echo '</div> ';
                                     }
                                     $i++;
