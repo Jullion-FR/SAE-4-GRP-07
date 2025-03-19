@@ -161,6 +161,7 @@ include_once __DIR__ . "/loadenv.php";
                     <input type="text" name="rechercheVille" pattern="[A-Za-z0-9 ]{0,100}" value="<?php echo $rechercheVille ?>" placeholder="<?php echo $htmlVille; ?>">
                     <br>
                     <?php
+                   
                     $mabdd = dbConnect();
                     $queryAdrUti = $mabdd->prepare(('SELECT Adr_Uti FROM UTILISATEUR WHERE Id_Uti= :utilisateur;'));
                     $queryAdrUti->bindParam(":utilisateur", $utilisateur, PDO::PARAM_STR);
@@ -336,18 +337,21 @@ include_once __DIR__ . "/loadenv.php";
                         }
 
 
-                        $stmt = $connexion->prepare($requete);
+                        //$stmt = $connexion->prepare($requete);
                         // "s" indique que la valeur est une chaîne de caractères
-                        $stmt->execute();
-                        $result = $stmt->get_result();
+                       // $stmt->execute();
+                        //$result = $stmt->get_result();
                         // récupère les coordonnées de l'utiliasteur
                         // URL vers l'API Nominatim
+
+                        $result = $db->select($requete);
+
                         $urlUti = 'https://nominatim.openstreetmap.org/search?format=json&q=' . urlencode($Adr_Uti_En_Cours);
                         $coordonneesUti = latLongGps($urlUti);
                         $latitudeUti = $coordonneesUti[0];
                         $longitudeUti = $coordonneesUti[1];
-                        if ($result->num_rows > 0) {
-                            while ($row = $result->fetch_assoc()) {
+                        if (!empty($result)) {
+                            foreach ($result as $row) {
                                 if ($rayon >= 100) {
                                     echo '<a href="producteur.php?Id_Prod=' . $row["Id_Prod"] . '" class="square1"  >';
                                     echo '<img src="img_producteur/' . $row["Id_Prod"]  . '.png" alt="' . $htmlImageUtilisateur . '" style="width: 100%; height: 85%;" ><br>';
@@ -373,10 +377,6 @@ include_once __DIR__ . "/loadenv.php";
                             }
                         } else {
                             echo $htmlAucunResultat;
-                        }
-                        if ($result->num_rows > 0) {
-                            while ($row = $result->fetch_assoc()) {
-                            }
                         }
                         $stmt->close();
                         $connexion->close();
