@@ -76,28 +76,28 @@
                 </form>
             </div>
             <div class="contenuPage">
-
-                <form action="traitements/traitement_broadcast_user.php" method="post">
-                    <label for="message"><?php echo $htmlVotreMessage; ?></label>
-                    <textarea id="message" name="message" rows="5" maxlength="5000" required></textarea>
-
-                    <br>
-
-                    <input type="submit" value="<?php echo $htmlEnvoyerMessageATousUti; ?>">
+                <form action="traitements/traitement_broadcast_user.php" method="post" style="margin: 20px;">
+                    <label for="message" style="text-decoration: underline;"><?php echo $htmlVotreMessage; ?></label>
+                    <div style="text-align: center;">
+                        <textarea id="message" name="message" rows="10" cols="80" maxlength="5000" required></textarea>
+                    </div>
+                    <div style="text-align: center;">
+                        <input type="submit" value="<?php echo $htmlEnvoyerMessageATousUti; ?>" style="margin-top: 20px;">
+                    </div>
                 </form>
-
             </div>
             <div class="basDePage">
                 <form method="post">
                     <input type="submit" value="<?php echo $htmlSignalerDys?>" class="lienPopup">
                     <input type="hidden" name="popup" value="contact_admin">
-				</form>
+                </form>
                 <form method="post">
                     <input type="submit" value="<?php echo $htmlCGU?>" class="lienPopup">
                     <input type="hidden" name="popup" value="cgu">
-				</form>
+                </form>
             </div>
         </div>
     </div>
     <?php require "popups/gestion_popups.php";?>
 </body>
+</html>

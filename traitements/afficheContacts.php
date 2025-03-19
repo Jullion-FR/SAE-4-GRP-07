@@ -35,7 +35,7 @@ function afficheContacts($id_user){
 function afficherContact($contact){
     $str = $contact['Prenom_Uti'].' '.$contact['Nom_Uti'];
     ?>
-    <form method="get">
+    <form method="get" action="messagerie.php">
         <input type="submit" value="<?php echo($str);?>">
         <input type="hidden" name="Id_Interlocuteur" value="<?php echo($contact['Id_Uti'])?>">
     </form>
