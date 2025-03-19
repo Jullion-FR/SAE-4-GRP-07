@@ -57,8 +57,7 @@
     height: max-content;
     max-height: 100%;
     overflow-y: scroll;
-    width: 100%;
-    
+    width: 100%;    
 }
 
 .contenuMessagerie > a {

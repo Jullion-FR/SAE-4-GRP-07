@@ -290,17 +290,10 @@ include_once __DIR__ . "/loadenv.php";
 
                 if ($_SERVER["REQUEST_METHOD"] == "GET") {
                     if (isset($_GET["categorie"])) {
-                        $categorie = htmlspecialchars($_GET["categorie"]);
-                        // Connexion à la base de données 
-                        $utilisateur = $_ENV['DB_USER'];
-                        $serveur = $_ENV['DB_HOST'];
-                        $motdepasse = $_ENV['DB_PASS'];
-                        $basededonnees = $_ENV['DB_NAME'];
-                        $connexion = new mysqli($serveur, $utilisateur, $motdepasse, $basededonnees);
-                        // Vérifiez la connexion
-                        if ($connexion->connect_error) {
-                            die("Erreur de connexion : " . $connexion->connect_error);
-                        }
+
+                        $requeteTypes = '';
+                        $requetesArgs = [];
+
                         // Préparez la requête SQL en utilisant des requêtes préparées pour des raisons de sécurité
                         if ($_GET["categorie"] == "Tout") {
                             $requete = 'SELECT UTILISATEUR.Id_Uti, PRODUCTEUR.Prof_Prod, PRODUCTEUR.Id_Prod, UTILISATEUR.Prenom_Uti, UTILISATEUR.Nom_Uti, UTILISATEUR.Adr_Uti, COUNT(PRODUIT.Id_Produit) 
@@ -313,14 +306,16 @@ include_once __DIR__ . "/loadenv.php";
                         FROM PRODUCTEUR JOIN UTILISATEUR ON PRODUCTEUR.Id_Uti = UTILISATEUR.Id_Uti 
                         LEFT JOIN PRODUIT ON PRODUCTEUR.Id_Prod=PRODUIT.Id_Prod
                         GROUP BY UTILISATEUR.Id_Uti, PRODUCTEUR.Prof_Prod, PRODUCTEUR.Id_Prod, UTILISATEUR.Prenom_Uti, UTILISATEUR.Nom_Uti, UTILISATEUR.Adr_Uti
-                        HAVING PRODUCTEUR.Prof_Prod ="' . $categorie . '"';
-                            //$stmt->bind_param("s", $categorie);
-                        }
+                        HAVING PRODUCTEUR.Prof_Prod = ?';
+                            $requeteTypes = 's';
+                            array_push($requetesArgs, $_GET["categorie"]);
+}
                         if ($rechercheVille != "") {
-                            $requete = $requete . ' AND Adr_Uti LIKE \'%, _____ %' . $rechercheVille . '%\'';
+                            $requeteTypes = $requeteTypes . 's';
+                            array_push($requetesArgs, '%' . $rechercheVille . '%');
+                            $requete = $requete . ' AND Adr_Uti LIKE ?';
                         }
                         $requete = $requete . ' ORDER BY ';
-
 
                         if ($tri === "nombreDeProduits") {
                             $requete = $requete . ' COUNT(PRODUIT.Id_Produit) DESC ;';
@@ -337,14 +332,7 @@ include_once __DIR__ . "/loadenv.php";
                         }
 
 
-                        //$stmt = $connexion->prepare($requete);
-                        // "s" indique que la valeur est une chaîne de caractères
-                       // $stmt->execute();
-                        //$result = $stmt->get_result();
-                        // récupère les coordonnées de l'utiliasteur
-                        // URL vers l'API Nominatim
-
-                        $result = $db->select($requete);
+                        $result = $db->select($requete, $requeteTypes, $requetesArgs);
 
                         $urlUti = 'https://nominatim.openstreetmap.org/search?format=json&q=' . urlencode($Adr_Uti_En_Cours);
                         $coordonneesUti = latLongGps($urlUti);
@@ -378,8 +366,6 @@ include_once __DIR__ . "/loadenv.php";
                         } else {
                             echo $htmlAucunResultat;
                         }
-                        $stmt->close();
-                        $connexion->close();
                     }
                 }
 

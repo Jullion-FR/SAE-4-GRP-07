@@ -35,7 +35,7 @@ if (isset($_SESSION['Id_Uti'])){
         afficheMessages($_SESSION['Id_Uti'], $_GET['Id_Interlocuteur']);
         $formDisabled=false;
     }else {
-        echo($htmlSelectConversation);
+        echo('<div style="text-align: center; font-size: 28px; margin-top: 20%;">'.$htmlSelectConversation.'</div>');
         $formDisabled=true;
     }
 }else{

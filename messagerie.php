@@ -21,22 +21,29 @@ require "language.php";
     ?>
     <div class="container">
         <div class="leftColumn">
+            
             <a href="index.php"><img class="logo" href="index.php" src="img/logo.png"></a>
-            <p><?php echo $htmlBroadcast ?></p>
-            <?php
-            if (isset($_SESSION["isAdmin"]) and ($_SESSION["isAdmin"] == true)) {
-                echo '<form method="post" action="broadcastuser.php" style="display:block; margin-bottom: 10px;">
-                        <input type="submit" value="' . $htmlbroadcastuser . '">
-                      </form>';
-                echo '<form method="post" action="broadcastprod.php" style="display:block;">
-                        <input type="submit" value="' . $htmlbroadcastprod . '">
-                      </form>';
-            }
-            ?>
-            <p><?php echo $htmlContactsRecentsDeuxPoints ?></p>
-            <?php
-            require 'traitements/afficheContacts.php';
-            ?>
+            <center>
+                <p><strong><?php echo $htmlConversations; ?></strong></p>
+            </center>
+            
+            <div style="margin-left:9%">
+                <?php if (isset($_SESSION["isAdmin"]) and ($_SESSION["isAdmin"] == true)) { ?>
+                <p><?php echo $htmlBroadcast ?></p>
+                <?php
+                    echo '<form method="post" action="broadcastuser.php" style="display:block; margin-bottom: 10px;">
+                            <input type="submit" value="' . $htmlbroadcastuser . '">
+                        </form>';
+                    echo '<form method="post" action="broadcastprod.php" style="display:block;">
+                            <input type="submit" value="' . $htmlbroadcastprod . '">
+                        </form>';
+                }?>
+                <p><?php echo $htmlContactsRecentsDeuxPoints ?></p>
+                <?php
+                require 'traitements/afficheContacts.php';
+                ?>
+            </div>
+            
         </div>
         <div class="rightColumn">
             <div class="topBanner">
@@ -79,30 +86,26 @@ require "language.php";
                 </form>
             </div>
             <div class="contenuPage">
-                <div class="interlocuteur"
-                    <?php if (!isset($_GET['Id_Interlocuteur'])) {
-                        echo 'disabled';
-                    } ?>>
-                    <?php
-                    require "traitements/afficherInterlocuteur.php";
-                    ?>
-                </div>
-                <div class="contenuMessagerie">
-
+                <?php if (isset($_GET['Id_Interlocuteur'])): ?>
+                    <div class="interlocuteur">
+                        <?php
+                        require "traitements/afficherInterlocuteur.php";
+                        ?>
+                    </div>
+                <?php endif; ?>
+                <div class="contenuMessagerie" style="height: 78vh; overflow-y: scroll;">
                     <?php
                     require 'traitements/afficheMessages.php';
                     ?>
-                    <form method="post" id="zoneDEnvoi">
-                        <input type="text" name="content" id="zoneDeTexte" <?php if ($formDisabled) {
-                                                                                echo 'disabled';
-                                                                            } ?>>
-                        <input type="submit" value="" id="boutonEnvoyerMessage" <?php if ($formDisabled) {
-                                                                                    echo 'disabled';
-                                                                                } ?>>
-                    </form>
-                    <?php
-                    require 'traitements/envoyerMessage.php';
-                    ?>
+                    <?php if (isset($_GET['Id_Interlocuteur'])): ?>
+                    <div style="position: absolute; bottom: 0; width: 100%; left: 0; padding-bottom: 35px;">
+                        <form method="post" id="zoneDEnvoi">
+                            <input type="text" name="content" id="zoneDeTexte" <?php if ($formDisabled) {echo 'disabled';} ?>>
+                            <input type="submit" value="" id="boutonEnvoyerMessage" <?php if ($formDisabled) {echo 'disabled';} ?>>
+                        </form>
+                    </div>
+                    <?php endif;?>
+                    <?php require 'traitements/envoyerMessage.php';?>
                 </div>
             </div>
             <div class="basDePage">
@@ -118,4 +121,15 @@ require "language.php";
         </div>
     </div>
     <?php require "popups/gestion_popups.php" ?>
+
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var messagesContainer = document.querySelector(".contenuMessagerie");
+        if (messagesContainer) {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+    });
+</script>
 </body>
+</html>
