@@ -1,5 +1,6 @@
 <?php
 $htmlMarque = "L'étal en ligne";
+$htmlChangementPPMaj  = "Photo de profil";
 $htmlRechercherPar = "Rechercher par : ";
 $htmlParVille = "- Par ville : ";
 $htmlParProfession ="- Profession : ";

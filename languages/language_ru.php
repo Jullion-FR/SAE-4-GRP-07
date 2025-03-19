@@ -1,5 +1,6 @@
 <?php
 $htmlMarque = "L'étal en ligne";
+$htmlChangementPPMaj  = "Изображение профиля";
 $htmlRechercherPar = "Поиск по: ";
 $htmlParVille = "- По городу: ";
 $htmlParProfession ="- По профессии: ";
