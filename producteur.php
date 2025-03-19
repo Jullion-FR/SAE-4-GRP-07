@@ -173,7 +173,7 @@
                         <p>
                             <center><U><?php echo $htmlProduitsProposesDeuxPoints; ?></U></center>
                         </p>
-                        <div class="gallery-container">
+                        <div class="boutique-container">
                             <?php
                             $bdd = dbConnect();
                             //filtre type
@@ -228,18 +228,24 @@
                                     $unitePrixProduit = $returnQueryGetProducts[$i]["Nom_Unite_Prix"];
 
                                     if ($QteProduit > 0) {
-                                        echo '<div class="squareProduct" >';
-                                        echo $htmlProduitDeuxPoints, $nomProduit . "<br>";
-                                        echo $htmlTypeDeuxPoints, $typeProduit . "<br>";
-                                        echo $htmlPrix, $prixProduit . ' €/' . $unitePrixProduit . "<br>";
-                                        echo '<img class="img-produit" src="img_produit/' . $Id_Produit  . '.png" alt="' . $htmlImageNonFournie . '" style="width: 100%; height: 85%;" ><br>';
+                                        echo '<div class="squareProduct">';
+                                        echo '<img class="img-produit" src="img_produit/' . $Id_Produit  . '.png" alt="' . $htmlImageNonFournie . '" ><br>';
+                                        
+                                        echo '<div class="product-info"><span>' . $htmlProduitDeuxPoints . '</span><span class="value">' . $nomProduit . '</span></div>';
+                                        echo '<div class="product-info"><span>' . $htmlTypeDeuxPoints . '</span><span class="value">' . $typeProduit . '</span></div>';
+                                        echo '<div class="product-info"><span>' . $htmlPrix . '</span><span class="value">' . $prixProduit . ' €/' . $unitePrixProduit . '</span></div>';
+                                    
                                         if (isset($_SESSION["Id_Uti"])) {
-                                            echo '<input type="number" name="' . $Id_Produit . '" placeholder="max ' . $QteProduit . '" max="' . $QteProduit . '" min="0" value="0"> ' . $unitePrixProduit;
+                                            echo '<div class="quantity-container">';
+                                            echo '<input type="number" name="' . $Id_Produit . '" placeholder="max ' . $QteProduit . '" max="' . $QteProduit . '" min="0" value="0">';
+                                            echo '<span class="unit"> ' . $unitePrixProduit . '</span>';
+                                            echo '</div>';
                                         } else {
                                             echo '<input type="number" placeholder="Connectez-vous" disabled>';
-                                        }                                        
-                                        echo '</div> ';
-                                    }
+                                        }
+                                    
+                                        echo '</div>';
+                                    }                                                                        
                                     $i++;
                                 }
                             }
