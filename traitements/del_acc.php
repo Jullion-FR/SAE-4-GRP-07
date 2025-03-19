@@ -1,5 +1,5 @@
 <?php
-include_once __DIR__ . "/../loadenv.php";
+include_once __DIR__ . "/loadenv.php";
 ?>
 <?php
 
@@ -21,7 +21,6 @@ if (isset($_POST["Id_Uti"])){
   $delParAdmin=true;
 }else{
   $utilisateur=htmlspecialchars($_SESSION["Id_Uti"]);
-  $msg="?msg=compte supprimer";
   $delParAdmin=false;
 }
 
@@ -129,15 +128,19 @@ if (isset($_POST["Id_Uti"])){
         $delUtilisateur->bindParam(":utilisateur", $utilisateur, PDO::PARAM_STR);
         $delUtilisateur->execute();
 
+        $documentRoot = $_SERVER['DOCUMENT_ROOT'];
+        $imagePath = $documentRoot . "/img_producteur/" . $utilisateur.".png";;
+        if (file_exists($imagePath)) {
+          unlink($imagePath);
+        }
+      
     }
 
     if ($delParAdmin==false){
-      header('Location: log_out.php'.$msg);
+      header('Location: /traitements/log_out.php');
     }
     else{
-      header('Location: ../panel_admin.php');
+      header('Location: /panel_admin.php');
     }
-
-    
     
 ?>
