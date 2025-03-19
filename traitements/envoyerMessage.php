@@ -15,7 +15,15 @@ if (isset($_SESSION['Id_Uti'], $_GET['Id_Interlocuteur'], $_POST['content'])){
         envoyerMessage($_SESSION['Id_Uti'], $_GET['Id_Interlocuteur'], htmlspecialchars($_POST['content']));
     }
     unset($_POST['content']);
-    header("Refresh:0");
+    
+    //vérifier si les en-têtes peuvvent être modifiés
+    if(!headers_sent()){
+        header('Location: messagerie.php?Id_Interlocuteur='.$_GET['Id_Interlocuteur']);
+        exit;
+    }else{
+        echo('<script>window.location.href = "messagerie.php?Id_Interlocuteur='.$_GET['Id_Interlocuteur'].'";</script>');
+        exit;
+    }
 }
     
 ?>

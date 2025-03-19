@@ -93,25 +93,19 @@ require "language.php";
                         ?>
                     </div>
                 <?php endif; ?>
-                <div class="contenuMessagerie">
+                <div class="contenuMessagerie" style="height: 78vh; overflow-y: scroll;">
                     <?php
                     require 'traitements/afficheMessages.php';
                     ?>
                     <?php if (isset($_GET['Id_Interlocuteur'])): ?>
                     <div style="position: absolute; bottom: 0; width: 100%; left: 0; padding-bottom: 35px;">
                         <form method="post" id="zoneDEnvoi">
-                            <input type="text" name="content" id="zoneDeTexte" <?php if ($formDisabled) {
-                                                                                    echo 'disabled';
-                                                                                } ?>>
-                            <input type="submit" value="" id="boutonEnvoyerMessage" <?php if ($formDisabled) {
-                                                                                        echo 'disabled';
-                                                                                    } ?>>
+                            <input type="text" name="content" id="zoneDeTexte" <?php if ($formDisabled) {echo 'disabled';} ?>>
+                            <input type="submit" value="" id="boutonEnvoyerMessage" <?php if ($formDisabled) {echo 'disabled';} ?>>
                         </form>
                     </div>
-                    <?php endif; ?>
-                    <?php
-                    require 'traitements/envoyerMessage.php';
-                    ?>
+                    <?php endif;?>
+                    <?php require 'traitements/envoyerMessage.php';?>
                 </div>
             </div>
             <div class="basDePage">
@@ -127,5 +121,15 @@ require "language.php";
         </div>
     </div>
     <?php require "popups/gestion_popups.php" ?>
+
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var messagesContainer = document.querySelector(".contenuMessagerie");
+        if (messagesContainer) {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+    });
+</script>
 </body>
 </html>
