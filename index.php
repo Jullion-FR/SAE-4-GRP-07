@@ -292,15 +292,7 @@ include_once __DIR__ . "/loadenv.php";
                     if (isset($_GET["categorie"])) {
                         $categorie = htmlspecialchars($_GET["categorie"]);
                         // Connexion à la base de données 
-                        $utilisateur = $_ENV['DB_USER'];
-                        $serveur = $_ENV['DB_HOST'];
-                        $motdepasse = $_ENV['DB_PASS'];
-                        $basededonnees = $_ENV['DB_NAME'];
-                        $connexion = new mysqli($serveur, $utilisateur, $motdepasse, $basededonnees);
-                        // Vérifiez la connexion
-                        if ($connexion->connect_error) {
-                            die("Erreur de connexion : " . $connexion->connect_error);
-                        }
+                       
                         // Préparez la requête SQL en utilisant des requêtes préparées pour des raisons de sécurité
                         if ($_GET["categorie"] == "Tout") {
                             $requete = 'SELECT UTILISATEUR.Id_Uti, PRODUCTEUR.Prof_Prod, PRODUCTEUR.Id_Prod, UTILISATEUR.Prenom_Uti, UTILISATEUR.Nom_Uti, UTILISATEUR.Adr_Uti, COUNT(PRODUIT.Id_Produit) 
@@ -317,7 +309,7 @@ include_once __DIR__ . "/loadenv.php";
                             //$stmt->bind_param("s", $categorie);
                         }
                         if ($rechercheVille != "") {
-                            $requete = $requete . ' AND Adr_Uti LIKE \'%, _____ %' . $rechercheVille . '%\'';
+                            $requete = $requete . ' AND Adr_Uti LIKE \'%, _____ %' . htmlspecialchars($rechercheVille) . '%\'';
                         }
                         $requete = $requete . ' ORDER BY ';
 
@@ -336,13 +328,6 @@ include_once __DIR__ . "/loadenv.php";
                             $requete = $requete . ' COUNT(PRODUIT.Id_Produit) ASC ;';
                         }
 
-
-                        //$stmt = $connexion->prepare($requete);
-                        // "s" indique que la valeur est une chaîne de caractères
-                       // $stmt->execute();
-                        //$result = $stmt->get_result();
-                        // récupère les coordonnées de l'utiliasteur
-                        // URL vers l'API Nominatim
 
                         $result = $db->select($requete);
 
@@ -378,8 +363,6 @@ include_once __DIR__ . "/loadenv.php";
                         } else {
                             echo $htmlAucunResultat;
                         }
-                        $stmt->close();
-                        $connexion->close();
                     }
                 }
 
