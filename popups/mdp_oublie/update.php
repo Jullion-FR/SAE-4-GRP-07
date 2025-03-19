@@ -21,6 +21,8 @@
             if (isset($_SESSION['erreur'])) {
                 $erreur = $_SESSION['erreur'];
                 echo '<p class="erreur">'.$erreur.'</p>';
+                unset($_SESSION['erreur']);
+                
             }
             ?>
             <input name="formClicked" type="submit" value="<?php echo $htmlChangerMdp; ?>" class="boutonPopup">

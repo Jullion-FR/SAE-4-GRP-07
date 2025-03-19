@@ -166,7 +166,7 @@ include_once __DIR__ . "/loadenv.php";
 
 						if ($nbProduit>0){
 							echo '<div class="commande" >';
-							echo $htmlCommandeNum,  $iterateurCommande+1 ." : ".$htmlChez, $Prenom_Prod.' '.$Nom_Prod.' - '.$Adr_Uti;
+							echo $htmlCommandeNum,  $Id_Commande ." : ".$htmlChez, $Prenom_Prod.' '.$Nom_Prod.' - '.$Adr_Uti;
 							echo '</br>';
 							echo $Desc_Statut;
 							echo '</br>';
