@@ -350,10 +350,10 @@ include_once __DIR__ . "/loadenv.php";
                             while ($row = $result->fetch_assoc()) {
                                 if ($rayon >= 100) {
                                     echo '<a href="producteur.php?Id_Prod=' . $row["Id_Prod"] . '" class="square1"  >';
+                                    echo '<img src="img_producteur/' . $row["Id_Prod"]  . '.png" alt="' . $htmlImageUtilisateur . '" style="width: 100%; height: 85%;" ><br>';
                                     echo '' . $row["Prof_Prod"] . "<br>";
                                     echo $row["Prenom_Uti"] . " " . mb_strtoupper($row["Nom_Uti"]) . "<br>";
                                     echo $row["Adr_Uti"] . "<br>";
-                                    echo '<img src="img_producteur/' . $row["Id_Prod"]  . '.png" alt="' . $htmlImageUtilisateur . '" style="width: 100%; height: 85%;" ><br>';
                                     echo '</a> ';
                                 } else {
                                     $urlProd = 'https://nominatim.openstreetmap.org/search?format=json&q=' . urlencode($row["Adr_Uti"]);
@@ -363,10 +363,10 @@ include_once __DIR__ . "/loadenv.php";
                                     $distance = distance($latitudeUti, $longitudeUti, $latitudeProd, $longitudeProd);
                                     if ($distance < $rayon) {
                                         echo '<a href="producteur.php?Id_Prod=' . $row["Id_Prod"] . '" class="square1"  >';
+                                        echo '<img src="img_producteur/' . $row["Id_Prod"]  . '.png" alt="Image utilisateur" style="width: 100%; height: 85%;" ><br>';
                                         echo "Nom : " . $row["Nom_Uti"] . "<br>";
                                         echo "Prénom : " . $row["Prenom_Uti"] . "<br>";
                                         echo "Adresse : " . $row["Adr_Uti"] . "<br>";
-                                        echo '<img src="img_producteur/' . $row["Id_Prod"]  . '.png" alt="Image utilisateur" style="width: 100%; height: 85%;" ><br>';
                                         echo '</a> ';
                                     }
                                 }
