@@ -97,6 +97,7 @@ require "language.php";
                     <div class="contenuMessagerie" style="max-height: 75vh; overflow-y: scroll; padding-bottom: 10px;">
                         <?php
                         require 'traitements/afficheMessages.php';
+                        if($_GET['Id_Interlocuteur'] == 0){$formDisabled = true;}
                         ?>
                     </div>
                     <?php if (isset($_GET['Id_Interlocuteur'])): ?>
