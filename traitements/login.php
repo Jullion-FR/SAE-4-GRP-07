@@ -42,8 +42,8 @@ if (!empty($result) && (isset($result[0]["1"]) && $result[0]["1"] == 1 || isset(
     $_SESSION['Id_Uti'] = $idUti;
     
     // Vérification du statut de producteur
-    $isProd = $db->callProcedure("isProducteur(?)", "i", [$idUti]);
-    $_SESSION["isProd"] = !empty($isProd);
+    $isProd = $db->select("SELECT COUNT(*) FROM producteur WHERE producteur.Id_Uti = ?;", "i", [$idUti]);
+    $_SESSION["isProd"] = $isProd[0]['COUNT(*)'] > 0;
     
     // Vérification du statut d'administrateur
     $isAdmin = $db->select("SELECT COUNT(*) as count FROM ADMINISTRATEUR WHERE Id_Uti = ?", "i", [$idUti]);
