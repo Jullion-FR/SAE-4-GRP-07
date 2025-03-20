@@ -49,6 +49,12 @@
     text-align: center;
     margin-top: 20px;
 }
+.content .success{
+    font-size: 18px;
+    color: green;
+    text-align: center;
+    margin-top: 20px;
+}
 
 .info{
     font-size: 18px;
