@@ -23,17 +23,47 @@ include_once __DIR__ . "/loadenv.php";
 
 <body>
     <?php
-    $categorie = isset($_GET["categorie"]) ? htmlspecialchars($_GET["categorie"]) : "Tout";
-    $rechercheVille = isset($_GET["rechercheVille"]) ? htmlspecialchars($_GET["rechercheVille"]) : "";
-    $rechercheProdNom = isset($_GET["rechercheProdNom"]) ? htmlspecialchars($_GET["rechercheProdNom"]) : "";
-    $rechercheProdPrenom = isset($_GET["rechercheProdPrenom"]) ? htmlspecialchars($_GET["rechercheProdPrenom"]) : "";
-    $rayon = isset($_GET["rayon"]) ? htmlspecialchars($_GET["rayon"]) : 100;
-    $tri = isset($_GET["tri"]) ? htmlspecialchars($_GET["tri"]) : "nombreDeProduits";
-    
     //var_dump($_SESSION);
     if (!isset($_SESSION)) {
         session_start();
     }
+    if (isset($_GET["rechercheVille"]) == true) {
+        $rechercheVille = htmlspecialchars($_GET["rechercheVille"]);
+    } else {
+        $rechercheVille = "";
+    }
+    if (isset($_GET["categorie"]) == false) {
+        $_GET["categorie"] = "Tout";
+    }
+    if (isset($_SESSION["Id_Uti"]) == false) {
+        $utilisateur = -1;
+    } else {
+        $utilisateur = htmlspecialchars($_SESSION["Id_Uti"]);
+    }
+    if (isset($_GET["rayon"]) == false) {
+        $rayon = 100;
+    } else {
+        $rayon = htmlspecialchars($_GET["rayon"]);
+    }
+    if (isset($_GET["tri"]) == true) {
+        $tri = htmlspecialchars($_GET["tri"]);
+    } else {
+        $tri = "nombreDeProduits";
+    }
+    if(isset($_GET["prodNom"])){
+        $prodNom = $_GET["prodNom"];
+    }else{
+        $prodNom = "";
+    }
+    if(isset($_GET["prodPrenom"])){
+        $prodPrenom = $_GET["prodPrenom"];
+    }else{
+        $prodPrenom = "";
+    }
+    if (isset($_SESSION["language"]) == false) {
+        $_SESSION["language"] = "fr";
+    }
+
 
     // récupération adresse du client
     function dbConnect()
@@ -141,10 +171,10 @@ include_once __DIR__ . "/loadenv.php";
                     <br>
                     <input type="text" name="rechercheVille" pattern="[A-Za-z0-9 ]{0,100}" value="<?php echo $rechercheVille ?>" placeholder="<?php echo $htmlVille; ?>">
                     <br>
-                    <br><?php echo '- Par producteur :' ?>
+                    <br><?php echo '- Par Producteur' ?>
                     <br>
-                    <input type="text" name="rechercheProdNom" pattern="[A-Za-z]{0,100}" value="" placeholder="Nom">
-                    <input type="text" name="rechercheProdPrenom" pattern="[A-Za-z]{0,100}" value="" placeholder="Prénom">
+                    <input type="text" name="prodNom" pattern="[A-Za-z]{0,100}" value="<?php echo $prodNom ?>" placeholder="<?php echo 'Nom'; ?>">
+                    <input type="text" name="prodPrenom" pattern="[A-Za-z]{0,100}" value="<?php echo $prodPrenom ?>" placeholder="<?php echo 'Prénom'; ?>">
                     <br>
                     <?php
                    
@@ -153,32 +183,7 @@ include_once __DIR__ . "/loadenv.php";
                     $queryAdrUti->bindParam(":utilisateur", $utilisateur, PDO::PARAM_STR);
                     $queryAdrUti->execute();
                     $returnQueryAdrUti = $queryAdrUti->fetchAll(PDO::FETCH_ASSOC);
-                    if (isset($_GET["rechercheVille"]) == true) {
-                        $rechercheVille = htmlspecialchars($_GET["rechercheVille"]);
-                    } else {
-                        $rechercheVille = "";
-                    }
-                    if (isset($_GET["categorie"]) == false) {
-                        $_GET["categorie"] = "Tout";
-                    }
-                    if (isset($_SESSION["Id_Uti"]) == false) {
-                        $utilisateur = -1;
-                    } else {
-                        $utilisateur = htmlspecialchars($_SESSION["Id_Uti"]);
-                    }
-                    if (isset($_GET["rayon"]) == false) {
-                        $rayon = 100;
-                    } else {
-                        $rayon = htmlspecialchars($_GET["rayon"]);
-                    }
-                    if (isset($_GET["tri"]) == true) {
-                        $tri = htmlspecialchars($_GET["tri"]);
-                    } else {
-                        $tri = "nombreDeProduits";
-                    }
-                    if (isset($_SESSION["language"]) == false) {
-                        $_SESSION["language"] = "fr";
-                    }
+
                     if (count($returnQueryAdrUti) > 0) {
                         $Adr_Uti_En_Cours = $returnQueryAdrUti[0]["Adr_Uti"];
                     ?>
@@ -241,100 +246,94 @@ include_once __DIR__ . "/loadenv.php";
 
 
                 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-                    // Définition des variables
-                    
+                    if (isset($_GET["categorie"])) {
 
-                    // Construction de la requête SQL
-                    $query = "
-                        SELECT UTILISATEUR.Id_Uti, PRODUCTEUR.Prof_Prod, PRODUCTEUR.Id_Prod, 
-                            UTILISATEUR.Prenom_Uti, UTILISATEUR.Nom_Uti, UTILISATEUR.Adr_Uti, 
-                            COUNT(PRODUIT.Id_Produit) AS nombre_produits
-                        FROM PRODUCTEUR 
-                        JOIN UTILISATEUR ON PRODUCTEUR.Id_Uti = UTILISATEUR.Id_Uti
-                        LEFT JOIN PRODUIT ON PRODUCTEUR.Id_Prod = PRODUIT.Id_Prod
-                        WHERE 1=1 ";
+                        $requeteTypes = '';
+                        $requetesArgs = [];
 
-                    $params = [];
-                    $types = "";
-
-                    // Filtre par catégorie
-                    if ($categorie !== "Tout") {
-                        $query .= " AND PRODUCTEUR.Prof_Prod = ? ";
-                        $params[] = $categorie;
-                        $types .= "s";
-                    }
-
-                    // Filtre par ville
-                    if (!empty($rechercheVille)) {
-                        $query .= " AND UTILISATEUR.Adr_Uti LIKE ? ";
-                        $params[] = "%" . $rechercheVille . "%";
-                        $types .= "s";
-                    }
-
-                    // Filtre par nom
-                    if (!empty($rechercheProdNom)) {
-                        $query .= " AND UTILISATEUR.Nom_Uti LIKE ? ";
-                        $params[] = "%" . $rechercheProdNom . "%";
-                        $types .= "s";
-                    }
-
-                    // Filtre par prénom
-                    if (!empty($rechercheProdPrenom)) {
-                        $query .= " AND UTILISATEUR.Prenom_Uti LIKE ? ";
-                        $params[] = "%" . $rechercheProdPrenom . "%";
-                        $types .= "s";
-                    }
-
-                    // Groupement des résultats
-                    $query .= " GROUP BY PRODUCTEUR.Id_Prod ";
-
-                    // Tri des résultats
-                    $triOptions = [
-                        "nombreDeProduits" => "COUNT(PRODUIT.Id_Produit) DESC",
-                        "ordreNomAlphabétique" => "UTILISATEUR.Nom_Uti ASC",
-                        "ordreNomAntiAlphabétique" => "UTILISATEUR.Nom_Uti DESC",
-                        "ordrePrenomAlphabétique" => "UTILISATEUR.Prenom_Uti ASC",
-                        "ordrePrenomAntiAlphabétique" => "UTILISATEUR.Prenom_Uti DESC"
-                    ];
-
-                    // Assurer un tri valide
-                    $query .= " ORDER BY " . ($triOptions[$tri] ?? "COUNT(PRODUIT.Id_Produit) ASC");
-
-                    // Exécution de la requête avec l'objet `$db`
-                    $results = $db->select($query, $types, $params);
-
-                    // Récupération des coordonnées utilisateur pour le filtrage par rayon
-                    $Adr_Uti_En_Cours = $rechercheVille ?: 'France'; // Valeur par défaut si ville non renseignée
-                    $urlUti = 'https://nominatim.openstreetmap.org/search?format=json&q=' . urlencode($Adr_Uti_En_Cours);
-                    $coordonneesUti = latLongGps($urlUti);
-                    $latitudeUti = $coordonneesUti[0];
-                    $longitudeUti = $coordonneesUti[1];
-
-                    // Affichage des résultats
-                    if (!empty($results)) {
-                        foreach ($results as $row) {
-                            $adresseProd = $row["Adr_Uti"];
-                            $urlProd = 'https://nominatim.openstreetmap.org/search?format=json&q=' . urlencode($adresseProd);
-                            $coordonneesProd = latLongGps($urlProd);
-                            $latitudeProd = $coordonneesProd[0];
-                            $longitudeProd = $coordonneesProd[1];
-                            $distance = distance($latitudeUti, $longitudeUti, $latitudeProd, $longitudeProd);
-
-                            // Affichage des producteurs en fonction du rayon
-                            if ($rayon >= 100 || $distance < $rayon) {
-                                echo '<a href="producteur.php?Id_Prod=' . $row["Id_Prod"] . '" class="square1">';
-                                echo '<img src="img_producteur/' . $row["Id_Prod"] . '.png" alt="Image producteur" style="width: 100%; height: 85%;" ><br>';
-                                echo "<strong>" . $row["Prof_Prod"] . "</strong><br>";
-                                echo strtoupper($row["Nom_Uti"]) . "<br>";
-                                echo $row["Prenom_Uti"] . "<br>";
-                                echo $row["Adr_Uti"] . "<br>";
-                                echo '</a>';
-                            }
+                        // Préparez la requête SQL en utilisant des requêtes préparées pour des raisons de sécurité
+                        if ($_GET["categorie"] == "Tout") {
+                            $requete = 'SELECT UTILISATEUR.Id_Uti, PRODUCTEUR.Prof_Prod, PRODUCTEUR.Id_Prod, UTILISATEUR.Prenom_Uti, UTILISATEUR.Nom_Uti, UTILISATEUR.Adr_Uti, COUNT(PRODUIT.Id_Produit) 
+                        FROM PRODUCTEUR JOIN UTILISATEUR ON PRODUCTEUR.Id_Uti = UTILISATEUR.Id_Uti 
+                        LEFT JOIN PRODUIT ON PRODUCTEUR.Id_Prod=PRODUIT.Id_Prod
+                        GROUP BY UTILISATEUR.Id_Uti, PRODUCTEUR.Prof_Prod, PRODUCTEUR.Id_Prod, UTILISATEUR.Prenom_Uti, UTILISATEUR.Nom_Uti, UTILISATEUR.Adr_Uti
+                        HAVING PRODUCTEUR.Prof_Prod LIKE \'%\'';
+                        } else {
+                            $requete = 'SELECT UTILISATEUR.Id_Uti, PRODUCTEUR.Prof_Prod, PRODUCTEUR.Id_Prod, UTILISATEUR.Prenom_Uti, UTILISATEUR.Nom_Uti, UTILISATEUR.Adr_Uti, COUNT(PRODUIT.Id_Produit) 
+                        FROM PRODUCTEUR JOIN UTILISATEUR ON PRODUCTEUR.Id_Uti = UTILISATEUR.Id_Uti 
+                        LEFT JOIN PRODUIT ON PRODUCTEUR.Id_Prod=PRODUIT.Id_Prod
+                        GROUP BY UTILISATEUR.Id_Uti, PRODUCTEUR.Prof_Prod, PRODUCTEUR.Id_Prod, UTILISATEUR.Prenom_Uti, UTILISATEUR.Nom_Uti, UTILISATEUR.Adr_Uti
+                        HAVING PRODUCTEUR.Prof_Prod = ?';
+                            $requeteTypes = 's';
+                            array_push($requetesArgs, $_GET["categorie"]);
+}
+                        if ($rechercheVille != "") {
+                            $requeteTypes = $requeteTypes . 's';
+                            array_push($requetesArgs, '%' . $rechercheVille . '%');
+                            $requete = $requete . ' AND Adr_Uti LIKE ?';
                         }
-                    } else {
-                        echo "<p>Aucun producteur correspondant à vos critères.</p>";
-                    }
+                        if ($prodNom != "") {
+                            $requeteTypes = $requeteTypes . 's';
+                            array_push($requetesArgs, '%' . $prodNom . '%');
+                            $requete = $requete . ' AND Nom_Uti LIKE ?';
+                        }
+                        if ($prodPrenom != "") {
+                            $requeteTypes = $requeteTypes . 's';
+                            array_push($requetesArgs, '%' . $prodPrenom . '%');
+                            $requete = $requete . ' AND Prenom_Uti LIKE ?';
+                        }
+                        $requete = $requete . ' ORDER BY ';
 
+                        if ($tri === "nombreDeProduits") {
+                            $requete = $requete . ' COUNT(PRODUIT.Id_Produit) DESC ;';
+                        } else if ($tri === "ordreNomAlphabétique") {
+                            $requete = $requete . ' Nom_Uti ASC ;';
+                        } else if ($tri === "ordreNomAntiAlphabétique") {
+                            $requete = $requete . ' Nom_Uti DESC ;';
+                        } else if ($tri === "ordrePrenomAlphabétique") {
+                            $requete = $requete . ' Prenom_Uti ASC ;';
+                        } else if ($tri === "ordrePrenomAntiAlphabétique") {
+                            $requete = $requete . ' Prenom_Uti DESC ;';
+                        } else {
+                            $requete = $requete . ' COUNT(PRODUIT.Id_Produit) ASC ;';
+                        }
+
+
+                        $result = $db->select($requete, $requeteTypes, $requetesArgs);
+
+                        $urlUti = 'https://nominatim.openstreetmap.org/search?format=json&q=' . urlencode($Adr_Uti_En_Cours);
+                        $coordonneesUti = latLongGps($urlUti);
+                        $latitudeUti = $coordonneesUti[0];
+                        $longitudeUti = $coordonneesUti[1];
+                        if (!empty($result)) {
+                            foreach ($result as $row) {
+                                if ($rayon >= 100) {
+                                    echo '<a href="producteur.php?Id_Prod=' . $row["Id_Prod"] . '" class="square1"  >';
+                                    echo '<img src="img_producteur/' . $row["Id_Prod"]  . '.png" alt="' . $htmlImageUtilisateur . '" style="width: 100%; height: 85%;" ><br>';
+                                    echo '' . $row["Prof_Prod"] . "<br>";
+                                    echo $row["Prenom_Uti"] . " " . mb_strtoupper($row["Nom_Uti"]) . "<br>";
+                                    echo $row["Adr_Uti"] . "<br>";
+                                    echo '</a> ';
+                                } else {
+                                    $urlProd = 'https://nominatim.openstreetmap.org/search?format=json&q=' . urlencode($row["Adr_Uti"]);
+                                    $coordonneesProd = latLongGps($urlProd);
+                                    $latitudeProd = $coordonneesProd[0];
+                                    $longitudeProd = $coordonneesProd[1];
+                                    $distance = distance($latitudeUti, $longitudeUti, $latitudeProd, $longitudeProd);
+                                    if ($distance < $rayon) {
+                                        echo '<a href="producteur.php?Id_Prod=' . $row["Id_Prod"] . '" class="square1"  >';
+                                        echo '<img src="img_producteur/' . $row["Id_Prod"]  . '.png" alt="Image utilisateur" style="width: 100%; height: 85%;" ><br>';
+                                        echo "Nom : " . $row["Nom_Uti"] . "<br>";
+                                        echo "Prénom : " . $row["Prenom_Uti"] . "<br>";
+                                        echo "Adresse : " . $row["Adr_Uti"] . "<br>";
+                                        echo '</a> ';
+                                    }
+                                }
+                            }
+                        } else {
+                            echo $htmlAucunResultat;
+                        }
+                    }
                 }
 
                 ?>
