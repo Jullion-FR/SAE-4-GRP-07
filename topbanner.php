@@ -40,9 +40,31 @@
             $text = $htmlSeConnecter;
         }
     ?>
+
+
+    <?php
+    require_once __DIR__ . "/database.php";
+    function getProducerIdByEmail($email) {
+        $db = new Database();
+        $result = $db->select("SELECT p.Id_Prod FROM PRODUCTEUR p JOIN UTILISATEUR u ON p.Id_Uti = u.Id_Uti WHERE u.Mail_Uti = ?", "s", [$email])[0];
+        return $result ? $result['Id_Prod'] : null;
+    }
+    ?>
+
+        
+
     <a class="connexion" href="<?= $redirect; ?>">
         <?= $text; ?>
-        <img src="img/connexion.svg" alt="Profil utilisateur">
+
+        <?php
+            if (isset($_SESSION["isProd"]) && ($_SESSION["isProd"] == true)) {
+                $producerId = getProducerIdByEmail($_SESSION['Mail_Uti']);
+
+                echo '<img src="img_producteur/' . $producerId . '.png" alt="Profil producteur">';
+        
+            } else { ?>
+            <img src="img/connexion.svg" alt="Profil producteur">
+        <?php } ?>
     </a>
 
 </div>
