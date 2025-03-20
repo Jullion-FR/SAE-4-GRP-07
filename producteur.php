@@ -265,7 +265,7 @@
                             <?php if (sizeof($returnQueryGetProducts) > 0) { ?>
                                 <br>
                                 <div class="commande-container">
-                                    <?php if (isset($_SESSION["Id_Uti"]) && $idUti != $_SESSION["Id_Uti"]) { ?>
+                                    <?php if (isset($_SESSION["Id_Uti"])) { ?>
                                         <button type="submit" class="commande-btn"><?php echo $htmlPasserCommande; ?></button>
                                     <?php } else { ?>
                                         <a href="login.php" class="commande-btn login-btn"><?php echo $htmlSeConnecter; ?></a>
