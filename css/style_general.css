@@ -236,7 +236,7 @@ body{
 .producteur {
     flex: 1;
     /* Partie droite occupe 50% de la largeur */
-    background-color: #c0c0c0;
+    background-color: #00000024;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -350,7 +350,7 @@ body{
 }
 
 .squareProduct input[type="number"]:focus {
-    border-color: #4CAF50;
+    border-color: #669D31;
     outline: none;
 }
 .unit {
@@ -367,24 +367,25 @@ body{
 }
 
 .commande-btn {
-    background-color: #4CAF50;
+    background-color: #669D31;
     color: white;
-    font-size: 24px;
+    font-size: 18px;
     font-weight: bold;
     padding: 12px 24px;
     border: none;
+    text-decoration: none;
     border-radius: 8px;
     cursor: pointer;
     box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease;
     /*Axelle*/
-    
+    transition-duration: 0.2s;
     position : fixed;
     bottom: 120px;
 }
 
 .commande-btn:hover {
-    background-color: #388E3C;
+    transform: scale(1.05);
+    background-color: #538129;
 }
 .boutique-container {
     display: flex;

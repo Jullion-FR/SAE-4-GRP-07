@@ -301,7 +301,7 @@
                             $address = str_replace(" ", "+", $address);
                         ?>
                             <iframe class="map-frame" src="https://maps.google.com/maps?&q=<?php echo $address; ?>&output=embed "
-                                width="100%" height="100%" style="border-radius: 10px; border: 2px solid black; outline: none;"></iframe>
+                                width="100%" height="100%" style="border-radius: 10px; border: 3px solid #EBF4EC; outline: none;"></iframe>
                         <?php } ?>
             </form>
         </div>
