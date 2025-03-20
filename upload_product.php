@@ -10,10 +10,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Spécifier le chemin du dossier de destination
         $targetDir = __DIR__ . "/img_produit/";
         // Obtenir le nom du fichier téléchargé
-        $utilisateur = $_ENV['DB_USER'];
-        $serveur = $_ENV['DB_HOST'];
-        $motdepasse = $_ENV['DB_PASS'];
-        $basededonnees = $_ENV['DB_NAME'];
         session_start();
 
 

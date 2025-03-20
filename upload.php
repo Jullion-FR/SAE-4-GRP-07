@@ -7,25 +7,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_FILES["image"])) {
         // Spécifier le chemin du dossier de destination
         $targetDir = __DIR__ . "/img_producteur/";
-        // Obtenir le nom du fichier téléchargé
-        $utilisateur = $_ENV['DB_USER'];
-        $serveur = $_ENV['DB_HOST'];
-        $motdepasse = $_ENV['DB_PASS'];
-        $basededonnees = $_ENV['DB_NAME'];
         session_start();
         // Connect to database
-        $bdd = new PDO('mysql:host=' . $serveur . ';dbname=' . $basededonnees, $utilisateur, $motdepasse);
-
         if (isset($_SESSION["Mail_Uti"])) {
             $mailUti = $_SESSION["Mail_Uti"];
         } else {
             $mailUti = $_SESSION["Mail_Temp"];
         }
-        $requete = 'SELECT PRODUCTEUR.Id_Prod FROM PRODUCTEUR JOIN UTILISATEUR ON PRODUCTEUR.Id_Uti = UTILISATEUR.Id_Uti WHERE UTILISATEUR.Mail_Uti = :mail';
-        $queryIdProd = $bdd->prepare($requete);
-        $queryIdProd->bindParam(':mail', $mailUti, PDO::PARAM_STR);
-        $queryIdProd->execute();
-        $returnqueryIdProd = $queryIdProd->fetchAll(PDO::FETCH_ASSOC);
+        $returnqueryIdProd = $db->select("SELECT PRODUCTEUR.Id_Prod FROM PRODUCTEUR JOIN UTILISATEUR ON PRODUCTEUR.Id_Uti = UTILISATEUR.Id_Uti WHERE UTILISATEUR.Mail_Uti=?", 's' ,[$_SESSION['Mail_Uti']]);
         $Id_Prod = $returnqueryIdProd[0]["Id_Prod"];
 
         // Obtenir l'extension du fichie
