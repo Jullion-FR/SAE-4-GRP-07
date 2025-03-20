@@ -25,11 +25,28 @@
         // Connect to database
         return new PDO('mysql:host=' . $serveur . ';dbname=' . $basededonnees, $utilisateur, $motdepasse);
     }
+
+
+
+    // variable utilisée plusieurs fois par la suite
+    $Id_Prod = htmlspecialchars($_GET["Id_Prod"]);
+    /*partie de droite avec les infos producteur*/
+    $bdd = dbConnect();
+    $queryInfoProd = $bdd->prepare(('SELECT UTILISATEUR.Id_Uti, UTILISATEUR.Adr_Uti, Prenom_Uti, Nom_Uti, Prof_Prod FROM UTILISATEUR INNER JOIN PRODUCTEUR ON UTILISATEUR.Id_Uti = PRODUCTEUR.Id_Uti WHERE PRODUCTEUR.Id_Prod= :Id_Prod ;'));
+    $queryInfoProd->bindParam(":Id_Prod", $Id_Prod, PDO::PARAM_STR);
+    $queryInfoProd->execute();
+    $returnQueryInfoProd = $queryInfoProd->fetchAll(PDO::FETCH_ASSOC);
+
+    // recupération des paramètres de la requête qui contient 1 élément
+    $idUti = $returnQueryInfoProd[0]["Id_Uti"];
+    $address = $returnQueryInfoProd[0]["Adr_Uti"];
+    $nom = $returnQueryInfoProd[0]["Nom_Uti"];
+    $prenom = $returnQueryInfoProd[0]["Prenom_Uti"];
+    $profession = $returnQueryInfoProd[0]["Prof_Prod"];
+
     if (!isset($_SESSION)) {
         session_start();
     }
-    // variable utilisée plusieurs fois par la suite
-    $Id_Prod = htmlspecialchars($_GET["Id_Prod"]);
 
     if (isset($_GET["filtreType"]) == true) {
         $filtreType = htmlspecialchars($_GET["filtreType"]);
@@ -248,7 +265,7 @@
                             <?php if (sizeof($returnQueryGetProducts) > 0) { ?>
                                 <br>
                                 <div class="commande-container">
-                                    <?php if (isset($_SESSION["Id_Uti"]) && $idUti != $_SESSION["Id_Uti"]) { ?>
+                                    <?php if (isset($_SESSION["Id_Uti"])) { ?>
                                         <button type="submit" class="commande-btn"><?php echo $htmlPasserCommande; ?></button>
                                     <?php } else { ?>
                                         <a href="login.php" class="commande-btn login-btn"><?php echo $htmlSeConnecter; ?></a>
@@ -258,21 +275,6 @@
                         </div>
                     </div>
                     <div class="producteur">
-                        <!-- partie de droite avec les infos producteur -->
-                        <?php
-                        $bdd = dbConnect();
-                        $queryInfoProd = $bdd->prepare(('SELECT UTILISATEUR.Id_Uti, UTILISATEUR.Adr_Uti, Prenom_Uti, Nom_Uti, Prof_Prod FROM UTILISATEUR INNER JOIN PRODUCTEUR ON UTILISATEUR.Id_Uti = PRODUCTEUR.Id_Uti WHERE PRODUCTEUR.Id_Prod= :Id_Prod ;'));
-                        $queryInfoProd->bindParam(":Id_Prod", $Id_Prod, PDO::PARAM_STR);
-                        $queryInfoProd->execute();
-                        $returnQueryInfoProd = $queryInfoProd->fetchAll(PDO::FETCH_ASSOC);
-
-                        // recupération des paramètres de la requête qui contient 1 élément
-                        $idUti = $returnQueryInfoProd[0]["Id_Uti"];
-                        $address = $returnQueryInfoProd[0]["Adr_Uti"];
-                        $nom = $returnQueryInfoProd[0]["Nom_Uti"];
-                        $prenom = $returnQueryInfoProd[0]["Prenom_Uti"];
-                        $profession = $returnQueryInfoProd[0]["Prof_Prod"];
-                        ?>
                         <div class="info-container">
                             <div class="img-prod">
                                 <img src="img_producteur/<?php echo $Id_Prod; ?>.png" alt="<?php echo $htmlImgProducteur; ?>" style="width: 99%; border-radius: 20px;">
@@ -286,7 +288,7 @@
 
 
                         <?php
-                        if (isset($_SESSION["Id_Uti"])  and $idUti != $_SESSION["Id_Uti"]) {
+                        if (isset($_SESSION["Id_Uti"])  && $idUti != $_SESSION["Id_Uti"]) {
                         ?>
                             <input type="button" onclick="window.location.href='messagerie.php?Id_Interlocuteur=<?php echo $idUti; ?>'" value="<?php echo $htmlEnvoyerMessage; ?>">
                             <br>
@@ -340,18 +342,26 @@ document.addEventListener("DOMContentLoaded", function () {
         let hasQuantity = false;
 
         inputs.forEach(input => {
-            if (input.value.trim() !== "" && parseFloat(input.value) > 0) {
+            let quantity = parseFloat(input.value);
+            if (!isNaN(quantity) && quantity > 0) {
                 hasQuantity = true;
             }
         });
 
         submitButton.disabled = !hasQuantity;
-    }s
-    checkQuantities();
+        if (hasQuantity) {
+            submitButton.classList.remove("disabled-btn");
+        } else {
+            submitButton.classList.add("disabled-btn");
+        }
+    }
+
+    checkQuantities(); // Vérifier au chargement de la page
     inputs.forEach(input => {
         input.addEventListener("input", checkQuantities);
     });
 });
+
 </script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {

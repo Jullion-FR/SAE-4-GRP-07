@@ -1,8 +1,8 @@
 <?php
 if (isset($_GET['Id_Interlocuteur'])){
-    $bdd = dbConnect();
-    $query = $bdd->query('SELECT Nom_Uti, Prenom_Uti FROM UTILISATEUR WHERE Id_Uti='.$_GET['Id_Interlocuteur']);
-    $interlocuteur=$query->fetchAll(PDO::FETCH_ASSOC);
+    $bdd = dbConnect();    
+
+    $interlocuteur = $db->select("SELECT Nom_Uti, Prenom_Uti FROM UTILISATEUR WHERE Id_Uti= ?", "i", [$_GET['Id_Interlocuteur']]);
 
     $query = $bdd->query('CALL isProducteur('.$_GET['Id_Interlocuteur'].');');
 
