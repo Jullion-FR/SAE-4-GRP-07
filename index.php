@@ -50,9 +50,20 @@ include_once __DIR__ . "/loadenv.php";
     } else {
         $tri = "nombreDeProduits";
     }
+    if(isset($_GET["prodNom"])){
+        $prodNom = $_GET["prodNom"];
+    }else{
+        $prodNom = "";
+    }
+    if(isset($_GET["prodPrenom"])){
+        $prodPrenom = $_GET["prodPrenom"];
+    }else{
+        $prodPrenom = "";
+    }
     if (isset($_SESSION["language"]) == false) {
         $_SESSION["language"] = "fr";
     }
+
 
     // récupération adresse du client
     function dbConnect()
@@ -160,6 +171,11 @@ include_once __DIR__ . "/loadenv.php";
                     <br>
                     <input type="text" name="rechercheVille" pattern="[A-Za-z0-9 ]{0,100}" value="<?php echo $rechercheVille ?>" placeholder="<?php echo $htmlVille; ?>">
                     <br>
+                    <br><?php echo '- Par Producteur' ?>
+                    <br>
+                    <input type="text" name="prodNom" pattern="[A-Za-z]{0,100}" value="<?php echo $prodNom ?>" placeholder="<?php echo 'Nom'; ?>">
+                    <input type="text" name="prodPrenom" pattern="[A-Za-z]{0,100}" value="<?php echo $prodPrenom ?>" placeholder="<?php echo 'Prénom'; ?>">
+                    <br>
                     <?php
                    
                     $mabdd = dbConnect();
@@ -255,6 +271,16 @@ include_once __DIR__ . "/loadenv.php";
                             $requeteTypes = $requeteTypes . 's';
                             array_push($requetesArgs, '%' . $rechercheVille . '%');
                             $requete = $requete . ' AND Adr_Uti LIKE ?';
+                        }
+                        if ($prodNom != "") {
+                            $requeteTypes = $requeteTypes . 's';
+                            array_push($requetesArgs, '%' . $prodNom . '%');
+                            $requete = $requete . ' AND Nom_Uti LIKE ?';
+                        }
+                        if ($prodPrenom != "") {
+                            $requeteTypes = $requeteTypes . 's';
+                            array_push($requetesArgs, '%' . $prodPrenom . '%');
+                            $requete = $requete . ' AND Prenom_Uti LIKE ?';
                         }
                         $requete = $requete . ' ORDER BY ';
 

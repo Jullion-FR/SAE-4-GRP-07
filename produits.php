@@ -172,7 +172,7 @@ require "language.php";
                         $QteProduit = $returnQueryGetProducts[$i]["Qte_Produit"];
                         $unitePrixProduit = $returnQueryGetProducts[$i]["Nom_Unite_Prix"];
                         $Nom_Unite_Stock = $returnQueryGetProducts[$i]["Nom_Unite_Stock"];
-                        if ($QteProduit > 0) {
+                        if ($QteProduit >= 0) {
                             echo '<style>';
                             echo 'form { display: inline-block; margin-right: 1px; }'; // Ajustez la marge selon vos besoins
                             echo 'button { display: inline-block; }';

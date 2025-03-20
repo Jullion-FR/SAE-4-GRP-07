@@ -40,12 +40,6 @@ include_once __DIR__ . "/loadenv.php";
           $updateProduit="UPDATE PRODUIT SET Qte_Produit = Qte_Produit+".$Qte_Produit_Commande." WHERE Id_Produit = ".$Id_Produit .";";
           $bdd->exec($updateProduit);
 
-
-          $updateProduit="UPDATE PRODUIT SET Qte_Produit = Qte_Produit+ :Qte_Produit_Commande WHERE Id_Produit = :Id_Produit ;";
-          $bindUpdateProduit = $bdd->prepare($updateProduit);
-          $bindUpdateProduit->bindParam(':Qte_Produit_Commande', $Qte_Produit_Commande, PDO::PARAM_INT); 
-          $bindUpdateProduit->bindParam(':Id_Produit', $Id_Produit, PDO::PARAM_INT);
-          $bindUpdateProduit->execute();
           $iterateurProduit++;
         }
         //$bdd->query(('DELETE FROM CONTENU WHERE Id_Commande='.$Id_Commande.';'));
