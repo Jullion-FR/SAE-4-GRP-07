@@ -23,16 +23,14 @@
         </div>
         <div class="rightColumn">
             <?php include 'topbanner.php'; ?>
-
             
             <div class="content">
-
+           
                 <p class="cattitle">S'inscrire en temps que</p>
                 <div class="row">
-                    <button>Utilisateur</button>
-                    <button>Producteur</button>
+                    <button onclick="window.location.href='signup_user.php'">Utilisateur</button>
+                    <button onclick="window.location.href='signup_prod.php'">Producteur</button>
                 </div>
-
                 <a style="margin-top: 40px;" href="login.php">Se connecter</a>
 
             </div>            
