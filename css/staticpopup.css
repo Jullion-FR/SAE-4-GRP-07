@@ -22,7 +22,7 @@
 }
 
 
-.content input, .content button{
+.content input, .content button, .content select{
     outline: none;
     border: 2px solid #CECECE;
     border-radius: 5px;
@@ -32,10 +32,10 @@
     background-color: white;
     transition-duration: 0.2s;
 }
-.content input:hover, .content button:hover{
+.content input:hover, .content button:hover, .content select:hover{
     border-color: #669D31;
 }
-.content input:focus, .content button:focus{
+.content input:focus, .content button:focus, .content select:focus{
     box-shadow: 0 0 0 4px #669D3155;
 }
 
@@ -87,7 +87,7 @@
 .info > p{
     margin-top: 20px;
 }
-.info > input{
+.info > input, .info > select{
     margin-top: 8px;
     min-width: 40vw;
 }
