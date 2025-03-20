@@ -542,3 +542,8 @@ body{
     cursor: pointer;
     transition: 0.3s;
 }
+
+.disabled-btn {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

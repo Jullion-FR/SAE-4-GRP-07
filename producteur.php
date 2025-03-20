@@ -342,18 +342,26 @@ document.addEventListener("DOMContentLoaded", function () {
         let hasQuantity = false;
 
         inputs.forEach(input => {
-            if (input.value.trim() !== "" && parseFloat(input.value) > 0) {
+            let quantity = parseFloat(input.value);
+            if (!isNaN(quantity) && quantity > 0) {
                 hasQuantity = true;
             }
         });
 
         submitButton.disabled = !hasQuantity;
-    }s
-    checkQuantities();
+        if (hasQuantity) {
+            submitButton.classList.remove("disabled-btn");
+        } else {
+            submitButton.classList.add("disabled-btn");
+        }
+    }
+
+    checkQuantities(); // Vérifier au chargement de la page
     inputs.forEach(input => {
         input.addEventListener("input", checkQuantities);
     });
 });
+
 </script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
