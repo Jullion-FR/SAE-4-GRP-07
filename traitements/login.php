@@ -50,7 +50,12 @@ if (!empty($result) && (isset($result[0]["1"]) && $result[0]["1"] == 1 || isset(
     $_SESSION["isAdmin"] = $isAdmin[0]['count'] > 0;
     $_SESSION['erreur'] = '';
 
-    header('Location: ' . $_POST['redirect']);
+    $redirect = $_POST['redirect'];
+    if (empty($redirect)) {
+        $redirect = "../index.php";
+    }
+
+    header('Location: ' . $redirect);
     exit;
 
 } else {
