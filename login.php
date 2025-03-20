@@ -37,7 +37,7 @@
                 <input  style="margin-top: 30px; width: 30vw;" type="submit" value="<?= $htmlSeConnecter ?>">
 
                 <?php
-                    if (isset($_SESSION['erreur'])) {
+                    if (isset($_SESSION['erreur']) && $_SESSION['erreur'] != "") {
                         echo '<p class="error">' . $_SESSION['erreur'] . '</p>';
                         unset($_SESSION['erreur']);
                     }
