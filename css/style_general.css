@@ -368,3 +368,67 @@ body{
     justify-content: center ;
     gap: 20px;
 }
+
+
+
+
+.commande {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    margin: 15px 0;
+    font-family: Arial, sans-serif;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.commande h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #4CAF50;
+    margin: 0;
+}
+
+.commande p {
+    font-size: 14px;
+    color: #333;
+    margin: 5px 0;
+}
+
+.commande .statut {
+    font-weight: bold;
+    color: #f57c00;
+}
+
+.commande .produits {
+    background-color: #f5f5f5;
+    border-left: 4px solid #4CAF50;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.commande-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.commande-buttons button,
+.commande-buttons input[type="button"] {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.commande-buttons button:hover,
+.commande-buttons input[type="button"]:hover {
+    background-color: #388E3C;
+}
