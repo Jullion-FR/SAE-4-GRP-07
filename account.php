@@ -117,7 +117,7 @@ require "./popups/delete_account_warning.php";
                         '<?= $imageSrc ?>'
                     )">
                         <?= $htmlSupprimerCompte ?>
-                    </button><br>
+                    </button>
 
                     <?php
                     //old
@@ -129,16 +129,7 @@ require "./popups/delete_account_warning.php";
 
             </div>
 
-            <div class="basDePage">
-                <form method="post">
-                    <input type="submit" value="<?php echo $htmlSignalerDys ?>" class="lienPopup">
-                    <input type="hidden" name="popup" value="contact_admin">
-                </form>
-                <form method="post">
-                    <input type="submit" value="<?php echo $htmlCGU ?>" class="lienPopup">
-                    <input type="hidden" name="popup" value="cgu">
-                </form>
-            </div>
+            <?php include 'footer.php'; ?>
 
         </div>
     </div>
