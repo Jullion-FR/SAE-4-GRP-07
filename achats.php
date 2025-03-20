@@ -177,7 +177,6 @@ $filtreCategorie = isset($_POST["typeCategorie"]) ? htmlspecialchars($_POST["typ
         <?php include "footer.php"; ?>
     </div>
 </div>
-<?php require "popups/gestion_popups.php"; ?>
 
 </body>
 </html>

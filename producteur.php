@@ -271,7 +271,6 @@
   
     </div>
     </div>
-    <?php require "popups/gestion_popups.php"; ?>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             document.querySelectorAll("form").forEach(function (form) {

@@ -108,66 +108,7 @@ include_once __DIR__ . "/loadenv.php";
             </div>
         </div>
         <div class="rightColumn">
-            <div class="topBanner">
-                <div class="divNavigation">
-                    <a class="bontonDeNavigation" href="index.php"><?php echo $htmlAccueil ?></a>
-                    <?php
-                    if (isset($_SESSION["Id_Uti"])) {
-                        echo '<a class="bontonDeNavigation" href="messagerie.php">' . $htmlMessagerie . '</a>';
-                        echo '<a class="bontonDeNavigation" href="achats.php">' . $htmlAchats . '</a>';
-                    }
-                    if (isset($_SESSION["isProd"]) and ($_SESSION["isProd"] == true)) {
-                        echo '<a class="bontonDeNavigation" href="produits.php">' . $htmlProduits . '</a>';
-                        echo '<a class="bontonDeNavigation" href="delivery.php">' . $htmlCommandes . '</a>';
-                    }
-                    if (isset($_SESSION["isAdmin"]) and ($_SESSION["isAdmin"] == true)) {
-                        echo '<a class="bontonDeNavigation" href="panel_admin.php">' . $htmlPanelAdmin . '</a>';
-                    }
-                    ?>
-                </div>
-
-                <form action="language.php" method="post" id="languageForm">
-                    <select name="language" id="languagePicker" onchange="submitForm()">
-                        <option value="fr" <?php if ($_SESSION["language"] == "fr") echo 'selected'; ?>>Français</option>
-                        <option value="en" <?php if ($_SESSION["language"] == "en") echo 'selected'; ?>>English</option>
-                        <option value="es" <?php if ($_SESSION["language"] == "es") echo 'selected'; ?>>Español</option>
-                        <option value="al" <?php if ($_SESSION["language"] == "al") echo 'selected'; ?>>Deutsch</option>
-                        <option value="ru" <?php if ($_SESSION["language"] == "ru") echo 'selected'; ?>>русский</option>
-                        <option value="ch" <?php if ($_SESSION["language"] == "ch") echo 'selected'; ?>>中國人</option>
-                    </select>
-                </form>
-                <form method="post">
-
-                    <script>
-                        function submitForm() {
-                            document.getElementById("languageForm").submit();
-                        }
-                    </script>
-                    <?php
-                    if (!isset($_SESSION)) {
-                        session_start();
-                    }
-                    if (isset($_SESSION, $_SESSION['tempPopup'])) {
-                        $_POST['popup'] = $_SESSION['tempPopup'];
-                        unset($_SESSION['tempPopup']);
-                    }
-
-                    ?>
-
-                    <input type="submit" value="<?php if (!isset($_SESSION['Mail_Uti'])) {/*$_SESSION = array()*/;
-                                                    echo ($htmlSeConnecter);
-                                                } else {
-                                                    echo '' . $_SESSION['Mail_Uti'] . '';
-                                                } ?>" class="boutonDeConnection">
-                    <input type="hidden" name="popup" value=<?php if (isset($_SESSION['Mail_Uti'])) {
-                                                                echo '"info_perso"';
-                                                            } else {
-                                                                echo '"sign_in"';
-                                                            } ?>>
-
-                </form>
-
-            </div>
+            <?php include 'topbanner.php'; ?>
 
             <div class="profile-picture-container">
                 <h1><?php echo $htmlChangementPPMaj ?></h1>
@@ -184,16 +125,7 @@ include_once __DIR__ . "/loadenv.php";
             </div>
 
             <br>
-            <div class="basDePage">
-                <form method="post">
-                    <input type="submit" value="<?php echo $htmlSignalerDys ?>" class="lienPopup">
-                    <input type="hidden" name="popup" value="contact_admin">
-                </form>
-                <form method="post">
-                    <input type="submit" value="<?php echo $htmlCGU ?>" class="lienPopup">
-                    <input type="hidden" name="popup" value="cgu">
-                </form>
-            </div>
+            <?php include 'footer.php'; ?>
         </div>
     </div>
 <script>

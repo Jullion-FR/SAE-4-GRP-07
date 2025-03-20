@@ -80,7 +80,6 @@ require "language.php";
 
         </div>
     </div>
-    <?php require "popups/gestion_popups.php" ?>
 
 
     <script>

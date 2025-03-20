@@ -341,5 +341,4 @@ include_once __DIR__ . "/loadenv.php";
 
         </div>
     </div>
-    <?php require "popups/gestion_popups.php"; ?>
 </body>

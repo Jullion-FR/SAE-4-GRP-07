@@ -102,6 +102,5 @@
             </div>
         </div>
     </div>
-    <?php require "popups/gestion_popups.php";?>
 </body>
 </html>

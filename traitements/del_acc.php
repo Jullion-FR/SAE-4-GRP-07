@@ -16,7 +16,7 @@ $user = $db->select('SELECT Id_Uti, Prenom_Uti, Nom_Uti, Mail_Uti, Adr_Uti FROM 
 
 if (!$user) {
     // Redirection et sortie si l'utilisateur n'existe pas
-    header('Location: ' . ($delParAdmin ? '/panel_admin.php' : '/traitements/log_out.php'));
+    header('Location: ' . ($delParAdmin ? '/panel_admin.php' : '/traitements/logout.php'));
     exit;
 }
 $db->query('DELETE FROM ADMINISTRATEUR WHERE Id_Uti = ?', 'i', [$userId]);
@@ -67,6 +67,6 @@ if (!$isProducteur) {
 
 // Redirection après traitement
 
-header('Location: ' . ($delParAdmin ? '/panel_admin.php' : '/traitements/log_out.php'));
+header('Location: ' . ($delParAdmin ? '/panel_admin.php' : '/traitements/logout.php'));
 exit;
 ?>

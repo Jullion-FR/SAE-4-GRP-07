@@ -6,5 +6,6 @@ RewriteEngine On
     Deny from all
 </FilesMatch>
 
-# Bloquer l'accès aux fichiers cachés (commençant par un point)
-RewriteRule "(^|/)\..+" - [F]
+# Bloquer l'accès aux fichiers cachés (commençant par un point) -> fait comme si ils n'existais pas au lieu de juste refusé l'accès
+RewriteCond %{REQUEST_URI} "(^|/)\..+"
+RewriteRule .* - [R=404,L]
