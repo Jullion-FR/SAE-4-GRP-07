@@ -160,6 +160,11 @@ include_once __DIR__ . "/loadenv.php";
                     <br>
                     <input type="text" name="rechercheVille" pattern="[A-Za-z0-9 ]{0,100}" value="<?php echo $rechercheVille ?>" placeholder="<?php echo $htmlVille; ?>">
                     <br>
+                    <br><?php echo 'Par producteur :' ?>
+                    <br>
+                    <input type="text" name="rechercheProdNom" pattern="[A-Za-z]{0,100}" value="" placeholder="Nom">
+                    <input type="text" name="rechercheProdPrenom" pattern="[A-Za-z]{0,100}" value="" placeholder="Prénom">
+                    <br>
                     <?php
                    
                     $mabdd = dbConnect();
@@ -331,7 +336,7 @@ include_once __DIR__ . "/loadenv.php";
                             $requete = $requete . ' COUNT(PRODUIT.Id_Produit) ASC ;';
                         }
 
-
+                        echo($requete);
                         $result = $db->select($requete, $requeteTypes, $requetesArgs);
 
                         $urlUti = 'https://nominatim.openstreetmap.org/search?format=json&q=' . urlencode($Adr_Uti_En_Cours);
