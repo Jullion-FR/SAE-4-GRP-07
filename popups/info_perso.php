@@ -79,7 +79,7 @@
                 </form>                
                 <?php 
                     require "delete_account_warning.php";
-                    $imageSrc = file_exists("/img_producteur/".$row["Id_Prod"].".png") ? "/img_producteur/".$row["Id_Prod"].".png" : "/img_producteur/default.png";
+                    $imageSrc = file_exists("img_producteur/".$row["Id_Prod"].".png") ? "/img_producteur/".$row["Id_Prod"].".png" : "/img_producteur/default.png";
 
                 ?>
 
