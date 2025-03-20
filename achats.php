@@ -79,7 +79,6 @@ $filtreCategorie = isset($_POST["typeCategorie"]) ? htmlspecialchars($_POST["typ
                 $query .= ' AND COMMANDE.Id_Statut = :filtreCategorie';
             }
 
-            // Tri par numéro de commande décroissant
             $query .= ' ORDER BY COMMANDE.Id_Commande DESC';
 
             $queryGetCommande = $bdd->prepare($query);
