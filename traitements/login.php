@@ -42,7 +42,7 @@ if (!empty($result) && (isset($result[0]["1"]) && $result[0]["1"] == 1 || isset(
     $_SESSION['Id_Uti'] = $idUti;
     
     // Vérification du statut de producteur
-    $isProd = $db->select("CALL isProducteur(?)", "i", [$idUti]);
+    $isProd = $db->callProcedure("isProducteur(?)", "i", [$idUti]);
     $_SESSION["isProd"] = !empty($isProd);
     
     // Vérification du statut d'administrateur
