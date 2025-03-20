@@ -1,16 +1,6 @@
-DROP TABLE IF EXISTS ADMINISTRATEUR;
-DROP TABLE IF EXISTS CONTENU;
-DROP TABLE IF EXISTS MESSAGE;
-DROP TABLE IF EXISTS PRODUIT;
-DROP TABLE IF EXISTS TYPE_DE_PRODUIT;
-DROP TABLE IF EXISTS UNITE;
-DROP TABLE IF EXISTS COMMANDE;
-DROP TABLE IF EXISTS PRODUCTEUR;
-DROP TABLE IF EXISTS STATUT;
-DROP TABLE IF EXISTS UTILISATEUR;
-
-
-
+drop database sae;
+create database sae;
+use sae;
 
 CREATE TABLE UTILISATEUR(
    Id_Uti INT,
@@ -598,26 +588,26 @@ END $$
 
 DELIMITER ;
 
-DROP TRIGGER IF EXISTS trigger_update_verif_cryptage;
-DELIMITER $$
-CREATE TRIGGER trigger_update_verif_cryptage 
-	BEFORE UPDATE
-    ON UTILISATEUR
-	FOR EACH ROW
-BEGIN
-  DECLARE Id_Uti_temp INT;
-  DECLARE Pwd_Uti_temp VARCHAR(50);
-
-  -- Récupérer les valeurs insérées dans la table
-  SET Id_Uti_temp = NEW.Id_Uti;
-  SET Pwd_Uti_temp = NEW.Pwd_Uti;
-
-  -- Appeler la procédure de chiffrement
-  CALL chiffrementV(Id_Uti_temp, Pwd_Uti_temp);
-  
-  SET NEW.Pwd_Uti = Pwd_Uti_temp;
-  
-END $$
+-- DROP TRIGGER IF EXISTS trigger_update_verif_cryptage;
+-- DELIMITER $$
+-- CREATE TRIGGER trigger_update_verif_cryptage 
+-- 	BEFORE UPDATE
+--     ON UTILISATEUR
+-- 	FOR EACH ROW
+-- BEGIN
+--   DECLARE Id_Uti_temp INT;
+--   DECLARE Pwd_Uti_temp VARCHAR(50);
+-- 
+--   -- Récupérer les valeurs insérées dans la table
+--   SET Id_Uti_temp = NEW.Id_Uti;
+--   SET Pwd_Uti_temp = NEW.Pwd_Uti;
+-- 
+--   -- Appeler la procédure de chiffrement
+--   CALL chiffrementV(Id_Uti_temp, Pwd_Uti_temp);
+--   
+--   SET NEW.Pwd_Uti = Pwd_Uti_temp;
+--   
+-- END $$
 
 DELIMITER ;
 
