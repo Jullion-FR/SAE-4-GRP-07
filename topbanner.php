@@ -1,3 +1,12 @@
+<?php
+if (!isset($_SESSION)) {
+    session_start();
+}
+if (!isset($_SESSION["language"])) {
+    $_SESSION["language"] = "fr";
+}
+?>
+
 <div class="topBanner">
 
     <!-- LES BOUTONS -->
@@ -17,7 +26,7 @@
             }
         ?>
         <form action="language.php" method="post" id="languageForm">
-            <select name="language" id="languagePicker" onchange="submitForm()">
+            <select name="language" id="languagePicker" onchange="document.getElementById('languageForm').submit()">
                 <option value="fr" <?php if ($_SESSION["language"] == "fr") echo 'selected'; ?>>Français</option>
                 <option value="en" <?php if ($_SESSION["language"] == "en") echo 'selected'; ?>>English</option>
                 <option value="es" <?php if ($_SESSION["language"] == "es") echo 'selected'; ?>>Español</option>

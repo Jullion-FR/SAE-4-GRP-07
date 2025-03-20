@@ -101,9 +101,10 @@ body{
     flex: 4;
     background-color: #EBF4EC;
     justify-content: center;
-    /*height: 100vh;*/
 
     position: relative;
+
+    padding-bottom: 80px;
 
 }
 
@@ -112,6 +113,7 @@ body{
     justify-content: space-between;
     align-items: center;    
     background-color: #fff;
+    box-sizing: border-box;
 }
 
 .divNavigation{
@@ -183,14 +185,27 @@ body{
 }
 */
 .basDePage{
+    box-sizing: border-box;
     display: flex;
-    align-items: flex-end;
-    right: 0px;
-    padding: 10px;
+    flex-direction: row;
     position: absolute;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
     bottom: 0;
     left: 0;
+    width: 100%;
     background-color: #EBF4EC;
+    padding: 30px;
+}
+.basDePage > a{
+    color: #000;
+    text-decoration: underline;
+    font-size: 16px;
+    transition-duration: 0.2s;
+}
+.basDePage > a:hover{
+    color: #669D31;
 }
 
 .alignementCentreCoteACote{
@@ -209,14 +224,12 @@ body{
 
 .content-container {
     display: flex;
-    padding: 20px;
-    /* Utiliser Flexbox pour les éléments "product" et "map" */
 }
 
 .product {
     flex: 2;
-    /* Partie gauche occupe 50% de la largeur */
-    background-color: #f0f0f0;
+    /* Partie gauche occupe 50% de la largeur 
+    background-color: #f0f0f0;*/
     padding: 20px;
 }
 
@@ -228,6 +241,9 @@ body{
     display: flex;
     flex-direction: column;
     height: 100vh;
+    border-radius: 30px;
+    margin-top: 20px;
+    margin-right: 20px;
 }
 
 

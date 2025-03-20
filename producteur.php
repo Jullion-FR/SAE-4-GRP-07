@@ -275,7 +275,7 @@
                         ?>
                         <div class="info-container">
                             <div class="img-prod">
-                                <img class="img-test" src="img_producteur/<?php echo $Id_Prod; ?>.png" alt="<?php echo $htmlImgProducteur; ?>" style="width: 99%; height: 99%;">
+                                <img src="img_producteur/<?php echo $Id_Prod; ?>.png" alt="<?php echo $htmlImgProducteur; ?>" style="width: 99%; border-radius: 20px;">
                             </div>
                             <div class="text-info">
                                 <?php
@@ -299,7 +299,7 @@
                             $address = str_replace(" ", "+", $address);
                         ?>
                             <iframe class="map-frame" src="https://maps.google.com/maps?&q=<?php echo $address; ?>&output=embed "
-                                width="100%" height="100%"></iframe>
+                                width="100%" height="100%" style="border-radius: 10px; border: 2px solid black; outline: none;"></iframe>
                         <?php } ?>
             </form>
         </div>

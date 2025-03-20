@@ -338,17 +338,9 @@ include_once __DIR__ . "/loadenv.php";
 
                 ?>
             </div>
-            <br>
-            <div class="basDePage">
-                <form method="post">
-                    <input type="submit" value="<?php echo $htmlSignalerDys ?>" class="lienPopup">
-                    <input type="hidden" name="popup" value="contact_admin">
-                </form>
-                <form method="post">
-                    <input type="submit" value="<?php echo $htmlCGU ?>" class="lienPopup">
-                    <input type="hidden" name="popup" value="cgu">
-                </form>
-            </div>
+            
+            <?php include 'footer.php'; ?>
+
         </div>
     </div>
     <?php require "popups/gestion_popups.php"; ?>
