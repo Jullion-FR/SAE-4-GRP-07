@@ -183,7 +183,7 @@
                             }
                             // filtre nom
                             if ($rechercheNom != "") {
-                                $query = $query . ' AND Nom_Produit LIKE :rechercheNom ';
+                                $query = $query . ' AND Nom_Produit LIKE CONCAT("%", :rechercheNom, "%") ';
                             }
 
                             //tri
