@@ -204,6 +204,7 @@ body{
 
 .topBanner > .divNavigation > form{
     height: 100%;
+    margin: 0;
 }
 .topBanner select{
     outline: none;

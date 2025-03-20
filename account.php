@@ -5,6 +5,12 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
+// If no user is connected
+if (!isset($_SESSION['Mail_Uti'])) {
+    header('Location: index.php');
+    exit();
+}
+
 // Load user infos
 $result = $db->select("SELECT * FROM UTILISATEUR WHERE UTILISATEUR.Mail_Uti=?", 's' ,[$_SESSION['Mail_Uti']]);
 if (count($result) == 0) {
@@ -55,7 +61,7 @@ require "./popups/delete_account_warning.php";
                     }
                 ?>
 
-                <a href="traitements/logout.php"><?= $htmlSeDeconnecter ?></a>
+                <a href="traitements/logout.php" style="color: black;"><?= $htmlSeDeconnecter ?></a>
 
                 <p class="cattitle">Modifier les informations personnels</p>
                 <form action="traitements/updateuser.php" class="info" method="post">

@@ -36,6 +36,7 @@
     border-color: #669D31;
 }
 .content input:focus, .content button:focus, .content select:focus, .content textarea:focus{
+    border-color: #669D31 !important;
     box-shadow: 0 0 0 4px #669D3155;
 }
 textarea{
