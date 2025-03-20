@@ -119,7 +119,7 @@
                         $nom = addslashes($row["Nom_Uti"]);
                         $adresse = addslashes($row["Adr_Uti"]);
                         $profession = isset($row["Prof_Prod"]) ? addslashes($row["Prof_Prod"]) : "";
-                        $imageSrc = file_exists("/img_producteur/".$row["Id_Prod"].".png") ? "/img_producteur/".$row["Id_Prod"].".png" : "/img_producteur/default.png";
+                        $imageSrc = file_exists("img_producteur/".$row["Id_Prod"].".png") ? "/img_producteur/".$row["Id_Prod"].".png" : "/img_producteur/default.png";
                     
                         echo '<button onclick="openPopup(\'' . $targetID . '\', \'' . $prenom . '\', \'' . $nom . '\', \'' . $adresse . '\', \'' . $profession . '\', \'' . $imageSrc . '\')">
                                 '.$htmlSupprimerCompte.'
@@ -162,13 +162,14 @@
 
                         while ($row = $result->fetch_assoc()) {
                             echo '<div class="squarePanelAdmin">';
+    
                             $targetID = $row["Id_Uti"];
                             $prenom = addslashes($row["Prenom_Uti"]);
                             $nom = addslashes($row["Nom_Uti"]);
                             $adresse = addslashes($row["Adr_Uti"]);
-                            $imageSrc = "/img_producteur/default.png"; // Pas d'image spécifique pour les clients
+                            $imageSrc = "/img_producteur/default.png";
                         
-                            echo '<button onclick="openPopup(\'' . $targetID . '\', \'' . $prenom . '\', \'' . $nom . '\', \'' . $adresse . '\', \'\', \'' . $imageSrc . '\')">
+                            echo '<button onclick="openPopup(\'' . $targetID . '\', \'' . $prenom . '\', \'' . $nom . '\', \'' . $adresse . '\', \'' . "" . '\', \'' . $imageSrc . '\')">
                                     '.$htmlSupprimerCompte.'
                                   </button><br>';
                         

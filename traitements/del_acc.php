@@ -7,8 +7,9 @@ if (!isset($_SESSION)) {
 // Vérification si un identifiant utilisateur est fourni en POST, sinon utiliser l'utilisateur connecté
 $userId = $_POST["targetID"] ?? null;
 $userId = htmlspecialchars($userId);  // Sécurisation de l'entrée utilisateur
-$delParAdmin = isset($_POST["Id_Uti"]); // Si un ID est en POST, alors suppression par un admin
-
+if($_SESSION["Id_Uti"] != $userId){
+  $delParAdmin = true;
+}
 
 // Récupération des informations de l'utilisateur
 $user = $db->select('SELECT Id_Uti, Prenom_Uti, Nom_Uti, Mail_Uti, Adr_Uti FROM UTILISATEUR WHERE Id_Uti = ?', "s", [$userId]) ?? null;
@@ -34,7 +35,7 @@ if (!$isProducteur) {
 
     // Suppression des commandes, messages et utilisateur
     $db->query('DELETE FROM COMMANDE WHERE Id_Uti = ?', 'i', [$userId]);
-    $db->query('DELETE FROM MESSAGE WHERE Emetteur = ? OR Destinataire = ?', 'i', [$userId, $userId]);
+    $db->query('DELETE FROM MESSAGE WHERE Emetteur = ? OR Destinataire = ?', 'ii', [$userId, $userId]);
     $db->query('DELETE FROM UTILISATEUR WHERE Id_Uti = ?', 'i', [$userId]);
 
 } else {  
@@ -49,9 +50,7 @@ if (!$isProducteur) {
 
     // Suppression des commandes, messages, producteur et utilisateur
     $db->query('DELETE FROM COMMANDE WHERE Id_Uti = ?', 'i', [$userId]);
-    echo('bonjour');
     $db->query('DELETE FROM COMMANDE WHERE Id_Prod = ?', 'i', [$idProd]);
-    echo('bonjour');
 
     $db->query('DELETE FROM MESSAGE WHERE Emetteur = ? OR Destinataire = ?', 'ii', [$userId, $userId]);
 
@@ -67,9 +66,7 @@ if (!$isProducteur) {
 }
 
 // Redirection après traitement
-if($_SESSION["Id_Uti"] != $userId){
-  $delParAdmin = true;
-}
+
 header('Location: ' . ($delParAdmin ? '/panel_admin.php' : '/traitements/log_out.php'));
 exit;
 ?>
