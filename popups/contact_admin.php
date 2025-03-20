@@ -20,7 +20,7 @@ if (isset($_POST['formClicked'])){
             <?php if(!isset($_SESSION['Mail_Uti'])){ ?>
             <div >
                 <label for="mail"><?php echo $htmlMailDeuxPoints; ?></label>
-                <input class="zoneDeTextePopup" type="text" pattern="[A-Za-z0-9._-]{1,20}@[A-Za-z0-9.-]{1,16}\.[A-Za-z]{1,4}" name="mail" id="mail" required>
+                <input class="zoneDeTextePopup" type="email" pattern="[A-Za-z0-9._-]{1,20}@[A-Za-z0-9.-]{1,16}\.[A-Za-z]{1,4}" name="mail" id="mail" required>
             </div>
             <?php } ?>
             <label for="pwd"><?php echo $htmlMessageDeuxPoints; ?> </label>

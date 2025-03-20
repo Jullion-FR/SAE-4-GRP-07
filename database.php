@@ -51,6 +51,7 @@ class Database
         $stmt->fetch();
         
         $stmt->close();
+        
         return $result;
         
     }
