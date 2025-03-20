@@ -475,7 +475,7 @@ body{
 }
 
 .filtre-container {
-    background: #4CAF50;
+    background: #00000024;
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
@@ -529,7 +529,7 @@ body{
     text-align: center;
     font-size: 18px;
     font-weight: bold;
-    color: #4CAF50;
+    color: #000;
     margin-top: 5%;
 }
 .aucuneCommande input{
@@ -541,6 +541,7 @@ body{
     font-size: 16px;
     cursor: pointer;
     transition: 0.3s;
+    margin-top: 20px;
 }
 .disabled-btn {
     opacity: 0.7;
