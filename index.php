@@ -148,8 +148,9 @@ include_once __DIR__ . "/loadenv.php";
     <div class="container">
         <div class="leftColumn">
             <a href="index.php"><img class="logo" href="index.php" src="img/logo.png"></a>
+            <br><br>
             <div class="contenuBarre filtre-container">
-                <center><p class="filtre-titre"><strong><?php echo $htmlRechercherPar; ?></strong></p></center>
+                <center><p class="filtre-titre"><strong><?php echo $htmlFiltrerParDeuxPoints; ?></strong></p></center>
                 <form method="get" action="index.php">
                     <label><?php echo $htmlParProfession ?></label>
                     <br>
@@ -227,7 +228,7 @@ include_once __DIR__ . "/loadenv.php";
                     <br>
 
 
-                    <center><input type="submit" value="<?php echo $htmlRechercher ?>"></center>
+                    <center><input class="filtre-bouton" type="submit" value="<?php echo $htmlRechercher ?>"></center>
                 </form>
 
 
