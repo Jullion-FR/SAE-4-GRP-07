@@ -90,7 +90,7 @@ CREATE TABLE PRODUIT(
 CREATE TABLE CONTENU(
    Id_Commande INT,
    Id_Produit INT,
-   Qte_Produit_Commande INT NOT NULL,
+   Qte_Produit_Commande DECIMAL(15,2) NOT NULL,
    Num_Produit_Commande INT NOT NULL,
    PRIMARY KEY(Id_Commande, Id_Produit),
    FOREIGN KEY(Id_Commande) REFERENCES COMMANDE(Id_Commande),

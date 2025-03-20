@@ -359,8 +359,12 @@ body{
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s ease;
+    /*Axelle*/
+    
+    position : fixed;
+    bottom: 120px;
 }
 
 .commande-btn:hover {
@@ -371,6 +375,7 @@ body{
     flex-wrap: wrap;
     justify-content: center ;
     gap: 20px;
+    margin-bottom: 80px;
 }
 
 
