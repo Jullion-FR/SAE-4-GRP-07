@@ -27,7 +27,7 @@ if (!$user) {
 $idUti = $user[0]['Id_Uti'];
 
 // Vérification du nombre de mot de passe tester
-if ($_SESSION['test_pwd'] > 300) {
+if ($_SESSION['test_pwd'] <= 0) {
     $_SESSION['erreur'] = $htmlErreurMaxReponsesAtteintes;
     header('Location: ../login.php');
     exit();
@@ -61,7 +61,7 @@ if (!empty($result) && (isset($result[0]["1"]) && $result[0]["1"] == 1 || isset(
 } else {
 
     // Mauvais mot de passe
-    $_SESSION['test_pwd']++;
+    $_SESSION['test_pwd']--;
     $_SESSION['erreur'] = $htmlMauvaisMdp . $_SESSION['test_pwd'] . $htmlTentatives;
     header('Location: ../login.php');
     exit();
