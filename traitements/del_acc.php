@@ -19,6 +19,8 @@ if (!$user) {
     exit;
 }
 
+$db->query('DELETE FROM ADMINISTRATEUR WHERE Id_Uti = ?', 'i', [$userId]);
+
 // Vérification si l'utilisateur est un producteur
 $producteurInfo = $db->select('SELECT Id_Prod, Id_Uti, Prof_Prod FROM PRODUCTEUR WHERE Id_Uti = ?', 's', [$userId])[0] ?? null;
 $isProducteur = $producteurInfo !== null;
