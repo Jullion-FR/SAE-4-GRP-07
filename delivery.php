@@ -99,7 +99,7 @@
                 } else {
                     foreach ($returnQueryGetCommande as $commande) {
                         echo '<div class="commande">';
-                        echo '<h3>Commande n°' . $commande["Id_Commande"] . ' : ' . $commande["Prenom_Uti"] . '</h3>';
+                        echo '<h3>Commande n°' . $commande["Id_Commande"] . ' : ' . $commande["Prenom_Uti"] . ' ' . $commande["Nom_Uti"] . '</h3>';
                         echo '<p class="statut">Statut : <strong>' . mb_strtoupper($commande["Desc_Statut"]) . '</strong></p>';
 
                         if ($commande["Id_Statut"] != 4 && $commande["Id_Statut"] != 3) {
