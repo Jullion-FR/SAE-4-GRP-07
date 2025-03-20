@@ -48,9 +48,9 @@ if ($_POST['type'] == 'prod'){
 
     // Copy default image
     $documentRoot = $_SERVER['DOCUMENT_ROOT'];
-    $default = "default.png";
+    $default = "default_producteur.png";
     $new_img = $id_prod.".png";
-    $source = $documentRoot."/img_producteur/".$default;
+    $source = $documentRoot."/img/".$default;
     $destination = $documentRoot."/img_producteur/".$new_img;
     copy($source, $destination);
 
