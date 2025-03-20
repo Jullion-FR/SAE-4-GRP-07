@@ -33,6 +33,7 @@ $filtreCategorie = isset($_POST["typeCategorie"]) ? htmlspecialchars($_POST["typ
 <div class="container">
     <div class="leftColumn">
         <a href="index.php"><img class="logo" src="img/logo.png" alt="Logo"></a>
+        <br><br>
         <div class="contenuBarre filtre-container">
             <center><p class="filtre-titre"><strong><?php echo $htmlFiltrerParDeuxPoints; ?></strong></p></center>
             <form action="achats.php" method="post" class="filtre-form">
@@ -107,8 +108,10 @@ $filtreCategorie = isset($_POST["typeCategorie"]) ? htmlspecialchars($_POST["typ
             $returnQueryGetCommande = $queryGetCommande->fetchAll(PDO::FETCH_ASSOC);
 
             if (count($returnQueryGetCommande) == 0) {
+                ?><div class="aucuneCommande"><?php
                 echo $htmlAucuneCommande;
                 echo '<br><input type="button" onclick="window.location.href=\'index.php\'" value="'.$htmlDecouverteProducteurs.'">';
+                ?></div><?php
             } else {
                 foreach ($returnQueryGetCommande as $commande) {
                     echo '<div class="commande">';
