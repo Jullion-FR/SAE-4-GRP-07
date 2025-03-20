@@ -21,32 +21,7 @@
 			?>
 		</div>
 		<div class="right-column">
-			<div class="fixed-banner">
-				<!-- Partie gauche du bandeau -->
-				<div class="banner-left">
-					<div class="button-container">
-						<button class="button"><a href="index.php">accueil</a></button>
-						<button class="button"><a href="message.php">messagerie</a></button>
-						<button class="button"><a href="commandes.php">commandes</a></button>
-					</div>
-				</div>
-				<!-- Partie droite du bandeau -->
-				<div class="banner-right">
-					<a class="fixed-size-button" href="form_sign_in.php">
-						<?php
-						$_SESSION['Id_Uti'] = 2;
-						if (!isset($_SESSION)) {
-							if (!isset($_SESSION)) {
-								session_start();
-							}
-							echo "connection";
-						} else {
-							echo $_SESSION['Mail_Uti'];
-						}
-						?>
-					</a>
-				</div>
-			</div>
+		<?php include 'topbanner.php'; ?>
 			<div class="surContenu">
 				<div class="interlocuteur" <?php if (!isset($_GET['Id_Interlocuteur'])) {
 												echo 'disabled';
