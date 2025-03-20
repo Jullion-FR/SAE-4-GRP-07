@@ -436,3 +436,35 @@ body{
 .commande-buttons input[type="button"]:hover {
     background-color: #388E3C;
 }
+
+.connexion{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    margin-right: 20px;
+    font-size: 18px;
+    color: black;
+    text-decoration: none;
+    transition-duration: 0.2s;
+}
+.connexion:hover{
+    color: #669D31;
+}
+.connexion img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.topBanner select{
+    outline: none;
+    padding: 10px;
+    height: 100%;
+    font-size: 18px;
+    border: none;
+    background-color: #fff;
+    color: #000;
+    cursor: pointer;
+}
