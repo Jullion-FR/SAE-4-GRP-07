@@ -20,6 +20,7 @@ $rue = $adresse[0];
 $code_postal = explode(" ", $adresse[1])[0];
 $ville = explode(" ", $adresse[1])[1];
 
+require "./popups/delete_account_warning.php";
 ?>
 
 <!DOCTYPE html>
@@ -88,14 +89,42 @@ $ville = explode(" ", $adresse[1])[1];
 
                 <p class="cattitle">Autres actions</p>
                 <div class="row">
+                    <?php 
+                        //new
+                        $imageSrc = "/img_producteur/default.png";
+                        $profession = ""
+                    ?>
                     <?php if((isset($_SESSION['isProd']) && $_SESSION['isProd'])){?> 
                         <form action="addProfilPicture.php">
                             <input type="submit" value="Modifier la photo de profil">
                         </form>
-                    <?php } ?>
-                    <form action="">
-                        <input type="submit" class="danger" value="Supprimer le compte">
-                    </form>
+                        
+                        <?php 
+                            //new
+                            $prodInfo = $db->select("SELECT * FROM PRODUCTEUR WHERE Id_Uti = ?", 'i' ,[$result['Id_Uti']])[0];
+                            $imageSrc = file_exists("img_producteur/".$prodInfo["Id_Prod"].".png") ? "/img_producteur/".$prodInfo["Id_Prod"].".png" : "/img_producteur/default.png";
+                            $profession = $prodInfo['Prof_Prod'];    
+                        ?>
+                    <?php } 
+                    
+                    //new?>
+                    <button class="danger" onclick="openPopup(
+                        '<?= $result['Id_Uti'] ?>', 
+                        '<?= $result['Prenom_Uti'] ?>', 
+                        '<?= $result['Nom_Uti'] ?>', 
+                        '<?= $result['Adr_Uti'] ?>', 
+                        '<?= $profession ?>', 
+                        '<?= $imageSrc ?>'
+                    )">
+                        <?= $htmlSupprimerCompte ?>
+                    </button><br>
+
+                    <?php
+                    //old
+                    // <form class="danger" action="" method="post">
+                    //     <?= $htmlSupprimerCompte ?>
+                    // </form>
+                    ?>
                 </div>
 
             </div>
