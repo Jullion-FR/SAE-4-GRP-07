@@ -34,7 +34,7 @@ if (!$isProducteur) {
 
     // Suppression des commandes, messages et utilisateur
     $db->query('DELETE FROM COMMANDE WHERE Id_Uti = ?', 'i', [$userId]);
-    $db->query('DELETE FROM MESSAGE WHERE Emetteur = ? OR Destinataire = ?', 'i', [$userId, $userId]);
+    $db->query('DELETE FROM MESSAGE WHERE Emetteur = ? OR Destinataire = ?', 'ii', [$userId, $userId]);
     $db->query('DELETE FROM UTILISATEUR WHERE Id_Uti = ?', 'i', [$userId]);
 
 } else {  
