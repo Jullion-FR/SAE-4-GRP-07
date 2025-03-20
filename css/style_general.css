@@ -475,7 +475,7 @@ body{
 }
 
 .filtre-container {
-    background: #A3E373;
+    background: #4CAF50;
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
@@ -542,7 +542,6 @@ body{
     cursor: pointer;
     transition: 0.3s;
 }
-
 .disabled-btn {
     opacity: 0.7;
     cursor: not-allowed;
