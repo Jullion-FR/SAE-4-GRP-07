@@ -249,7 +249,7 @@ include_once __DIR__ . "/loadenv.php";
                         <option value="ch" <?php if ($_SESSION["language"] == "ch") echo 'selected'; ?>>中國人</option>
                     </select>
                 </form>
-                <form method="post">
+                <form method="post" action="./login.php">
 
                     <script>
                         function submitForm() {
