@@ -28,7 +28,7 @@
            
                 <p class="cattitle">S'inscire en temps que producteur</p>
                 <form action="traitements/adduser.php" class="info" method="post">
-                    <input type="hidden" name="type" value="user">
+                    <input type="hidden" name="type" value="prod">
 
                     <p>Adresse mail :</p>
                     <input type="email" name="email" placeholder="Adresse mail " required>
@@ -38,6 +38,17 @@
 
                     <p>Prénom :</p>
                     <input type="text" name="prenom" placeholder="Jean" required>
+
+                    <p><?= $htmlParProfession ?></p>
+                    <select class="zoneDeTextePopup" name="profession" required>
+                        <option value="Agriculteur" selected><?php echo $htmlAgriculteur; ?></option>
+                        <option value="Vigneron"><?php echo $htmlVigneron; ?></option>
+                        <option value="Maraîcher"><?php echo $htmlMaraîcher; ?></option>
+                        <option value="Apiculteur"><?php echo $htmlApiculteur; ?></option>
+                        <option value="Éleveur de volaille"><?php echo $htmlÉleveurdevolailles; ?></option>
+                        <option value="Viticulteur"><?php echo $htmlViticulteur; ?></option>
+                        <option value="Pépiniériste"><?php echo $htmlPépiniériste; ?></option>
+                    </select>
 
                     <p>Rue :</p>
                     <input type="text" name="rue" placeholder="20 Rue du seum" >
