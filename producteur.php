@@ -239,9 +239,9 @@
                                             echo '<input type="number" name="' . $Id_Produit . '" placeholder="max ' . $QteProduit . '" max="' . $QteProduit . '" min="0" value="0">';
                                             echo '<span class="unit"> ' . $unitePrixProduit . '</span>';
                                             echo '</div>';
-                                        } else {
+                                        } /*else {
                                             echo '<input type="number" placeholder="Connectez-vous" disabled>';
-                                        }
+                                        }*/
                                     
                                         echo '</div>';
                                     }                                                                        
@@ -253,7 +253,12 @@
                             ?>
                                 <br>
                                 <div class="commande-container">
-                                    <button type="submit" class="commande-btn"><?php echo $htmlPasserCommande; ?></button>
+                                    <?php if (isset($_SESSION["Id_Uti"])) { ?>
+                                        <button type="submit" class="commande-btn"><?php echo $htmlPasserCommande; ?></button>
+                                    <?php } else {?>
+                                        <button type="submit" class="commande-btn">Connectez-vous</button>
+                                    <?php } 
+                                    echo "coucou";  ?>
                                 </div>
                             <?php } ?>
                         </div>
