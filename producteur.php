@@ -50,8 +50,7 @@
     <div class="container">
         <div class="leftColumn">
             <a href="index.php"><img class="logo" href="index.php" src="img/logo.png"></a>
-            <div class="contenuBarre"><form method="get" action="insert_commande.php">
-                <!-- some code -->
+            <div class="contenuBarre">
 
                 <center>
                     <p><strong><?php echo $htmlRechercherPar; ?></strong></p>
