@@ -301,9 +301,6 @@ include_once __DIR__ . "/loadenv.php";
                     $rayon = isset($_GET["rayon"]) ? htmlspecialchars($_GET["rayon"]) : 100;
                     $tri = isset($_GET["tri"]) ? htmlspecialchars($_GET["tri"]) : "nombreDeProduits";
 
-                    // Connexion BDD
-                    $pdo = dbConnect();
-
                     // Construction de la requête SQL
                     $query = "
                         SELECT UTILISATEUR.Id_Uti, PRODUCTEUR.Prof_Prod, PRODUCTEUR.Id_Prod, 
@@ -315,29 +312,34 @@ include_once __DIR__ . "/loadenv.php";
                         WHERE 1=1 ";
 
                     $params = [];
+                    $types = "";
 
                     // Filtre par catégorie
                     if ($categorie !== "Tout") {
                         $query .= " AND PRODUCTEUR.Prof_Prod = ? ";
                         $params[] = $categorie;
+                        $types .= "s";
                     }
 
                     // Filtre par ville
-                    if ($rechercheVille !== "") {
+                    if (!empty($rechercheVille)) {
                         $query .= " AND UTILISATEUR.Adr_Uti LIKE ? ";
                         $params[] = "%" . $rechercheVille . "%";
+                        $types .= "s";
                     }
 
                     // Filtre par nom
-                    if ($rechercheProdNom !== "") {
+                    if (!empty($rechercheProdNom)) {
                         $query .= " AND UTILISATEUR.Nom_Uti LIKE ? ";
                         $params[] = "%" . $rechercheProdNom . "%";
+                        $types .= "s";
                     }
 
                     // Filtre par prénom
-                    if ($rechercheProdPrenom !== "") {
+                    if (!empty($rechercheProdPrenom)) {
                         $query .= " AND UTILISATEUR.Prenom_Uti LIKE ? ";
                         $params[] = "%" . $rechercheProdPrenom . "%";
+                        $types .= "s";
                     }
 
                     // Groupement des résultats
@@ -352,15 +354,14 @@ include_once __DIR__ . "/loadenv.php";
                         "ordrePrenomAntiAlphabétique" => "UTILISATEUR.Prenom_Uti DESC"
                     ];
 
+                    // Assurer un tri valide
                     $query .= " ORDER BY " . ($triOptions[$tri] ?? "COUNT(PRODUIT.Id_Produit) ASC");
 
-                    // Préparation et exécution
-                    $stmt = $pdo->prepare($query);
-                    $stmt->execute($params);
-                    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    // Exécution de la requête avec l'objet `$db`
+                    $results = $db->select($query, $types, $params);
 
                     // Récupération des coordonnées utilisateur pour le filtrage par rayon
-                    $Adr_Uti_En_Cours = $rechercheVille ?: 'France'; // Valeur par défaut si utilisateur non connecté
+                    $Adr_Uti_En_Cours = $rechercheVille ?: 'France'; // Valeur par défaut si ville non renseignée
                     $urlUti = 'https://nominatim.openstreetmap.org/search?format=json&q=' . urlencode($Adr_Uti_En_Cours);
                     $coordonneesUti = latLongGps($urlUti);
                     $latitudeUti = $coordonneesUti[0];
@@ -376,6 +377,7 @@ include_once __DIR__ . "/loadenv.php";
                             $longitudeProd = $coordonneesProd[1];
                             $distance = distance($latitudeUti, $longitudeUti, $latitudeProd, $longitudeProd);
 
+                            // Affichage des producteurs en fonction du rayon
                             if ($rayon >= 100 || $distance < $rayon) {
                                 echo '<a href="producteur.php?Id_Prod=' . $row["Id_Prod"] . '" class="square1">';
                                 echo '<img src="img_producteur/' . $row["Id_Prod"] . '.png" alt="Image producteur" style="width: 100%; height: 85%;" ><br>';
@@ -387,8 +389,9 @@ include_once __DIR__ . "/loadenv.php";
                             }
                         }
                     } else {
-                        echo $htmlAucunResultat;
+                        echo "<p>Aucun producteur correspondant à vos critères.</p>";
                     }
+
                 }
 
                 ?>
