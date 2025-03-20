@@ -84,7 +84,7 @@
                     $query .= ' AND COMMANDE.Id_Statut = :filtreCategorie';
                 }
 
-                $query .= ' ORDER BY COMMANDE.Id_Commande ASC';
+                $query .= ' ORDER BY COMMANDE.Id_Commande DESC';
 
                 $queryGetCommande = $bdd->prepare($query);
                 $queryGetCommande->bindParam(':utilisateur', $utilisateur, PDO::PARAM_INT);
