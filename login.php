@@ -32,12 +32,12 @@
                 <p style="font-size: 24px; margin-top: 30px; font-weight: bold;">Mot de passe</p>
                 <input  style="margin-top: 10px; width: 30vw;" type="password" name="password" placeholder="azerty123">
 
-                <input type="hidden" name="redirect" value="<?php echo $_GET['redirect'] ?? 'index.php'; ?>">
+                <input type="hidden" name="redirect" value="<?php echo $_GET['redirect'] ?? ('http://' . $_SERVER['HTTP_HOST'] . '/index.php'); ?>">
 
                 <input  style="margin-top: 30px; width: 30vw;" type="submit" value="<?= $htmlSeConnecter ?>">
 
                 <?php
-                    if (isset($_SESSION['erreur'])) {
+                    if (isset($_SESSION['erreur']) && $_SESSION['erreur'] != "") {
                         echo '<p class="error">' . $_SESSION['erreur'] . '</p>';
                         unset($_SESSION['erreur']);
                     }

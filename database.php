@@ -34,6 +34,27 @@ class Database
         return $id;
     }
 
+    public function callProcedure($procedureCall, $types, $args){
+
+        $conn = $this->connect();
+        $stmt = $conn->prepare("CALL " . $procedureCall);
+        Database::cleanArray($args);
+        if (!empty($types))
+        {
+            $stmt->bind_param($types, ...$args);
+        }
+        $stmt->execute();
+        
+        // Récupérer le résultat
+        $result = "";
+        $stmt->bind_result($result);
+        $stmt->fetch();
+        
+        $stmt->close();
+        return $result;
+        
+    }
+
     public function select($sql, $types = "", $args = [])
     {
         $conn = $this->connect();

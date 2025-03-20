@@ -90,7 +90,7 @@ CREATE TABLE PRODUIT(
 CREATE TABLE CONTENU(
    Id_Commande INT,
    Id_Produit INT,
-   Qte_Produit_Commande INT NOT NULL,
+   Qte_Produit_Commande DECIMAL(15,2) NOT NULL,
    Num_Produit_Commande INT NOT NULL,
    PRIMARY KEY(Id_Commande, Id_Produit),
    FOREIGN KEY(Id_Commande) REFERENCES COMMANDE(Id_Commande),
@@ -425,6 +425,60 @@ END $$
 
 DELIMITER ;
 
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS changePassword $$
+
+CREATE PROCEDURE changePassword(
+    IN user_email VARCHAR(50),
+    IN old_password VARCHAR(50),
+    IN new_password VARCHAR(50)
+)
+BEGIN
+    DECLARE user_id INT;
+    DECLARE stored_password VARCHAR(50);
+    DECLARE old_password_encrypted VARCHAR(50);
+    DECLARE new_password_encrypted VARCHAR(50);
+    DECLARE result_msg VARCHAR(20);
+
+    -- Vérifier si l'utilisateur existe
+    SELECT Id_Uti, Pwd_Uti INTO user_id, stored_password
+    FROM UTILISATEUR
+    WHERE Mail_Uti = user_email;
+
+    -- Si aucun utilisateur trouvé, retourner "err"
+    IF user_id IS NULL THEN
+        SET result_msg = 'err';
+    ELSE
+        -- Chiffrer le mot de passe fourni pour la vérification
+        SET old_password_encrypted = old_password;
+        CALL chiffrementV(user_id, old_password_encrypted);
+
+        -- Vérifier si le mot de passe actuel est correct
+        IF old_password_encrypted != stored_password THEN
+            SET result_msg = 'err:wrongpass';
+        ELSE
+            -- Chiffrer le nouveau mot de passe
+            SET new_password_encrypted = new_password;
+            CALL chiffrementV(user_id, new_password_encrypted);
+
+            -- Mettre à jour le mot de passe
+            UPDATE UTILISATEUR 
+            SET Pwd_Uti = new_password_encrypted 
+            WHERE Id_Uti = user_id;
+
+            -- Retourner "ok"
+            SET result_msg = 'ok';
+        END IF;
+    END IF;
+
+    -- Sélection du résultat final
+    SELECT result_msg AS result;
+END $$
+
+DELIMITER ;
+
+
 
 -- CALL chiffrementV(1, 'password123?!@!');
 -- SELECT * FROM UTILISATEUR WHERE Id_Uti=1;
@@ -609,7 +663,7 @@ DELIMITER ;
 --   
 -- END $$
 
-DELIMITER ;
+
 
 
 DELETE FROM ADMINISTRATEUR;

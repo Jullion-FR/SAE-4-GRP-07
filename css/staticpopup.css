@@ -39,49 +39,74 @@
     box-shadow: 0 0 0 4px #669D3155;
 }
 
-.content input:last-child{
-    margin-top: 40px;
+.content input[type="submit"], .content button{
+    background-color: #669D31;
+    color: white;
+    cursor: pointer;
+    border-width: 0px !important;
+}
+.content input[type="submit"]:hover, .content button:hover{
+    background-color: #558428;
+}
+
+.danger{
+    background-color: rgb(175, 0, 0) !important;
+    border-width: 0px !important;
+}
+.danger:hover{
+    background-color: darkred !important;
+}
+.danger:focus{
+    box-shadow: 0 0 0 4px rgba(175, 0, 0, 0.559) !important;
 }
 
 .content .error{
-    font-size: 18px;
     color: red;
-    text-align: center;
-    margin-top: 20px;
+    border-color: red;
 }
 .content .success{
-    font-size: 18px;
     color: green;
+    border-color: green;
+}
+.content .success, .content .error{
+    font-size: 18px;
     text-align: center;
-    margin-top: 20px;
+    margin: 20px 0;
+    background-color: white;
+    border-radius: 3px;
+    border-left: 5px solid;
+    padding: 10px 20px;
+    min-width: 30vw;
 }
 
 .info{
     font-size: 18px;
     color: black;
     text-align: center;
-    margin-top: 20px;
 }
 .info > p{
     margin-top: 20px;
 }
 .info > input{
     margin-top: 8px;
-    width: 30vw;
+    min-width: 40vw;
 }
 .info > input:last-child{
     margin-top: 20px;
 }
 
-.bottomAction{
+.row{
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     gap: 20px;
     margin-top: 20px;
-    width: 30vw;
+    width: 100%;
 }
-.bottomAction > form{
-    width: 50%;
+
+.cattitle{
+    margin-top: 60px;
+    font-size: 18px;
+    font-weight: bold;
 }

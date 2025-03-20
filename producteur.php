@@ -175,36 +175,31 @@
                         <div class="boutique-container">
                             <?php
                             $bdd = dbConnect();
-                            //filtre type
-                            if ($filtreType == "TOUT") {
-                                $query = 'SELECT Id_Produit, Id_Prod, Nom_Produit, Desc_Type_Produit, Prix_Produit_Unitaire, Nom_Unite_Prix, Qte_Produit FROM Produits_d_un_producteur  WHERE Id_Prod= :Id_Prod';
-                            } else {
-                                $query = 'SELECT Id_Produit, Id_Prod, Nom_Produit, Desc_Type_Produit, Prix_Produit_Unitaire, Nom_Unite_Prix, Qte_Produit FROM Produits_d_un_producteur  WHERE Id_Prod= :Id_Prod AND Desc_Type_Produit= :filtreType';
+                            // Filtrage du type de produit
+                            $query = 'SELECT Id_Produit, Id_Prod, Nom_Produit, Desc_Type_Produit, Prix_Produit_Unitaire, Nom_Unite_Prix, Qte_Produit 
+                                    FROM Produits_d_un_producteur WHERE Id_Prod= :Id_Prod';
+
+                            if ($filtreType != "TOUT") {
+                                $query .= ' AND Desc_Type_Produit= :filtreType';
                             }
-                            // filtre nom
                             if ($rechercheNom != "") {
-                                $query = $query . ' AND Nom_Produit LIKE CONCAT("%", :rechercheNom, "%") ';
+                                $query .= ' AND Nom_Produit LIKE CONCAT("%", :rechercheNom, "%")';
                             }
 
-                            //tri
-                            if ($tri == "No") {
-                                $query = $query . ';';
-                            } else if ($tri == "PrixAsc") {
-                                $query = $query . ' ORDER BY Prix_Produit_Unitaire ASC;';
-                            } else if ($tri == "PrixDesc") {
-                                $query = $query . ' ORDER BY Prix_Produit_Unitaire DESC;';
-                            } else if ($tri == "Alpha") {
-                                $query = $query . ' ORDER BY Nom_Produit ASC;';
-                            } else if ($tri == "AntiAlpha") {
-                                $query = $query . ' ORDER BY Nom_Produit DESC;';
+                            // Tri des résultats
+                            if ($tri == "PrixAsc") {
+                                $query .= ' ORDER BY Prix_Produit_Unitaire ASC';
+                            } elseif ($tri == "PrixDesc") {
+                                $query .= ' ORDER BY Prix_Produit_Unitaire DESC';
+                            } elseif ($tri == "Alpha") {
+                                $query .= ' ORDER BY Nom_Produit ASC';
+                            } elseif ($tri == "AntiAlpha") {
+                                $query .= ' ORDER BY Nom_Produit DESC';
                             }
 
-                            //preparation paramètres
-                            $queryGetProducts = $bdd->prepare(($query));
-                            if ($filtreType == "TOUT") {
-                                $queryGetProducts->bindParam(":Id_Prod", $Id_Prod, PDO::PARAM_STR);
-                            } else {
-                                $queryGetProducts->bindParam(":Id_Prod", $Id_Prod, PDO::PARAM_STR);
+                            $queryGetProducts = $bdd->prepare($query);
+                            $queryGetProducts->bindParam(":Id_Prod", $Id_Prod, PDO::PARAM_STR);
+                            if ($filtreType != "TOUT") {
                                 $queryGetProducts->bindParam(":filtreType", $filtreType, PDO::PARAM_STR);
                             }
                             if ($rechercheNom != "") {
@@ -214,46 +209,50 @@
                             $queryGetProducts->execute();
                             $returnQueryGetProducts = $queryGetProducts->fetchAll(PDO::FETCH_ASSOC);
 
-                            $i = 0;
                             if (count($returnQueryGetProducts) == 0) {
                                 echo $htmlAucunProduitEnStock;
                             } else {
-                                while ($i < count($returnQueryGetProducts)) {
-                                    $Id_Produit = $returnQueryGetProducts[$i]["Id_Produit"];
-                                    $nomProduit = $returnQueryGetProducts[$i]["Nom_Produit"];
-                                    $typeProduit = $returnQueryGetProducts[$i]["Desc_Type_Produit"];
-                                    $prixProduit = $returnQueryGetProducts[$i]["Prix_Produit_Unitaire"];
-                                    $QteProduit = $returnQueryGetProducts[$i]["Qte_Produit"];
-                                    $unitePrixProduit = $returnQueryGetProducts[$i]["Nom_Unite_Prix"];
+                                foreach ($returnQueryGetProducts as $produit) {
+                                    $Id_Produit = $produit["Id_Produit"];
+                                    $nomProduit = $produit["Nom_Produit"];
+                                    $typeProduit = $produit["Desc_Type_Produit"];
+                                    $prixProduit = $produit["Prix_Produit_Unitaire"];
+                                    $QteProduit = $produit["Qte_Produit"];
+                                    $unitePrixProduit = $produit["Nom_Unite_Prix"];
 
-                                    if ($QteProduit > 0) {
-                                        echo '<div class="squareProduct">';
-                                        echo '<img class="img-produit" src="img_produit/' . $Id_Produit  . '.png" alt="' . $htmlImageNonFournie . '" ><br>';
-                                        
-                                        echo '<div class="product-info"><span>' . $htmlProduitDeuxPoints . '</span><span class="value">' . $nomProduit . '</span></div>';
-                                        echo '<div class="product-info"><span>' . $htmlTypeDeuxPoints . '</span><span class="value">' . $typeProduit . '</span></div>';
-                                        echo '<div class="product-info"><span>' . $htmlPrix . '</span><span class="value">' . $prixProduit . ' €/' . $unitePrixProduit . '</span></div>';
-                                    
-                                        if (isset($_SESSION["Id_Uti"])) {
-                                            echo '<div class="quantity-container">';
-                                            echo '<input type="number" name="' . $Id_Produit . '" placeholder="max ' . $QteProduit . '" max="' . $QteProduit . '" min="0" value="0">';
-                                            echo '<span class="unit"> ' . $unitePrixProduit . '</span>';
-                                            echo '</div>';
-                                        } else {
-                                            echo '<input type="number" placeholder="Connectez-vous" disabled>';
-                                        }
-                                    
+                                    // Définition des attributs step et min en fonction de l'unité
+                                    $step = ($unitePrixProduit == "Kg" || $unitePrixProduit == "L" || $unitePrixProduit == "m²") ? "0.01" : "1";
+                                    $min = ($unitePrixProduit == "Kg" || $unitePrixProduit == "L" || $unitePrixProduit == "m²") ? "0.01" : "1";
+
+                                    echo '<div class="squareProduct">';
+                                    echo '<img class="img-produit" src="img_produit/' . $Id_Produit . '.png" alt="' . $htmlImageNonFournie . '" ><br>';
+                                    echo '<div class="product-info"><span>' . $htmlProduitDeuxPoints . '</span><span class="value">' . $nomProduit . '</span></div>';
+                                    echo '<div class="product-info"><span>' . $htmlTypeDeuxPoints . '</span><span class="value">' . $typeProduit . '</span></div>';
+                                    echo '<div class="product-info"><span>' . $htmlPrix . '</span><span class="value">' . $prixProduit . ' €/' . $unitePrixProduit . '</span></div>';
+
+                                    if (isset($_SESSION["Id_Uti"])) {
+                                        echo '<div class="quantity-container">';
+                                        echo '<input type="number" class="quantity-input" name="quantite_' . $Id_Produit . '" 
+                                                    placeholder="max ' . $QteProduit . '" 
+                                                    max="' . $QteProduit . '" 
+                                                    step="' . $step . '" 
+                                                    data-unit="' . $unitePrixProduit . '">';
+                                        echo '<span class="unit"> ' . $unitePrixProduit . '</span>';
                                         echo '</div>';
-                                    }                                                                        
-                                    $i++;
+                                    }
+
+                                    echo '</div>';
                                 }
                             }
                             ?>
-                            <?php if (sizeof($returnQueryGetProducts) > 0 and isset($_SESSION["Id_Uti"]) and $idUti != $_SESSION["Id_Uti"]) {
-                            ?>
+                            <?php if (sizeof($returnQueryGetProducts) > 0) { ?>
                                 <br>
                                 <div class="commande-container">
-                                    <button type="submit" class="commande-btn"><?php echo $htmlPasserCommande; ?></button>
+                                    <?php if (isset($_SESSION["Id_Uti"]) && $idUti != $_SESSION["Id_Uti"]) { ?>
+                                        <button type="submit" class="commande-btn"><?php echo $htmlPasserCommande; ?></button>
+                                    <?php } else { ?>
+                                        <a href="login.php" class="commande-btn login-btn"><?php echo $htmlSeConnecter; ?></a>
+                                    <?php } ?>
                                 </div>
                             <?php } ?>
                         </div>
@@ -334,21 +333,46 @@
 </script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    const inputs = document.querySelectorAll('.quantity-container input[type="number"]');
+    const inputs = document.querySelectorAll('.quantity-input');
     const submitButton = document.querySelector('.commande-container button');
 
     function checkQuantities() {
         let hasQuantity = false;
+
         inputs.forEach(input => {
-            if (parseInt(input.value) > 0) {
+            if (input.value.trim() !== "" && parseFloat(input.value) > 0) {
                 hasQuantity = true;
             }
         });
+
         submitButton.disabled = !hasQuantity;
-    }
+    }s
     checkQuantities();
     inputs.forEach(input => {
         input.addEventListener("input", checkQuantities);
+    });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const inputs = document.querySelectorAll('.quantity-input');
+
+    function updateInputType() {
+        inputs.forEach(input => {
+            let unit = input.dataset.unit;
+            if (unit === "Kg" || unit === "L" || unit === "m²") {
+                input.setAttribute("step", "0.01");
+                input.setAttribute("min", "0.01");
+            } else {
+                input.setAttribute("step", "1");
+                input.setAttribute("min", "1");
+            }
+        });
+    }
+    updateInputType();
+
+    inputs.forEach(input => {
+        input.addEventListener("change", updateInputType);
     });
 });
 </script>

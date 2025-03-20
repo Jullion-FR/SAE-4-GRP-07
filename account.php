@@ -43,8 +43,20 @@ $ville = explode(" ", $adresse[1])[1];
 
             <div class="content">
 
+                <?php
+                    if (isset($_SESSION['erreur']) && $_SESSION['erreur'] != "") {
+                        echo '<p class="error">' . $_SESSION['erreur'] . '</p>';
+                        unset($_SESSION['erreur']);
+                    }
+                    if (isset($_SESSION['success']) && $_SESSION['success'] != "") {
+                        echo '<p class="success">' . $_SESSION['success'] . '</p>';
+                        unset($_SESSION['success']);
+                    }
+                ?>
+
                 <a href="traitements/logout.php"><?= $htmlSeDeconnecter ?></a>
 
+                <p class="cattitle">Modifier les informations personnels</p>
                 <form action="traitements/updateuser.php" class="info" method="post">
 
                     <p>Nom :</p>
@@ -65,27 +77,24 @@ $ville = explode(" ", $adresse[1])[1];
                     <br>
                     <input type="submit" value="<?= $htmlModifier ?>">
 
-                    <?php
-                    if (isset($_SESSION['erreur'])) {
-                        echo '<p class="error">' . $_SESSION['erreur'] . '</p>';
-                        unset($_SESSION['erreur']);
-                    }
-                    if (isset($_SESSION['success'])) {
-                        echo '<p class="success">' . $_SESSION['success'] . '</p>';
-                        unset($_SESSION['success']);
-                    }
-                    ?>
-
                 </form>
 
-                <div class="bottomAction">
+                <p class="cattitle">Modifier le mot de passe</p>
+                <form action="traitements/updatepass.php" method="post" class="row">
+                    <input type="password" name="currentPassword" placeholder="Mot de passe actuel" required>
+                    <input type="password" name="newPassword" placeholder="Nouveau mot de passe" required>
+                    <input type="submit" value="Modifier">
+                </form>
+
+                <p class="cattitle">Autres actions</p>
+                <div class="row">
                     <?php if((isset($_SESSION['isProd']) && $_SESSION['isProd'])){?> 
                         <form action="addProfilPicture.php">
                             <input type="submit" value="Modifier la photo de profil">
                         </form>
                     <?php } ?>
                     <form action="">
-                        <input type="submit" value="Supprimer le compte">
+                        <input type="submit" class="danger" value="Supprimer le compte">
                     </form>
                 </div>
 
