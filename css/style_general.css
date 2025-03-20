@@ -473,3 +473,54 @@ body{
     color: #000;
     cursor: pointer;
 }
+
+.filtre-container {
+    background: #4CAF50;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    color: white;
+    text-align: left;
+    max-width: 250px;
+    margin: auto;
+}
+
+.filtre-titre {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.filtre-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filtre-label {
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.filtre-label input {
+    margin-right: 8px;
+}
+
+.filtre-bouton {
+    background: white;
+    color: #4CAF50;
+    border: 2px solid white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.filtre-bouton:hover {
+    background: #ffffff;
+    color: #388E3C;
+    border-color: #388E3C;
+}

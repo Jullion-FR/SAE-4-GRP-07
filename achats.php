@@ -33,15 +33,32 @@ $filtreCategorie = isset($_POST["typeCategorie"]) ? htmlspecialchars($_POST["typ
 <div class="container">
     <div class="leftColumn">
         <a href="index.php"><img class="logo" src="img/logo.png" alt="Logo"></a>
-        <div class="contenuBarre">
-            <center><p><strong><?php echo $htmlFiltrerParDeuxPoints; ?></strong></p></center>
-            <form action="achats.php" method="post">
-                <label><input type="radio" name="typeCategorie" value="0" <?php if ($filtreCategorie == 0) echo 'checked'; ?>> <?php echo $htmlTOUT; ?></label><br>
-                <label><input type="radio" name="typeCategorie" value="1" <?php if ($filtreCategorie == 1) echo 'checked'; ?>> <?php echo $htmlENCOURS; ?></label><br>
-                <label><input type="radio" name="typeCategorie" value="2" <?php if ($filtreCategorie == 2) echo 'checked'; ?>> <?php echo $htmlPRETE; ?></label><br>
-                <label><input type="radio" name="typeCategorie" value="4" <?php if ($filtreCategorie == 4) echo 'checked'; ?>> <?php echo $htmlLIVREE; ?></label><br>
-                <label><input type="radio" name="typeCategorie" value="3" <?php if ($filtreCategorie == 3) echo 'checked'; ?>> <?php echo $htmlANNULEE; ?></label><br><br>
-                <center><input type="submit" value="<?php echo $htmlFiltrer; ?>"></center>
+        <div class="contenuBarre filtre-container">
+            <center><p class="filtre-titre"><strong><?php echo $htmlFiltrerParDeuxPoints; ?></strong></p></center>
+            <form action="achats.php" method="post" class="filtre-form">
+                <label class="filtre-label">
+                    <input type="radio" name="typeCategorie" value="0" <?php if ($filtreCategorie == 0) echo 'checked'; ?>> 
+                    <?php echo $htmlTOUT; ?>
+                </label>
+                <label class="filtre-label">
+                    <input type="radio" name="typeCategorie" value="1" <?php if ($filtreCategorie == 1) echo 'checked'; ?>> 
+                    <?php echo $htmlENCOURS; ?>
+                </label>
+                <label class="filtre-label">
+                    <input type="radio" name="typeCategorie" value="2" <?php if ($filtreCategorie == 2) echo 'checked'; ?>> 
+                    <?php echo $htmlPRETE; ?>
+                </label>
+                <label class="filtre-label">
+                    <input type="radio" name="typeCategorie" value="4" <?php if ($filtreCategorie == 4) echo 'checked'; ?>> 
+                    <?php echo $htmlLIVREE; ?>
+                </label>
+                <label class="filtre-label">
+                    <input type="radio" name="typeCategorie" value="3" <?php if ($filtreCategorie == 3) echo 'checked'; ?>> 
+                    <?php echo $htmlANNULEE; ?>
+                </label>
+                <center>
+                    <input type="submit" value="<?php echo $htmlFiltrer; ?>" class="filtre-bouton">
+                </center>
             </form>
         </div>
     </div>
