@@ -15,6 +15,6 @@ if (isset($_SESSION["Id_Uti"]) && isset($message)) {
   $bdd->query('CALL broadcast_admin(' . $_SESSION["Id_Uti"] . ', \'' . $message . '\');');
 } else {
   
-  $bdd->query('CALL broadcast_admin(0 , \''. $_POST["mail"]. $message . '\');');
+  $bdd->query('CALL broadcast_admin(0 , \''. $_POST["mail"]. " : ". $message . '\');');
 }
 
