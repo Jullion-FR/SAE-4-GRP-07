@@ -93,10 +93,12 @@ require "language.php";
                         ?>
                     </div>
                 <?php endif; ?>
-                <div class="contenuMessagerie" style="height: 78vh; overflow-y: scroll;">
-                    <?php
-                    require 'traitements/afficheMessages.php';
-                    ?>
+                <div>
+                    <div class="contenuMessagerie" style="height: 78vh; overflow-y: scroll;">
+                        <?php
+                        require 'traitements/afficheMessages.php';
+                        ?>
+                    </div>
                     <?php if (isset($_GET['Id_Interlocuteur'])): ?>
                     <div style="position: absolute; bottom: 0; width: 100%; left: 0; padding-bottom: 35px;">
                         <form method="post" id="zoneDEnvoi">
