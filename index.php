@@ -23,6 +23,13 @@ include_once __DIR__ . "/loadenv.php";
 
 <body>
     <?php
+    $categorie = isset($_GET["categorie"]) ? htmlspecialchars($_GET["categorie"]) : "Tout";
+    $rechercheVille = isset($_GET["rechercheVille"]) ? htmlspecialchars($_GET["rechercheVille"]) : "";
+    $rechercheProdNom = isset($_GET["rechercheProdNom"]) ? htmlspecialchars($_GET["rechercheProdNom"]) : "";
+    $rechercheProdPrenom = isset($_GET["rechercheProdPrenom"]) ? htmlspecialchars($_GET["rechercheProdPrenom"]) : "";
+    $rayon = isset($_GET["rayon"]) ? htmlspecialchars($_GET["rayon"]) : 100;
+    $tri = isset($_GET["tri"]) ? htmlspecialchars($_GET["tri"]) : "nombreDeProduits";
+    
     //var_dump($_SESSION);
     if (!isset($_SESSION)) {
         session_start();
@@ -134,7 +141,7 @@ include_once __DIR__ . "/loadenv.php";
                     <br>
                     <input type="text" name="rechercheVille" pattern="[A-Za-z0-9 ]{0,100}" value="<?php echo $rechercheVille ?>" placeholder="<?php echo $htmlVille; ?>">
                     <br>
-                    <br><?php echo 'Par producteur :' ?>
+                    <br><?php echo '- Par producteur :' ?>
                     <br>
                     <input type="text" name="rechercheProdNom" pattern="[A-Za-z]{0,100}" value="" placeholder="Nom">
                     <input type="text" name="rechercheProdPrenom" pattern="[A-Za-z]{0,100}" value="" placeholder="Prénom">
@@ -235,12 +242,7 @@ include_once __DIR__ . "/loadenv.php";
 
                 if ($_SERVER["REQUEST_METHOD"] == "GET") {
                     // Définition des variables
-                    $categorie = isset($_GET["categorie"]) ? htmlspecialchars($_GET["categorie"]) : "Tout";
-                    $rechercheVille = isset($_GET["rechercheVille"]) ? htmlspecialchars($_GET["rechercheVille"]) : "";
-                    $rechercheProdNom = isset($_GET["rechercheProdNom"]) ? htmlspecialchars($_GET["rechercheProdNom"]) : "";
-                    $rechercheProdPrenom = isset($_GET["rechercheProdPrenom"]) ? htmlspecialchars($_GET["rechercheProdPrenom"]) : "";
-                    $rayon = isset($_GET["rayon"]) ? htmlspecialchars($_GET["rayon"]) : 100;
-                    $tri = isset($_GET["tri"]) ? htmlspecialchars($_GET["tri"]) : "nombreDeProduits";
+                    
 
                     // Construction de la requête SQL
                     $query = "
