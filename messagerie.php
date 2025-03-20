@@ -20,7 +20,7 @@ require "language.php";
     }
     ?>
     <div class="container">
-        <div class="leftColumn">
+        <div class="leftColumn" style="z-index: 6; overflow-y: auto;">
             
             <a href="index.php"><img class="logo" href="index.php" src="img/logo.png"></a>
             <center>
@@ -93,12 +93,14 @@ require "language.php";
                         ?>
                     </div>
                 <?php endif; ?>
-                <div class="contenuMessagerie" style="height: 78vh; overflow-y: scroll;">
-                    <?php
-                    require 'traitements/afficheMessages.php';
-                    ?>
+                <div>
+                    <div class="contenuMessagerie" style="max-height: 75vh; overflow-y: scroll; padding-bottom: 10px;">
+                        <?php
+                        require 'traitements/afficheMessages.php';
+                        ?>
+                    </div>
                     <?php if (isset($_GET['Id_Interlocuteur'])): ?>
-                    <div style="position: absolute; bottom: 0; width: 100%; left: 0; padding-bottom: 35px;">
+                    <div style="position: fixed; bottom: 0; width: 83%; z-index: 5; right: 0; padding-bottom: 35px;">
                         <form method="post" id="zoneDEnvoi">
                             <input type="text" name="content" id="zoneDeTexte" <?php if ($formDisabled) {echo 'disabled';} ?>>
                             <input type="submit" value="" id="boutonEnvoyerMessage" <?php if ($formDisabled) {echo 'disabled';} ?>>
