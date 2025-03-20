@@ -25,11 +25,28 @@
         // Connect to database
         return new PDO('mysql:host=' . $serveur . ';dbname=' . $basededonnees, $utilisateur, $motdepasse);
     }
+
+
+
+    // variable utilisée plusieurs fois par la suite
+    $Id_Prod = htmlspecialchars($_GET["Id_Prod"]);
+    /*partie de droite avec les infos producteur*/
+    $bdd = dbConnect();
+    $queryInfoProd = $bdd->prepare(('SELECT UTILISATEUR.Id_Uti, UTILISATEUR.Adr_Uti, Prenom_Uti, Nom_Uti, Prof_Prod FROM UTILISATEUR INNER JOIN PRODUCTEUR ON UTILISATEUR.Id_Uti = PRODUCTEUR.Id_Uti WHERE PRODUCTEUR.Id_Prod= :Id_Prod ;'));
+    $queryInfoProd->bindParam(":Id_Prod", $Id_Prod, PDO::PARAM_STR);
+    $queryInfoProd->execute();
+    $returnQueryInfoProd = $queryInfoProd->fetchAll(PDO::FETCH_ASSOC);
+
+    // recupération des paramètres de la requête qui contient 1 élément
+    $idUti = $returnQueryInfoProd[0]["Id_Uti"];
+    $address = $returnQueryInfoProd[0]["Adr_Uti"];
+    $nom = $returnQueryInfoProd[0]["Nom_Uti"];
+    $prenom = $returnQueryInfoProd[0]["Prenom_Uti"];
+    $profession = $returnQueryInfoProd[0]["Prof_Prod"];
+
     if (!isset($_SESSION)) {
         session_start();
     }
-    // variable utilisée plusieurs fois par la suite
-    $Id_Prod = htmlspecialchars($_GET["Id_Prod"]);
 
     if (isset($_GET["filtreType"]) == true) {
         $filtreType = htmlspecialchars($_GET["filtreType"]);
@@ -258,21 +275,6 @@
                         </div>
                     </div>
                     <div class="producteur">
-                        <!-- partie de droite avec les infos producteur -->
-                        <?php
-                        $bdd = dbConnect();
-                        $queryInfoProd = $bdd->prepare(('SELECT UTILISATEUR.Id_Uti, UTILISATEUR.Adr_Uti, Prenom_Uti, Nom_Uti, Prof_Prod FROM UTILISATEUR INNER JOIN PRODUCTEUR ON UTILISATEUR.Id_Uti = PRODUCTEUR.Id_Uti WHERE PRODUCTEUR.Id_Prod= :Id_Prod ;'));
-                        $queryInfoProd->bindParam(":Id_Prod", $Id_Prod, PDO::PARAM_STR);
-                        $queryInfoProd->execute();
-                        $returnQueryInfoProd = $queryInfoProd->fetchAll(PDO::FETCH_ASSOC);
-
-                        // recupération des paramètres de la requête qui contient 1 élément
-                        $idUti = $returnQueryInfoProd[0]["Id_Uti"];
-                        $address = $returnQueryInfoProd[0]["Adr_Uti"];
-                        $nom = $returnQueryInfoProd[0]["Nom_Uti"];
-                        $prenom = $returnQueryInfoProd[0]["Prenom_Uti"];
-                        $profession = $returnQueryInfoProd[0]["Prof_Prod"];
-                        ?>
                         <div class="info-container">
                             <div class="img-prod">
                                 <img class="img-test" src="img_producteur/<?php echo $Id_Prod; ?>.png" alt="<?php echo $htmlImgProducteur; ?>" style="width: 99%; height: 99%;">
@@ -286,7 +288,7 @@
 
 
                         <?php
-                        if (isset($_SESSION["Id_Uti"])  and $idUti != $_SESSION["Id_Uti"]) {
+                        if (isset($_SESSION["Id_Uti"])  && $idUti != $_SESSION["Id_Uti"]) {
                         ?>
                             <input type="button" onclick="window.location.href='messagerie.php?Id_Interlocuteur=<?php echo $idUti; ?>'" value="<?php echo $htmlEnvoyerMessage; ?>">
                             <br>
