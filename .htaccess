@@ -1,0 +1,10 @@
+RewriteEngine On
+
+# Bloquer l'accès aux fichiers .sql
+<FilesMatch "\.sql$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Bloquer l'accès aux fichiers cachés (commençant par un point)
+RewriteRule "(^|/)\..+" - [F]
