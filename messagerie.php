@@ -46,45 +46,9 @@ require "language.php";
             
         </div>
         <div class="rightColumn">
-            <div class="topBanner">
-                <div class="divNavigation">
-                    <a class="bontonDeNavigation" href="index.php"><?php echo $htmlAccueil ?></a>
-                    <?php
-                    if (isset($_SESSION["Id_Uti"])) {
-                        echo '<a class="bontonDeNavigation" href="messagerie.php">' . $htmlMessagerie . '</a>';
-                        echo '<a class="bontonDeNavigation" href="achats.php">' . $htmlAchats . '</a>';
-                    }
-                    if (isset($_SESSION["isProd"]) and ($_SESSION["isProd"] == true)) {
-                        echo '<a class="bontonDeNavigation" href="produits.php">' . $htmlProduits . '</a>';
-                        echo '<a class="bontonDeNavigation" href="delivery.php">' . $htmlCommandes . '</a>';
-                    }
-                    if (isset($_SESSION["isAdmin"]) and ($_SESSION["isAdmin"] == true)) {
-                        echo '<a class="bontonDeNavigation" href="panel_admin.php">' . $htmlPanelAdmin . '</a>';
-                    }
-                    ?>
-                </div>
-                <form method="post">
-                    <?php
-                    if (!isset($_SESSION)) {
-                        session_start();
-                    }
-                    if (isset($_SESSION, $_SESSION['tempPopup'])) {
-                        $_POST['popup'] = $_SESSION['tempPopup'];
-                        unset($_SESSION['tempPopup']);
-                    }
-                    ?>
-                    <input type="submit" value="<?php if (!isset($_SESSION['Mail_Uti'])) {/*$_SESSION = array()*/;
-                                                    echo ($htmlSeConnecter);
-                                                } else {
-                                                    echo '' . $_SESSION['Mail_Uti'] . '';
-                                                } ?>" class="boutonDeConnection">
-                    <input type="hidden" name="popup" value=<?php if (isset($_SESSION['Mail_Uti'])) {
-                                                                echo '"info_perso"';
-                                                            } else {
-                                                                echo '"sign_in"';
-                                                            } ?>>
-                </form>
-            </div>
+        
+            <?php include "topBanner.php"; ?>
+
             <div class="contenuPage">
                 <?php if (isset($_GET['Id_Interlocuteur'])): ?>
                     <div class="interlocuteur">
@@ -101,7 +65,7 @@ require "language.php";
                         ?>
                     </div>
                     <?php if (isset($_GET['Id_Interlocuteur'])): ?>
-                    <div style="position: fixed; bottom: 0; width: 83%; z-index: 5; right: 0; padding-bottom: 35px;">
+                    <div style="position: fixed; bottom: 80px; width: 83%; z-index: 5; right: 0;">
                         <form method="post" id="zoneDEnvoi">
                             <input type="text" name="content" id="zoneDeTexte" <?php if ($formDisabled) {echo 'disabled';} ?>>
                             <input type="submit" value="" id="boutonEnvoyerMessage" <?php if ($formDisabled) {echo 'disabled';} ?>>
@@ -111,16 +75,9 @@ require "language.php";
                     <?php require 'traitements/envoyerMessage.php';?>
                 </div>
             </div>
-            <div class="basDePage">
-                <form method="post">
-                    <input type="submit" value="<?php echo $htmlSignalerDys ?>" class="lienPopup">
-                    <input type="hidden" name="popup" value="contact_admin">
-                </form>
-                <form method="post">
-                    <input type="submit" value="<?php echo $htmlCGU ?>" class="lienPopup">
-                    <input type="hidden" name="popup" value="cgu">
-                </form>
-            </div>
+            
+            <?php include "footer.php"; ?>
+
         </div>
     </div>
     <?php require "popups/gestion_popups.php" ?>

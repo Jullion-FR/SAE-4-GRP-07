@@ -36,13 +36,13 @@ body{
     justify-content: flex-start;
     text-align: center;
     width: 350px;
-    background-color: #4caf50;
+    background-color: #669D31;
     margin: 10px;
     padding-bottom: 10px;
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    transition: 0.2s ease-in-out;
     text-decoration: none;
     color: white;
 }
@@ -50,7 +50,7 @@ body{
 .square1:hover {
     transform: translateY(-5px);
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
-    background-color: #45a049;
+    background-color: #4e7826;
 }
 
 .square1 img {
@@ -75,7 +75,7 @@ body{
     margin: 0px;
     padding: 0px;
     height: 100%;
-    min-width: 180px;
+    min-width: 300px;
 
     display: block;
 
@@ -84,7 +84,6 @@ body{
 
 .logo{
     width: 100%;
-
     box-shadow: 1px 0px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
@@ -137,7 +136,7 @@ body{
     text-align: center;
     font-size: 18px;
     transition-duration: 0.2s;
-    padding: 30px;
+    padding: 0 30px;
     display: flex;
     align-items: center;
 }
@@ -147,10 +146,13 @@ body{
     color: #388E3C;
 }
 
+.topBanner > .divNavigation > form{
+    height: 100%;
+}
 .topBanner select{
     outline: none;
-    padding: 30px;
-    height: 100%;
+    padding: 0 30px;
+    height: 100% !important;
     font-size: 18px;
     border: none;
     background-color: #fff;
@@ -163,12 +165,13 @@ body{
 }
 
 .connexion{
+    height: 100%;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
     gap: 12px;
-    margin-right: 20px;
+    padding: 20px;
     font-size: 18px;
     color: black;
     text-decoration: none;
@@ -177,6 +180,7 @@ body{
 
 .connexion:hover{
     color: #669D31;
+    background-color: #DFEDE1;
 }
 
 .connexion img{
