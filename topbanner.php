@@ -12,6 +12,7 @@ if (!isset($_SESSION["language"])) {
     <!-- LES BOUTONS -->
     <div class="divNavigation">
         <a class="bontonDeNavigation" href="index.php"><?php echo $htmlAccueil ?></a>
+        
         <?php
             if (isset($_SESSION["Id_Uti"])) {
                 echo '<a class="bontonDeNavigation" href="messagerie.php">' . $htmlMessagerie . '</a>';
@@ -25,6 +26,7 @@ if (!isset($_SESSION["language"])) {
                 echo '<a class="bontonDeNavigation" href="panel_admin.php">' . $htmlPanelAdmin . '</a>';
             }
         ?>
+        
         <form action="language.php" method="post" id="languageForm">
             <select name="language" id="languagePicker" onchange="document.getElementById('languageForm').submit()">
                 <option value="fr" <?php if ($_SESSION["language"] == "fr") echo 'selected'; ?>>Français</option>
