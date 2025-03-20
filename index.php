@@ -237,7 +237,7 @@ include_once __DIR__ . "/loadenv.php";
         <div class="rightColumn">
             <?php include 'topbanner.php'; ?>
 
-            <h1 style="margin-left: 20px;"> Producteurs </h1>
+            <h1 style="margin-left: 20px;"> <?php echo $htmlProducteursEnMaj ?> </h1>
 
             <div class="gallery-container">
                 <?php
