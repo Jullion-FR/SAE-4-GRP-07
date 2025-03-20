@@ -326,13 +326,9 @@
         document.addEventListener("DOMContentLoaded", function () {
             document.querySelectorAll("form").forEach(function (form) {
                 form.addEventListener("keypress", function (event) {
-                    if (event.key === "Enter") {
+                    if (event.key === "Enter" && event.target.tagName !== "TEXTAREA") {
                         event.preventDefault();
                     }
-                });
-
-                form.addEventListener("submit", function (event) {
-                    event.preventDefault();
                 });
             });
         });
