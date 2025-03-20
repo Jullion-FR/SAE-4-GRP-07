@@ -382,9 +382,9 @@ include_once __DIR__ . "/loadenv.php";
                                 echo '<a href="producteur.php?Id_Prod=' . $row["Id_Prod"] . '" class="square1">';
                                 echo '<img src="img_producteur/' . $row["Id_Prod"] . '.png" alt="Image producteur" style="width: 100%; height: 85%;" ><br>';
                                 echo "<strong>" . $row["Prof_Prod"] . "</strong><br>";
-                                echo "Nom : " . strtoupper($row["Nom_Uti"]) . "<br>";
-                                echo "Prénom : " . $row["Prenom_Uti"] . "<br>";
-                                echo "Adresse : " . $row["Adr_Uti"] . "<br>";
+                                echo strtoupper($row["Nom_Uti"]) . "<br>";
+                                echo $row["Prenom_Uti"] . "<br>";
+                                echo $row["Adr_Uti"] . "<br>";
                                 echo '</a>';
                             }
                         }
