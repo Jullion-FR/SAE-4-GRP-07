@@ -79,9 +79,18 @@
                 </form>                
                 <?php 
                     require "delete_account_warning.php";
-                ?>
-                <button onclick="openPopup()">Supprimer le compte</button>
+                    $imageSrc = file_exists("/img_producteur/".$row["Id_Prod"].".png") ? "/img_producteur/".$row["Id_Prod"].".png" : "/img_producteur/default.png";
 
+                ?>
+
+                <button onclick='openPopup(
+                    "<?php echo $_SESSION["Id_Uti"]; ?>",
+                    "<?php echo addslashes($row["Prenom_Uti"]); ?>",
+                    "<?php echo addslashes($row["Nom_Uti"]); ?>",
+                    "<?php echo addslashes($row["Adr_Uti"]); ?>",
+                    "",
+                    "<?php echo $imageSrc ?>"
+                )'><?php echo $htmlSupprimerCompte?></button>
 
                 <?php if((isset($_SESSION['isProd']) and $_SESSION['isProd'])){?> 
                 <a href="./addProfilPicture.php"><button><?php echo 'ajouter une photo de profil'?></button></a>

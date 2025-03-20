@@ -9,6 +9,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        z-index: 9999;
         visibility: hidden;
     }
     .popup-container {
@@ -75,28 +76,17 @@
     }
 </style>
 
-<?php
-$user = $db->select('SELECT Id_Uti, Prenom_Uti, Nom_Uti, Mail_Uti, Adr_Uti FROM UTILISATEUR WHERE Mail_Uti = ?', "s",[$_SESSION['Mail_Uti']])[0];
-$producteurInfo = $db->select('SELECT Id_Prod, Id_Uti, Prof_Prod FROM PRODUCTEUR where Id_Uti = ?', 's', [$user['Id_Uti']])[0];
-?>
-
 <div class="popup-overlay" id="popup">
     <div class="popup-container">
         <span class="popup-close" onclick="closePopup()">&times;</span>
         <h2>Supprimer le compte</h2>
         <div class="popup-content">
             <div class="popup-left">
-                <?php if (!empty($producteurInfo)):?>
-                    <img class="popup-pp" src="<?php echo "img_producteur/".$producteurInfo['Id_Prod'].".png"?>" alt="<?php echo $producteurInfo['Id_Prod']?>">
-                <?php else:?>
-                    <img class="popup-pp" src="img_producteur/default.png" alt="Profile Picture">
-                <?php endif ?>
+                <img id="popup-image" class="popup-pp" src="/img_producteur/default.png" alt="Profile Picture">
                 <div>
-                    <?php
-                        echo "<strong>" . $user['Prenom_Uti'] . " " . $user['Nom_Uti'] . "</strong><br>";
-                        if (!empty($producteurInfo)) echo $producteurInfo['Prof_Prod'] . "<br>";
-                        echo "<br>" . $user["Adr_Uti"];
-                    ?>
+                    <p id="popup-nom"><strong>Nom Prénom</strong></p>
+                    <p id="popup-profession"></p>
+                    <p id="popup-adresse"></p>
                 </div>
             </div>
             <div class="popup-right">
@@ -104,15 +94,28 @@ $producteurInfo = $db->select('SELECT Id_Prod, Id_Uti, Prof_Prod FROM PRODUCTEUR
                 <textarea id="motif" class="popup-textarea" placeholder="Entrez votre motif"></textarea>
             </div>
         </div>
-        <a href="/traitements/del_acc.php">
-            <button class="popup-button"><?php echo "$htmlConfirmer $htmlSupprimerCompte"?></button>
-        </a>
+        <form action="/traitements/del_acc.php" method="post">
+            <input type="hidden" name="targetID" id="popup-targetID">
+            <button type="submit" class="popup-button">
+                <?php echo "$htmlConfirmer $htmlSupprimerCompte" ?>
+            </button>
+        </form>
     </div>
 </div>
 
+
 <script>
-    function openPopup() {
+    function openPopup(id, prenom, nom, adresse, profession, imageSrc) {
         document.getElementById("popup").style.visibility = "visible";
+        
+        // Met à jour les champs avec les données de l'utilisateur
+        document.getElementById("popup-nom").innerHTML = `<strong>${prenom} ${nom}</strong>`;
+        document.getElementById("popup-adresse").innerText = adresse;
+        document.getElementById("popup-profession").innerText = profession || "";
+        document.getElementById("popup-image").src = imageSrc;
+
+        // Met à jour l'ID utilisateur dans le formulaire
+        document.getElementById("popup-targetID").value = id;
     }
     function closePopup() {
         document.getElementById("popup").style.visibility = "hidden";

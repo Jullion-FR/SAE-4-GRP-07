@@ -15,6 +15,8 @@
 <body>
 
     <?php
+    require "./popups/delete_account_warning.php";
+
     if (!isset($_SESSION)) {
         session_start();
     }
@@ -110,14 +112,24 @@
                     echo "<label>- producteurs :</label><br>";
 
                     while ($row = $result->fetch_assoc()) {
-                        echo '<form method="post" action="traitements/del_acc.php" class="squarePanelAdmin">
-                                        <input type="submit" name="submit" id="submit" value="' . $htmlSupprimerCompte . '"><br>
-                                        <input type="hidden" name="Id_Uti" value="' . $row["Id_Uti"] . '">';
+                        echo '<div class="squarePanelAdmin">';
+
+                        $targetID = $row["Id_Uti"];
+                        $prenom = addslashes($row["Prenom_Uti"]);
+                        $nom = addslashes($row["Nom_Uti"]);
+                        $adresse = addslashes($row["Adr_Uti"]);
+                        $profession = isset($row["Prof_Prod"]) ? addslashes($row["Prof_Prod"]) : "";
+                        $imageSrc = file_exists("/img_producteur/".$row["Id_Prod"].".png") ? "/img_producteur/".$row["Id_Prod"].".png" : "/img_producteur/default.png";
+                    
+                        echo '<button onclick="openPopup(\'' . $targetID . '\', \'' . $prenom . '\', \'' . $nom . '\', \'' . $adresse . '\', \'' . $profession . '\', \'' . $imageSrc . '\')">
+                                '.$htmlSupprimerCompte.'
+                              </button><br>';
+                    
                         echo $htmlNomDeuxPoints, $row["Nom_Uti"] . "<br>";
                         echo $htmlPrénomDeuxPoints, $row["Prenom_Uti"] . "<br>";
                         echo $htmlMailDeuxPoints, $row["Mail_Uti"] . "<br>";
                         echo $htmlAdresseDeuxPoints, $row["Adr_Uti"] . "<br>";
-                        echo $htmlProfessionDeuxPoints, $row["Prof_Prod"] . "<br></form>";
+                        echo $htmlProfessionDeuxPoints, $profession . "<br></div>";
                     }
                     echo '</div>';
                 } else {
@@ -149,16 +161,23 @@
                         echo "<label>" . $htmlUtilisateurs . "</label><br>";
 
                         while ($row = $result->fetch_assoc()) {
-
-                            echo '<form method="post" action="traitements/del_acc.php" class="squarePanelAdmin">
-                                <input type="submit" name="submit" id="submit" value="Supprimer le compte"><br>
-                                <input type="hidden" name="Id_Uti" value="' . $row["Id_Uti"] . '">';
-
+                            echo '<div class="squarePanelAdmin">';
+                            $targetID = $row["Id_Uti"];
+                            $prenom = addslashes($row["Prenom_Uti"]);
+                            $nom = addslashes($row["Nom_Uti"]);
+                            $adresse = addslashes($row["Adr_Uti"]);
+                            $imageSrc = "/img_producteur/default.png"; // Pas d'image spécifique pour les clients
+                        
+                            echo '<button onclick="openPopup(\'' . $targetID . '\', \'' . $prenom . '\', \'' . $nom . '\', \'' . $adresse . '\', \'\', \'' . $imageSrc . '\')">
+                                    '.$htmlSupprimerCompte.'
+                                  </button><br>';
+                        
                             echo $htmlNomDeuxPoints, $row["Nom_Uti"] . "<br>";
                             echo $htmlPrénomDeuxPoints, $row["Prenom_Uti"] . "<br>";
                             echo $htmlMailDeuxPoints, $row["Mail_Uti"] . "<br>";
-                            echo $htmlAdresseDeuxPoints, $row["Adr_Uti"] . "<br></form>";
+                            echo $htmlAdresseDeuxPoints, $row["Adr_Uti"] . "<br></div>";
                         }
+                        
                         echo '</div>';
                     } else {
                         echo $htmlErrorDevTeam;
