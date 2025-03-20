@@ -245,11 +245,14 @@
                                 }
                             }
                             ?>
-                            <?php if (sizeof($returnQueryGetProducts) > 0 and isset($_SESSION["Id_Uti"]) and $idUti != $_SESSION["Id_Uti"]) {
-                            ?>
+                            <?php if (sizeof($returnQueryGetProducts) > 0) { ?>
                                 <br>
                                 <div class="commande-container">
-                                    <button type="submit" class="commande-btn"><?php echo $htmlPasserCommande; ?></button>
+                                    <?php if (isset($_SESSION["Id_Uti"]) && $idUti != $_SESSION["Id_Uti"]) { ?>
+                                        <button type="submit" class="commande-btn"><?php echo $htmlPasserCommande; ?></button>
+                                    <?php } else { ?>
+                                        <a href="login.php" class="commande-btn login-btn"><?php echo $htmlSeConnecter; ?></a>
+                                    <?php } ?>
                                 </div>
                             <?php } ?>
                         </div>
@@ -337,23 +340,18 @@ document.addEventListener("DOMContentLoaded", function () {
         let hasQuantity = false;
 
         inputs.forEach(input => {
-            if (parseFloat(input.value) > 0) {
+            if (input.value.trim() !== "" && parseFloat(input.value) > 0) {
                 hasQuantity = true;
             }
         });
 
         submitButton.disabled = !hasQuantity;
-    }
-
-    // Vérifier au chargement de la page
+    }s
     checkQuantities();
-
-    // Vérifier à chaque modification d'un champ
     inputs.forEach(input => {
         input.addEventListener("input", checkQuantities);
     });
 });
-
 </script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
