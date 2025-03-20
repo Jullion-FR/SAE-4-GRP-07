@@ -82,7 +82,7 @@
         <h2>Supprimer le compte</h2>
         <div class="popup-content">
             <div class="popup-left">
-                <img id="popup-image" class="popup-pp" src="/img_producteur/default.png" alt="Profile Picture">
+                <img id="popup-image" class="popup-pp" src="img/default_producteur.png" alt="Profile Picture">
                 <div>
                     <p id="popup-nom"><strong>Nom Prénom</strong></p>
                     <p id="popup-profession"></p>
