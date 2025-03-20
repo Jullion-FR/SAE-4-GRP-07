@@ -78,14 +78,21 @@ $ville = explode(" ", $adresse[1])[1];
 
                 </form>
 
-                <div class="bottomAction">
+                <p>Modifier le mot de passe</p>
+                <form action="row">
+                    <input type="password" name="currentPassword" placeholder="Mot de passe actuel" required>
+                    <input type="password" name="newPassword" placeholder="Nouveau mot de passe" required>
+                    <input type="submit" value="Modifier">
+                </form>
+
+                <div class="row">
                     <?php if((isset($_SESSION['isProd']) && $_SESSION['isProd'])){?> 
                         <form action="addProfilPicture.php">
                             <input type="submit" value="Modifier la photo de profil">
                         </form>
                     <?php } ?>
                     <form action="">
-                        <input type="submit" value="Supprimer le compte">
+                        <input type="submit" class="danger" value="Supprimer le compte">
                     </form>
                 </div>
 
