@@ -183,7 +183,7 @@
                             }
                             // filtre nom
                             if ($rechercheNom != "") {
-                                $query = $query . ' AND Nom_Produit LIKE :rechercheNom ';
+                                $query = $query . ' AND Nom_Produit LIKE CONCAT("%", :rechercheNom, "%") ';
                             }
 
                             //tri
@@ -331,6 +331,26 @@
                 });
             });
         });
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const inputs = document.querySelectorAll('.quantity-container input[type="number"]');
+    const submitButton = document.querySelector('.commande-container button');
+
+    function checkQuantities() {
+        let hasQuantity = false;
+        inputs.forEach(input => {
+            if (parseInt(input.value) > 0) {
+                hasQuantity = true;
+            }
+        });
+        submitButton.disabled = !hasQuantity;
+    }
+    checkQuantities();
+    inputs.forEach(input => {
+        input.addEventListener("input", checkQuantities);
+    });
+});
 </script>
 
 </body>
