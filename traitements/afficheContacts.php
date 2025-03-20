@@ -1,51 +1,69 @@
 <?php
 include_once __DIR__ . "/../loadenv.php";
-?>
-<?php
-    require "./language.php" ; 
-?>
-<?php
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
+require "./language.php";
 
-function dbConnect(){
+function dbConnect()
+{
     $utilisateur = $_ENV['DB_USER'];
     $serveur = $_ENV['DB_HOST'];
     $motdepasse = $_ENV['DB_PASS'];
     $basededonnees = $_ENV['DB_NAME'];
-    // Connect to database
     return new PDO('mysql:host=' . $serveur . ';dbname=' . $basededonnees, $utilisateur, $motdepasse);
 }
 
-function afficheContacts($id_user){
-    require "./language.php" ; 
-    $bdd = dbConnect();
-    $query = $bdd->query(('CALL listeContact('.$id_user.');'));
-    $contacts = $query->fetchAll(PDO::FETCH_ASSOC);
-    if (count($contacts)==0){
-        $test = $htmlPasDeConversation;
-        echo($test);
-    }else{
-        foreach($contacts as $contact){
-            afficherContact($contact);
-        }
-    }    
+// Démarrer la session si elle n'est pas déjà active
+if (!isset($_SESSION)) {
+    session_start();
 }
 
-function afficherContact($contact){
-    $str = $contact['Prenom_Uti'].' '.$contact['Nom_Uti'];
-    ?>
-    <form method="get" action="messagerie.php">
-        <input type="submit" value="<?php echo($str);?>">
-        <input type="hidden" name="Id_Interlocuteur" value="<?php echo($contact['Id_Uti'])?>">
-    </form>
-    <?php
+// Vérification de l'utilisateur connecté
+if (!isset($_SESSION['Id_Uti'])) {
+    echo "<p>Veuillez vous connecter pour voir vos contacts.</p>";
+    exit;
 }
 
-if (isset($_SESSION['Id_Uti'])){
-    afficheContacts($_SESSION['Id_Uti']);
-}
+$bdd = dbConnect();
+$utilisateur = $_SESSION['Id_Uti'];
 
-
-
+// Récupérer la liste des contacts récents via la procédure stockée
+$query = $bdd->prepare('CALL listeContact(:utilisateur)');
+$query->bindParam(':utilisateur', $utilisateur, PDO::PARAM_INT);
+$query->execute();
+$contacts = $query->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
+<div class="search-container">
+    <input type="text" id="searchContacts" onkeyup="filterContacts()" placeholder="Rechercher un contact...">
+</div>
+
+<div id="contactsList">
+    <?php
+    if (count($contacts) == 0) {
+        echo "<p>Aucun contact récent.</p>";
+    } else {
+        foreach ($contacts as $contact) {
+            echo '<form method="get" action="messagerie.php" class="contact-item">';
+            echo '<input type="hidden" name="Id_Interlocuteur" value="' . htmlspecialchars($contact['Id_Uti']) . '">';
+            echo '<button type="submit" class="contact-name">' . htmlspecialchars($contact['Nom_Uti']) . ' ' . htmlspecialchars($contact['Prenom_Uti']) . '</button>';
+            echo '</form>';
+        }
+    }
+    ?>
+</div>
+
+<script>
+    function filterContacts() {
+        let input = document.getElementById("searchContacts").value.toLowerCase();
+        let contacts = document.querySelectorAll(".contact-item");
+
+        contacts.forEach(contact => {
+            let name = contact.querySelector(".contact-name").innerText.toLowerCase();
+            if (name.includes(input)) {
+                contact.style.display = "block";
+            } else {
+                contact.style.display = "none";
+            }
+        });
+    }
+</script>
+
