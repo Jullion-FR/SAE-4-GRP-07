@@ -18,6 +18,9 @@ function afficheMessages($id_user, $id_other_people){
 
 function afficheMessage($message){
     $contenu = $message['Contenu_Msg'];
+    if (str_contains($contenu, 'Signalement de dysfonctionnement :')){
+        $contenu = str_replace('Signalement de dysfonctionnement :', '<strong>Signalement de dysfonctionnement :</strong>', $contenu);
+    }
     $date = $message['Date_Msg'];
     if ($message['Emetteur']==$_SESSION['Id_Uti']){
         echo('<div><div class="messageEnvoye message"><a>'.$contenu.'</a></div></div>');

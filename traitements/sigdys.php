@@ -10,9 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_POST['message'])) {
 
 
 
-// Check if connected
 if (isset($_SESSION['Id_Uti'])) {
-    $_POST['message'] = "<strong>Signalement de dysfonctionnement : </strong>".$_POST['message'];
+    $_POST['message'] = "Signalement de dysfonctionnement : ".$_POST['message'];
     $db->query('CALL broadcast_admin(?, ?);', 'is', [$_SESSION['Id_Uti'], $_POST['message']]);
 } else {
 
