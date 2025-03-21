@@ -39,18 +39,19 @@
     <div class="container">
         <div class="leftColumn">
             <a href="index.php"><img class="logo" href="index.php" src="img/logo.png"></a>
-            <div class="contenuBarre">
+            <br><br>
+            <div class="contenuBarre filtre-container">
 
 
                 <center>
-                    <p><strong><?php echo $htmlModifierProduit ?></strong></p>
+                    <p class="filtre-titre"><strong><?php echo $htmlModifierProduit ?></strong></p>
                     <form action="modify_product.php" method="post" enctype="multipart/form-data">
                         <label for="nomProduit"><?php echo $htmlProduitDeuxPoints ?> </label>
                         <input type="hidden" name="IdProductAModifier" value="<?php echo $Id_Produit_Update ?>">
-                        <input type="text" name="nomProduit" value="<?php echo htmlspecialchars($Nom_Produit) ?>" required><br><br>
+                        <input class="filtre-container-producteur" type="text" name="nomProduit" value="<?php echo htmlspecialchars($Nom_Produit) ?>" required><br><br>
 
                         <label for="categorie">Categorie :</label>
-                        <select name="categorie">
+                        <select class="filtre-container-producteur" name="categorie">
                             <option value="1" <?= $Id_Type_Produit == 1 ? "selected" : "" ?>>Fruits</option>
                             <option value="2" <?= $Id_Type_Produit == 2 ? "selected" : "" ?>>Légumes</option>
                             <option value="3" <?= $Id_Type_Produit == 3 ? "selected" : "" ?>>Graines</option>
@@ -87,7 +88,7 @@
 
                         <br><br>
                         <input type="file" name="image" accept=".png"><br><br>
-                        <input type="submit" value="<?php echo $htmlConfirmerModifProd ?>">
+                        <input class="filtre-container-producteur" type="submit" value="<?php echo $htmlConfirmerModifProd ?>">
                     </form>
 
                     <script>
@@ -132,13 +133,6 @@
                         }
                     }
                     </script>
-
-                    <br>
-                    <?php
-                    //echo '<img class="img-produit" src="/~inf2pj02/img_produit/' . $Id_Produit_Update  . '.png" alt="Image non fournie" style="width: 100%; height: 85%;" ><br>';
-                    ?>
-                    <br>
-                    <br>
                 </center>
 
             </div>
