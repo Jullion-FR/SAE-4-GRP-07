@@ -30,7 +30,8 @@
     <div class="container">
         <div class="leftColumn">
             <a href="index.php"><img class="logo" src="img/logo.png" alt="Logo"></a>
-            <div class="contenuBarre">
+            <br><br>
+            <div class="contenuBarre filtre-container">
                 <center>
                     <p><strong><?php echo $htmlFiltrerParDeuxPoints; ?></strong></p>
                 </center>
@@ -41,7 +42,7 @@
                     <label><input type="radio" name="typeCategorie" value="2" <?php if ($filtreCategorie == 2) echo 'checked'; ?>> <?php echo $htmlPRETE; ?></label><br>
                     <label><input type="radio" name="typeCategorie" value="4" <?php if ($filtreCategorie == 4) echo 'checked'; ?>> <?php echo $htmlLIVREE; ?></label><br>
                     <label><input type="radio" name="typeCategorie" value="3" <?php if ($filtreCategorie == 3) echo 'checked'; ?>> <?php echo $htmlANNULEE; ?></label><br><br>
-                    <center><input type="submit" value="<?php echo $htmlFiltrer; ?>"></center>
+                    <center><input class="filtre-container-producteur" type="submit" value="<?php echo $htmlFiltrer; ?>"></center>
                 </form>
             </div>
         </div>
@@ -79,7 +80,7 @@
 
                         if ($commande["Id_Statut"] != 4 && $commande["Id_Statut"] != 3) {
                             echo '<form action="change_status_commande.php" method="post" class="status-form">';
-                            echo '<select name="categorie">
+                            echo '<select class="commande-affiche-stat" name="categorie">
                                     <option value="">' . $htmlModifierStatut . '</option>
                                     <option value="1">' . $htmlENCOURS . '</option>
                                     <option value="2">' . $htmlPRETE . '</option>
@@ -87,7 +88,7 @@
                                     <option value="4">' . $htmlLIVREE . '</option>
                                   </select>';
                             echo '<input type="hidden" name="idCommande" value="' . $commande["Id_Commande"] . '">';
-                            echo '<button type="submit">' . $htmlConfirmer . '</button>';
+                            echo '<button class="commande-affiche-stat" type="submit">' . $htmlConfirmer . '</button>';
                             echo '</form>';
                         }
 
