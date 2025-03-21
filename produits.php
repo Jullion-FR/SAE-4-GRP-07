@@ -29,13 +29,13 @@ require "language.php";
     <div class="container">
         <div class="leftColumn">
             <a href="index.php"><img class="logo" href="index.php" src="img/logo.png"></a>
-            <div class="contenuBarre">
+            <div class="contenuBarre filtre-container">
                 <!-- some code -->
 
 
 
                 <center>
-                <p><strong><?php echo $htmlAjouterProduit; ?></strong></p>
+                <p class="filtre-titre"><strong><?php echo $htmlAjouterProduit; ?></strong></p>
                 <form action="insert_products.php" method="post" enctype="multipart/form-data">
                     <label for="pwd"><?php echo $htmlProduitDeuxPoints; ?> </label>
                     <input type="text" pattern="[A-Za-z0-9 ]{0,100}" name="nomProduit" placeholder="<?php echo $htmlNomDuProduit; ?>" required><br><br>
