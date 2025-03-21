@@ -31,11 +31,11 @@ require "language.php";
                 <?php if (isset($_SESSION["isAdmin"]) and ($_SESSION["isAdmin"] == true)) { ?>
                 <p><?php echo $htmlBroadcast ?></p>
                 <?php
-                    echo '<form method="post" action="broadcastuser.php" style="display:block; margin-bottom: 10px;">
-                            <input type="submit" value="' . $htmlbroadcastuser . '">
+                    echo '<form method="post" action="broadcastuser.php" style="display:block; margin-bottom: 10px;width:90%">
+                            <input class="filtre-container-producteur" type="submit" value="' . $htmlbroadcastuser . '">
                         </form>';
-                    echo '<form method="post" action="broadcastprod.php" style="display:block;">
-                            <input type="submit" value="' . $htmlbroadcastprod . '">
+                    echo '<form method="post" action="broadcastprod.php" style="display:block; width:90%">
+                            <input class="filtre-container-producteur" type="submit" value="' . $htmlbroadcastprod . '">
                         </form>';
                 }?>
                 <p><?php echo $htmlContactsRecentsDeuxPoints ?></p>
