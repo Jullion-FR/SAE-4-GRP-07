@@ -46,7 +46,7 @@
                     }
                 ?>
 
-                <input  style="margin-top: 30px; width: 30vw;" type="submit" value="<?= $htmlSeConnecter ?>">
+                <input  style="margin-top: 30px; width: 30vw;" type="submit" value="<?= $htmlEnvoyer ?>">
             
             </form>
 
