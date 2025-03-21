@@ -3,8 +3,6 @@ include_once __DIR__ . "/loadenv.php";
 ?>
 <?php
 
-      var_dump($_POST);
-
       $Id_Statut=htmlspecialchars($_POST["categorie"]);
       $Id_Commande=htmlspecialchars($_POST["idCommande"]);
 
@@ -22,9 +20,9 @@ include_once __DIR__ . "/loadenv.php";
         while ($iterateurProduit<$nbProduit){
           $Id_Produit=$returnQueryGetProduitCommande[$iterateurProduit]["Id_Produit"];
           $Qte_Produit_Commande=$returnQueryGetProduitCommande[$iterateurProduit]["Qte_Produit_Commande"];
-          $updateProduit="UPDATE PRODUIT SET Qte_Produit = Qte_Produit+".$Qte_Produit_Commande." WHERE Id_Produit = ".$Id_Produit .";";
-          $bdd->exec($updateProduit);
-
+          
+          $db->query('UPDATE PRODUIT SET Qte_Produit = Qte_Produit + ? WHERE Id_Produit = ?', 'ii', [$Qte_Produit_Commande, $Id_Produit]);
+          
           $iterateurProduit++;
         }
         //$bdd->query(('DELETE FROM CONTENU WHERE Id_Commande='.$Id_Commande.';'));
