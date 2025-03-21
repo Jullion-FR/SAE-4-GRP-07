@@ -2,15 +2,6 @@
 include_once __DIR__ . "/../loadenv.php";
 require "./language.php";
 
-function dbConnect()
-{
-    $utilisateur = $_ENV['DB_USER'];
-    $serveur = $_ENV['DB_HOST'];
-    $motdepasse = $_ENV['DB_PASS'];
-    $basededonnees = $_ENV['DB_NAME'];
-    return new PDO('mysql:host=' . $serveur . ';dbname=' . $basededonnees, $utilisateur, $motdepasse);
-}
-
 // Démarrer la session si elle n'est pas déjà active
 if (!isset($_SESSION)) {
     session_start();
@@ -22,14 +13,10 @@ if (!isset($_SESSION['Id_Uti'])) {
     exit;
 }
 
-$bdd = dbConnect();
 $utilisateur = $_SESSION['Id_Uti'];
 
 // Récupérer la liste des contacts récents via la procédure stockée
-$query = $bdd->prepare('CALL listeContact(:utilisateur)');
-$query->bindParam(':utilisateur', $utilisateur, PDO::PARAM_INT);
-$query->execute();
-$contacts = $query->fetchAll(PDO::FETCH_ASSOC);
+$contacts = $db->select('CALL listeContact(?);', 'i', [$utilisateur]);
 ?>
 
 <div class="search-container">
@@ -43,8 +30,8 @@ $contacts = $query->fetchAll(PDO::FETCH_ASSOC);
     } else {
         foreach ($contacts as $contact) {
             echo '<form method="get" action="messagerie.php" class="contact-item">';
-            echo '<input type="hidden" name="Id_Interlocuteur" value="' . htmlspecialchars($contact['Id_Uti']) . '">';
-            echo '<button type="submit" class="contact-name">' . htmlspecialchars($contact['Nom_Uti']) . ' ' . htmlspecialchars($contact['Prenom_Uti']) . '</button>';
+            echo '<input type="hidden" name="Id_Interlocuteur" value="' . ($contact['Id_Uti']) . '">';
+            echo '<button type="submit" class="contact-name">' . ($contact['Nom_Uti']) . ' ' . ($contact['Prenom_Uti']) . '</button>';
             echo '</form>';
         }
     }
