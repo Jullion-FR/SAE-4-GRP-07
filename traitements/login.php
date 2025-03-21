@@ -25,6 +25,7 @@ if ($_SESSION['test_pwd'] <= 0) {
 $redirect = $_POST['redirect'];
 if (empty($redirect)) {
     $redirect = "../index.php";
+
 }
 
 include_once __DIR__ . "/sublogin.php";
