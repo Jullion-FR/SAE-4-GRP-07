@@ -199,7 +199,9 @@
                             echo '<div class="square1" >';
                             echo $htmlProduitDeuxPoints, $nomProduit . "<br>";
                             echo $htmlTypeDeuxPoints, $typeProduit . "<br><br>";
-                            echo '<img class="img-produit" src="img_produit/' . $Id_Produit  . '.png" alt="' . $htmlImageNonFournie . '" style="width: 85%; height: 70%;" ><br>';
+                            $imagePath = 'img_produit/' . $Id_Produit . '.png';
+                            $version = file_exists($imagePath) ? filemtime($imagePath) : time();
+                            echo '<img class="img-produit" src="' . $imagePath . '?v=' . $version . '" alt="' . $htmlImageNonFournie . '" style="width: 85%; height: 70%;" ><br>'; 
                             echo $htmlPrix, $prixProduit . ' €/' . $unitePrixProduit . "<br>";
                             echo $htmlStockDeuxPoints, $QteProduit . ' ' . $Nom_Unite_Stock . "<br>";
                             if ($Id_Produit == $Id_Produit_Update) {
