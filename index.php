@@ -83,7 +83,7 @@ include_once __DIR__ . "/loadenv.php";
         curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        
+
         // Exécution de la requête
         $response = curl_exec($ch);
         // Vérifier s'il y a eu une erreur cURL
@@ -299,7 +299,7 @@ include_once __DIR__ . "/loadenv.php";
                             foreach ($result as $row) {
                                 if ($rayon >= 100) {
                                     echo '<a href="producteur.php?Id_Prod=' . $row["Id_Prod"] . '" class="square1"  >';
-                                    echo '<img src="img_producteur/' . $row["Id_Prod"]  . '.png" alt="' . $htmlImageUtilisateur . '" style="width: 100%; height: 85%;" onerror="this.onerror=null; this.src=\'./img/default_producteur.png\';" ><br>';
+                                    echo '<img loading="lazy" src="img_producteur/' . $row["Id_Prod"]  . '.png" alt="' . $htmlImageUtilisateur . '" style="width: 100%; height: 85%;" onerror="this.onerror=null; this.src=\'./img/default_producteur.png\';" ><br>';
                                     echo '' . $row["Prof_Prod"] . "<br>";
                                     echo $row["Prenom_Uti"] . " " . mb_strtoupper($row["Nom_Uti"]) . "<br>";
                                     echo $row["Adr_Uti"] . "<br>";
