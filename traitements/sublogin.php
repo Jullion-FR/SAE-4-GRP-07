@@ -1,9 +1,7 @@
 <?php
 function tryLogin(string $email, string $password, string $redirect){
-    include_once __DIR__ . "/../language.php";
-    include_once __DIR__ . "/../loadenv.php";
-    include_once __DIR__ . "/../database.php";
-    $db = new Database();
+    include __DIR__ . "/../language.php";
+    include __DIR__ . "/../loadenv.php";
 
     // Vérification de l'existence de l'utilisateur
     $user = $db->select("SELECT Id_Uti FROM UTILISATEUR WHERE Mail_Uti = ?", "s", [$email]);
