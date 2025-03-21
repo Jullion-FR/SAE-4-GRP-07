@@ -40,16 +40,16 @@ if (!empty($result) && (isset($result[0]["1"]) && $result[0]["1"] == 1 || isset(
     // Bon mot de passe
     $_SESSION['Mail_Uti'] = $email;
     $_SESSION['Id_Uti'] = $idUti;
-    
-    // Vérification du statut de producteur
-    $isProd = $db->select("SELECT COUNT(*) FROM producteur WHERE producteur.Id_Uti = ?;", "i", [$idUti]);
-    $_SESSION["isProd"] = $isProd[0]['COUNT(*)'] > 0;
-    
+
     // Vérification du statut d'administrateur
     $isAdmin = $db->select("SELECT COUNT(*) as count FROM ADMINISTRATEUR WHERE Id_Uti = ?", "i", [$idUti]);
     $_SESSION["isAdmin"] = $isAdmin[0]['count'] > 0;
     $_SESSION['erreur'] = '';
 
+    // Vérification du statut de producteur
+    $isProd = $db->select("SELECT COUNT(*) FROM PRODUCTEUR WHERE PRODUCTEUR.Id_Uti = ?;", "i", [$idUti]);
+    $_SESSION["isProd"] = $isProd[0]['COUNT(*)'] > 0;
+    
     $redirect = $_POST['redirect'];
     if (empty($redirect)) {
         $redirect = "../index.php";
