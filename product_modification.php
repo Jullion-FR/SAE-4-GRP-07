@@ -171,32 +171,31 @@
                         $Nom_Unite_Stock = $returnQueryGetProducts[$i]["Nom_Unite_Stock"];
 
                         if ($QteProduit >= 0) {
-                            echo '<style>';
-                            echo 'form { display: inline-block; margin-right: 1px; }'; // Ajustez la marge selon vos besoins
-                            echo 'button { display: inline-block; }';
-                            echo '</style>';
-
-                            echo '<div class="square1" >';
-                            echo $htmlProduitDeuxPoints, $nomProduit . "<br>";
-                            echo $htmlTypeDeuxPoints, $typeProduit . "<br><br>";
-                            $imagePath = 'img_produit/' . $Id_Produit . '.png';
-                            $version = file_exists($imagePath) ? filemtime($imagePath) : time();
-                            echo '<img class="img-produit" src="' . $imagePath . '?v=' . $version . '" alt="' . $htmlImageNonFournie . '" style="width: 85%; height: 70%;" ><br>'; 
-                            echo $htmlPrix, $prixProduit . ' €/' . $unitePrixProduit . "<br>";
-                            echo $htmlStockDeuxPoints, $QteProduit . ' ' . $Nom_Unite_Stock . "<br>";
-                            if ($Id_Produit == $Id_Produit_Update) {
-                                echo '<input type="submit" disabled="disabled" value="' . $htmlModification . '"/></button>';
-                            } else {
-                                echo '<form action="product_modification.php" method="post">';
-                                echo '<input type="hidden" name="modifyIdProduct" value="' . $Id_Produit . '">';
-                                echo '<button type="submit" name="action">' . $htmlModifier . '</button>';
-                                echo '</form>';
-                            }
-                            echo '<form action="delete_product.php" method="post">';
-                            echo '<input type="hidden" name="deleteIdProduct" value="' . $Id_Produit . '">';
-                            echo '<button type="submit" name="action">' . $htmlSupprimer . '</button>';
-                            echo '</form>';
-                            echo '</div> ';
+                            ?>
+                            <div class="square2">
+                                <p class="title"><?= $nomProduit; ?></p>
+                                <img class="img-produit" src="img_produit/<?php echo $Id_Produit; ?>.png" alt="<?php echo $htmlImageNonFournie; ?>">
+                                <p><span><?= $htmlTypeDeuxPoints ?></span> <?= $typeProduit ?></p>
+                                <p><span><?= $htmlPrix ?></span> <?= $prixProduit . ' €/' . $unitePrixProduit; ?></p>
+                                <p><span><?= $htmlStockDeuxPoints ?></span> <?=  $QteProduit . ' ' . $Nom_Unite_Stock; ?></p>
+                                <div class="btns">
+                                    <?php
+                                        if ($Id_Produit == $Id_Produit_Update) {
+                                            echo '<input type="submit" disabled="disabled" value="' . $htmlModification . '"/></button>';
+                                        } else {
+                                            echo '<form action="product_modification.php" method="post">';
+                                            echo '<input type="hidden" name="modifyIdProduct" value="' . $Id_Produit . '">';
+                                            echo '<button type="submit" name="action">' . $htmlModifier . '</button>';
+                                            echo '</form>';
+                                        }
+                                    ?>
+                                    <form action="delete_product.php" method="post">
+                                        <input type="hidden" name="deleteIdProduct" value="<?php echo $Id_Produit; ?>">
+                                        <button type="submit" name="action"><?php echo $htmlSupprimer; ?></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <?php
                         }
                         $i++;
                     }
