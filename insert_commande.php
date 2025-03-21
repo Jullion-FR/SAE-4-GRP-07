@@ -4,7 +4,7 @@ include_once __DIR__ . "/loadenv.php";
 if (!isset($_SESSION)) {
     session_start();
 }
-if (!(isset($_SESSION['Id_Uti'])) || !isset($_SESSION['isProd'])){
+if (!isset($_SESSION['Id_Uti']) || $_SESSION['isProd'] == false ){
     header("Location: index.php");
     exit();
 }

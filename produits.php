@@ -19,7 +19,8 @@ require "language.php";
     if (!isset($_SESSION)) {
         session_start();
     }
-    if (!(isset($_SESSION['Id_Uti'])) || !isset($_SESSION['isProd'])){
+    var_dump($_SESSION);
+    if (!isset($_SESSION['Id_Uti']) || $_SESSION['isProd'] == false ){
         header("Location: index.php");
         exit();
     }

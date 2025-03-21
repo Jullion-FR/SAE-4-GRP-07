@@ -15,7 +15,7 @@
         if(!isset($_SESSION)){
             session_start();
         }
-        if (!isset($_SESSION['Id_Uti']) || !isset($_SESSION['isAdmin'])){
+        if (!isset($_SESSION['isAdmin']) || $_SESSION["isAdmin"] == false){
             header("Location: index.php");
             exit();
         }
