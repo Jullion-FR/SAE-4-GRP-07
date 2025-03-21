@@ -71,7 +71,7 @@ if (!isset($_SESSION["language"])) {
             if (isset($_SESSION["isProd"]) && ($_SESSION["isProd"] == true)) {
                 $producerId = getProducerIdByEmail($_SESSION['Mail_Uti']);
 
-                echo '<img src="img_producteur/' . $producerId . '.png" alt="Profil producteur">';
+                echo '<img src="img_producteur/' . $producerId . '.png" alt="Profil producteur" onerror="this.onerror=null; this.src=\'./img/default_producteur.png\';">';
         
             } else { ?>
             <img src="img/connexion.svg" alt="Profil producteur">
