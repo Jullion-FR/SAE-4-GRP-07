@@ -94,7 +94,7 @@
                 <textarea id="motif" class="popup-textarea" placeholder="Entrez votre motif"></textarea>
             </div>
         </div>
-        <form action="/traitements/del_acc.php" method="post">
+        <form action="../traitements/del_acc.php" method="post">
             <input type="hidden" name="targetID" id="popup-targetID">
             <button type="submit" class="popup-button">
                 <?php echo "$htmlConfirmer $htmlSupprimerCompte" ?>
