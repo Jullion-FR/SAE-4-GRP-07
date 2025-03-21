@@ -33,6 +33,7 @@ require "language.php";
     <div class="container">
         <div class="leftColumn">
             <a href="index.php"><img class="logo" href="index.php" src="img/logo.png"></a>
+            <br><br>
             <div class="contenuBarre filtre-container">
                 <!-- some code -->
 
@@ -42,9 +43,9 @@ require "language.php";
                 <p class="filtre-titre"><strong><?php echo $htmlAjouterProduit; ?></strong></p>
                 <form action="insert_products.php" method="post" enctype="multipart/form-data">
                     <label for="pwd"><?php echo $htmlProduitDeuxPoints; ?> </label>
-                    <input type="text" pattern="[A-Za-z0-9 ]{0,100}" name="nomProduit" placeholder="<?php echo $htmlNomDuProduit; ?>" required><br><br>
+                    <input class="filtre-container-producteur" type="text" pattern="[A-Za-z0-9 ]{0,100}" name="nomProduit" placeholder="<?php echo $htmlNomDuProduit; ?>" required><br><br>
 
-                    <select name="categorie">
+                    <select class="filtre-container-producteur" name="categorie">
                         <option value="6"><?php echo $htmlAnimaux; ?></option>
                         <option value="1"><?php echo $htmlFruit; ?></option>
                         <option value="3"><?php echo $htmlGraine; ?></option>
@@ -82,7 +83,7 @@ require "language.php";
                     <br>
                     <br>
                     <br>
-                    <input type="submit" value="<?php echo $htmlAjouterProduit; ?>">
+                    <input class="filtre-container-producteur" type="submit" value="<?php echo $htmlAjouterProduit; ?>">
                 </form>
 
                 <script>
