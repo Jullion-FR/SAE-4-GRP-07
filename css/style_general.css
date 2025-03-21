@@ -495,7 +495,7 @@ body{
 }
 
 .squareProduct input[type="number"] {
-    width: 50px;
+    width: 50%;
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -712,4 +712,18 @@ body{
 }
 .admin-btn:active{
     transform: scale(0.9);
+}
+
+
+
+/*Style des inputs et boutons*/
+
+.filtre-container-accueil select, .filtre-container-accueil input,.filtre-container-producteur, .square1 form button{
+    padding: 8px;
+    width: 100%;
+    border: 1px solid #4CAF50;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+    outline: none;
 }

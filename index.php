@@ -145,7 +145,7 @@ include_once __DIR__ . "/loadenv.php";
         <div class="leftColumn">
             <a style="outline: none;" href="index.php"><img class="logo" href="index.php" src="img/logo.png"></a>
             <br><br>
-            <div class="contenuBarre filtre-container">
+            <div class="contenuBarre filtre-container filtre-container-accueil">
                 <center><p class="filtre-titre"><strong><?php echo $htmlFiltrerParDeuxPoints; ?></strong></p></center>
                 <form method="get" action="index.php">
                     <label><?php echo $htmlParProfession ?></label>
@@ -165,7 +165,7 @@ include_once __DIR__ . "/loadenv.php";
                     <br>
                     <input type="text" name="rechercheVille" pattern="[A-Za-z0-9 ]{0,100}" value="<?php echo $rechercheVille ?>" placeholder="<?php echo $htmlVille; ?>">
                     <br>
-                    <br><?php echo '- Par Producteur' ?>
+                    <br><?php echo 'Producteur :' ?>
                     <br>
                     <input type="text" name="prodNom" pattern="[A-Za-z]{0,100}" value="<?php echo $prodNom ?>" placeholder="<?php echo 'Nom'; ?>">
                     <input type="text" name="prodPrenom" pattern="[A-Za-z]{0,100}" value="<?php echo $prodPrenom ?>" placeholder="<?php echo 'Prénom'; ?>">
@@ -178,7 +178,7 @@ include_once __DIR__ . "/loadenv.php";
                         $Adr_Uti_En_Cours = $returnQueryAdrUti[0]["Adr_Uti"];
                     ?>
                         <br>
-                        <br><?php echo $htmlAutourDeChezMoi . ' (' . $Adr_Uti_En_Cours . ')'; ?>
+                        <br><?php echo $htmlAutourDeChezMoi . ' <br/><em>' . $Adr_Uti_En_Cours. '</em>';?>
                         <br>
                         <br>
                         <input name="rayon" type="range" value="<?php echo $rayon; ?>" min="1" max="100" step="1" onchange="AfficheRange2(this.value)" onkeyup="AfficheRange2(this.value)">
