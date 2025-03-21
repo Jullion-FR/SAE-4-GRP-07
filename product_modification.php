@@ -58,7 +58,7 @@
                         <input type="hidden" name="IdProductAModifier" value="<?php echo $Id_Produit_Update ?>">
                         <input type="text" name="nomProduit" value="<?php echo htmlspecialchars($Nom_Produit) ?>" required><br><br>
 
-                        <label for="categorie"><?php echo $htmlCategorie ?> :</label>
+                        <label for="categorie">Categorie :</label>
                         <select name="categorie">
                             <option value="1" <?= $Id_Type_Produit == 1 ? "selected" : "" ?>>Fruits</option>
                             <option value="2" <?= $Id_Type_Produit == 2 ? "selected" : "" ?>>Légumes</option>

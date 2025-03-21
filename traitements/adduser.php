@@ -56,6 +56,6 @@ if ($_POST['type'] == 'prod'){
 
 }
 
-// Redirect to index
-header('Location: ../index.php');
-exit;
+// Login
+require_once __DIR__ . "/sublogin.php";
+tryLogin($email, $password, "../index.php");

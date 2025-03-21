@@ -64,18 +64,6 @@ include_once __DIR__ . "/loadenv.php";
         $_SESSION["language"] = "fr";
     }
 
-
-    // récupération adresse du client
-    function dbConnect()
-    {
-        $utilisateur = $_ENV['DB_USER'];
-        $serveur = $_ENV['DB_HOST'];
-        $motdepasse = $_ENV['DB_PASS'];
-        $basededonnees = $_ENV['DB_NAME'];
-        // Connect to database
-        return new PDO('mysql:host=' . $serveur . ';dbname=' . $basededonnees, $utilisateur, $motdepasse);
-    }
-
     function latLongGps($url)
     {
         // Configuration de la requête cURL
@@ -176,11 +164,7 @@ include_once __DIR__ . "/loadenv.php";
                     <br>
                     <?php
                    
-                    $mabdd = dbConnect();
-                    $queryAdrUti = $mabdd->prepare(('SELECT Adr_Uti FROM UTILISATEUR WHERE Id_Uti= :utilisateur;'));
-                    $queryAdrUti->bindParam(":utilisateur", $utilisateur, PDO::PARAM_STR);
-                    $queryAdrUti->execute();
-                    $returnQueryAdrUti = $queryAdrUti->fetchAll(PDO::FETCH_ASSOC);
+                    $returnQueryAdrUti = $db->select('SELECT Adr_Uti FROM UTILISATEUR WHERE Id_Uti = ?', 'i', [$utilisateur]);
 
                     if (count($returnQueryAdrUti) > 0) {
                         $Adr_Uti_En_Cours = $returnQueryAdrUti[0]["Adr_Uti"];
