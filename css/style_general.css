@@ -654,3 +654,16 @@ body{
 .admin-btn:active{
     transform: scale(0.9);
 }
+
+
+
+/*Style des inputs et boutons*/
+
+.leftColumn select, .leftColumn input, .square1 form button{
+    padding: 8px;
+    border: 1px solid #4CAF50;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+    outline: none;
+}
