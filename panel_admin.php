@@ -51,11 +51,22 @@ $utilisateur = htmlspecialchars($_SESSION["Id_Uti"]);
                     $nom = addslashes($row["Nom_Uti"]);
                     $adresse = addslashes($row["Adr_Uti"]);
                     $profession = isset($row["Prof_Prod"]) ? addslashes($row["Prof_Prod"]) : "";
-                    $imageSrc = file_exists("img_producteur/".$row["Id_Prod"].".png") ? "/img_producteur/".$row["Id_Prod"].".png" : "/img/default_producteur.png";
-                    ?>
+                    $filename = "img_producteur/".$row["Id_Prod"].".png";
+                    $imageSrc = file_exists($filename) ? $filename : "img/default_producteur.png";?>
+                        <?php
+                        $isAdmin = $db->select("SELECT * FROM ADMINISTRATEUR WHERE Id_Uti = ?", 'i', [$targetID]);
+                        $adminBtnText = count($isAdmin) > 0 ? "Rétrograder en membre" : "Promouvoir en admin";
+                        ?>
                         <div class="squarePanelAdmin">
-                            <button onclick="openPopup('<?= $targetID ?>', '<?= $prenom ?>', '<?= $nom ?>', '<?= $adresse ?>', '<?= $profession ?>', '<?= $imageSrc ?>')"><img src="./img/trash.svg" alt="Supprimer le compte"></button>
-                            
+                            <button onclick="openPopup('<?= $targetID ?>', '<?= $prenom ?>', '<?= $nom ?>', '<?= $adresse ?>', '<?= $profession ?>', '<?= $imageSrc ?>')">
+                                <img src="./img/trash.svg" alt="Supprimer le compte">
+                            </button>
+
+                            <form action="traitements/toggle_admin.php" method="post" style="display:inline;">
+                                <input type="hidden" name="id_uti" value="<?= $targetID ?>">
+                                <input type="submit" value="<?= $adminBtnText ?>" class="admin-btn">
+                            </form>
+
                             <img src="<?= $imageSrc ?>" alt="Photo de profil" onerror="this.onerror=null; this.src='./img/default_producteur.png';">
                             <p><span><?= $htmlNomDeuxPoints ?></span> <?= $nom ?></p>
                             <p><span><?= $htmlPrénomDeuxPoints ?></span> <?= $prenom ?></p>
@@ -70,11 +81,11 @@ $utilisateur = htmlspecialchars($_SESSION["Id_Uti"]);
             </div>
 
             <!-- UTILISATEURS -->
-            <p class="admin-title">Utilisateurs</p>
+            <p class="admin-title">Clients</p>
             <div class="gallery-container">
 
                 <?php
-                $rows = $db->select('SELECT UTILISATEUR.Id_Uti, UTILISATEUR.Prenom_Uti, UTILISATEUR.Nom_Uti, UTILISATEUR.Mail_Uti, UTILISATEUR.Adr_Uti FROM UTILISATEUR WHERE UTILISATEUR.Id_Uti NOT IN (SELECT PRODUCTEUR.Id_Uti FROM PRODUCTEUR) AND UTILISATEUR.Id_Uti NOT IN (SELECT ADMINISTRATEUR.Id_Uti FROM ADMINISTRATEUR) AND UTILISATEUR.Id_Uti<>0;', '', []);
+                $rows = $db->select('SELECT UTILISATEUR.Id_Uti, UTILISATEUR.Prenom_Uti, UTILISATEUR.Nom_Uti, UTILISATEUR.Mail_Uti, UTILISATEUR.Adr_Uti FROM UTILISATEUR WHERE UTILISATEUR.Id_Uti NOT IN (SELECT PRODUCTEUR.Id_Uti FROM PRODUCTEUR) AND UTILISATEUR.Id_Uti<>0;', '', []);
                 
                 foreach($rows as $row){
 
@@ -85,8 +96,19 @@ $utilisateur = htmlspecialchars($_SESSION["Id_Uti"]);
                     $adresse = addslashes($row["Adr_Uti"]);
 
                     ?>
+                        <?php
+                        $isAdmin = $db->select("SELECT * FROM ADMINISTRATEUR WHERE Id_Uti = ?", 'i', [$targetID]);
+                        $adminBtnText = count($isAdmin) > 0 ? "Rétrograder en membre" : "Promouvoir en admin";
+                        ?>
                         <div class="squarePanelAdmin">
-                            <button onclick="openPopup('<?= $targetID ?>', '<?= $prenom ?>', '<?= $nom ?>', '<?= $adresse ?>', '', './img/connexion.svg')"><img src="./img/trash.svg" alt="Supprimer le compte"></button>
+                            <button onclick="openPopup('<?= $targetID ?>', '<?= $prenom ?>', '<?= $nom ?>', '<?= $adresse ?>', '', './img/connexion.svg')">
+                                <img src="./img/trash.svg" alt="Supprimer le compte">
+                            </button>
+
+                            <form action="traitements/toggle_admin.php" method="post" style="display:inline;">
+                                <input type="hidden" name="id_uti" value="<?= $targetID ?>">
+                                <input type="submit" value="<?= $adminBtnText ?>" class="admin-btn">
+                            </form>
 
                             <p><span><?= $htmlNomDeuxPoints ?></span> <?= $nom ?></p>
                             <p><span><?= $htmlPrénomDeuxPoints ?></span> <?= $prenom ?></p>

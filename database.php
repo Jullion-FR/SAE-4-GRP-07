@@ -20,7 +20,7 @@ class Database
         $conn = $this->connect();
 
         $stmt = $conn->prepare($sql);
-        Database::cleanArray($args);
+        
         if (!empty($types))
         {
             $stmt->bind_param($types, ...$args);
@@ -38,7 +38,7 @@ class Database
 
         $conn = $this->connect();
         $stmt = $conn->prepare("CALL " . $procedureCall);
-        Database::cleanArray($args);
+        
         if (!empty($types))
         {
             $stmt->bind_param($types, ...$args);
@@ -60,7 +60,6 @@ class Database
     {
         $conn = $this->connect();
 
-        Database::cleanArray($args);
         $stmt = $conn->prepare($sql);
         if (!empty($types))
         {
@@ -76,19 +75,11 @@ class Database
         return Database::cleanResults($data);
     }
 
-    private static function cleanArray(array $strings): array
-    {
-        return array_map('htmlspecialchars', $strings);
-    }
-
     private static function cleanResults(array $results): array
     {
-        foreach ($results as $row){
-            foreach ($row as $key => $value){
-                $row[$key] = htmlspecialchars($value);
-            }
-        }
-        return $results;
+        return array_map(function ($row) {
+            return array_map('htmlspecialchars', $row);
+        }, $results);
     }
 
 }

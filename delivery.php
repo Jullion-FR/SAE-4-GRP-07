@@ -18,16 +18,7 @@
     if (!isset($_SESSION)) {
         session_start();
     }
-    function dbConnect()
-    {
-        $utilisateur = $_ENV['DB_USER'];
-        $serveur = $_ENV['DB_HOST'];
-        $motdepasse = $_ENV['DB_PASS'];
-        $basededonnees = $_ENV['DB_NAME'];
-        return new PDO('mysql:host=' . $serveur . ';dbname=' . $basededonnees, $utilisateur, $motdepasse);
-    }
-
-    $bdd = dbConnect();
+  
     $utilisateur = htmlspecialchars($_SESSION["Id_Uti"]);
     $filtreCategorie = isset($_POST["typeCategorie"]) ? htmlspecialchars($_POST["typeCategorie"]) : 0;
     ?>
@@ -61,21 +52,18 @@
                           INNER JOIN info_producteur ON COMMANDE.Id_Prod=info_producteur.Id_Prod 
                           INNER JOIN STATUT ON COMMANDE.Id_Statut=STATUT.Id_Statut 
                           INNER JOIN UTILISATEUR ON COMMANDE.Id_Uti=UTILISATEUR.Id_Uti 
-                          WHERE info_producteur.Id_Uti = :utilisateur';
-
+                          WHERE info_producteur.Id_Uti = ?';
+                $requestTypes = 'i';
+                $requestArgs = [$utilisateur];
                 if ($filtreCategorie != 0) {
-                    $query .= ' AND COMMANDE.Id_Statut = :filtreCategorie';
+                    $query .= ' AND COMMANDE.Id_Statut = ?';
+                    $requestTypes .= 'i';
+                    array_push($requestArgs, $filtreCategorie);
                 }
 
                 $query .= ' ORDER BY COMMANDE.Id_Commande DESC';
 
-                $queryGetCommande = $bdd->prepare($query);
-                $queryGetCommande->bindParam(':utilisateur', $utilisateur, PDO::PARAM_INT);
-                if ($filtreCategorie != 0) {
-                    $queryGetCommande->bindParam(':filtreCategorie', $filtreCategorie, PDO::PARAM_INT);
-                }
-                $queryGetCommande->execute();
-                $returnQueryGetCommande = $queryGetCommande->fetchAll(PDO::FETCH_ASSOC);
+                $returnQueryGetCommande = $db->select($query, $requestTypes, $requestArgs);
 
                 if (count($returnQueryGetCommande) == 0) {
                     echo $htmlAucuneCommande;
@@ -101,11 +89,8 @@
 
                         $queryProduit = 'SELECT Nom_Produit, Qte_Produit_Commande, Nom_Unite_Prix 
                                          FROM produits_commandes 
-                                         WHERE Id_Commande = :idCommande';
-                        $queryGetProduitCommande = $bdd->prepare($queryProduit);
-                        $queryGetProduitCommande->bindParam(':idCommande', $commande["Id_Commande"], PDO::PARAM_INT);
-                        $queryGetProduitCommande->execute();
-                        $produitsCommande = $queryGetProduitCommande->fetchAll(PDO::FETCH_ASSOC);
+                                         WHERE Id_Commande = ?';
+                        $produitsCommande = $db->select($queryProduit, 'i', [$commande["Id_Commande"]]);
 
                         echo '<div class="produits">';
                         foreach ($produitsCommande as $produit) {

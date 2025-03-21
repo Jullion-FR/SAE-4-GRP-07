@@ -54,17 +54,6 @@ include_once __DIR__ . "/loadenv.php";
         $_SESSION["language"] = "fr";
     }
 
-    // récupération adresse du client
-    function dbConnect()
-    {
-        $utilisateur = $_ENV['DB_USER'];
-        $serveur = $_ENV['DB_HOST'];
-        $motdepasse = $_ENV['DB_PASS'];
-        $basededonnees = $_ENV['DB_NAME'];
-        // Connect to database
-        return new PDO('mysql:host=' . $serveur . ';dbname=' . $basededonnees, $utilisateur, $motdepasse);
-    }
-
     function latLongGps($url)
     {
         // Configuration de la requête cURL

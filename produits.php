@@ -15,25 +15,14 @@ require "language.php";
 <body>
 
     <?php
-    function dbConnect()
-    {
-        $utilisateur = $_ENV['DB_USER'];
-        $serveur = $_ENV['DB_HOST'];
-        $motdepasse = $_ENV['DB_PASS'];
-        $basededonnees = $_ENV['DB_NAME'];
-        return new PDO('mysql:host=' . $serveur . ';dbname=' . $basededonnees, $utilisateur, $motdepasse);
-    }
+
     if (!isset($_SESSION)) {
         session_start();
     }
     $utilisateur = $_SESSION["Id_Uti"];
     htmlspecialchars($utilisateur);
 
-    $bdd = dbConnect();
-    $queryIdProd = $bdd->prepare(('SELECT Id_Prod FROM PRODUCTEUR WHERE Id_Uti= :Id_Uti ;'));
-    $queryIdProd->bindParam(":Id_Uti", $utilisateur, PDO::PARAM_STR);
-    $queryIdProd->execute();
-    $returnQueryIdProd = $queryIdProd->fetchAll(PDO::FETCH_ASSOC);
+    $returnQueryIdProd = $db->select('SELECT Id_Prod FROM PRODUCTEUR WHERE Id_Uti= ?;', 's', [$utilisateur]);
     $Id_Prod = $returnQueryIdProd[0]["Id_Prod"];
     ?>
 
@@ -121,11 +110,7 @@ require "language.php";
             </p>
             <div class="gallery-container">
                 <?php
-                $bdd = dbConnect();
-                $queryGetProducts = $bdd->prepare(('SELECT Id_Produit, Nom_Produit, Desc_Type_Produit, Prix_Produit_Unitaire, Nom_Unite_Prix, Qte_Produit, Nom_Unite_Stock FROM Produits_d_un_producteur WHERE Id_Prod= :Id_Prod ;'));
-                $queryGetProducts->bindParam(":Id_Prod", $Id_Prod, PDO::PARAM_STR);
-                $queryGetProducts->execute();
-                $returnQueryGetProducts = $queryGetProducts->fetchAll(PDO::FETCH_ASSOC);
+                $returnQueryGetProducts = $db->select('SELECT Id_Produit, Nom_Produit, Desc_Type_Produit, Prix_Produit_Unitaire, Nom_Unite_Prix, Qte_Produit, Nom_Unite_Stock FROM Produits_d_un_producteur WHERE Id_Prod= ?;', 'i', [$Id_Prod]);
 
                 $i = 0;
                 if (count($returnQueryGetProducts) == 0) {

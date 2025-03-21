@@ -629,3 +629,28 @@ body{
     opacity: 0.7;
     cursor: not-allowed;
 }
+
+.admin-btn {
+    position: absolute;
+    top: 20px;
+    right: 80px;
+    background-color: #df141431;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 50px;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+
+.admin-btn:hover{
+    transform: scale(1.1);
+}
+.admin-btn:active{
+    transform: scale(0.9);
+}

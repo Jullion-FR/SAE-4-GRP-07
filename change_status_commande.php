@@ -2,16 +2,6 @@
 include_once __DIR__ . "/loadenv.php";
 ?>
 <?php
-     function dbConnect(){
-      $utilisateur = $_ENV['DB_USER'];
-      $serveur = $_ENV['DB_HOST'];
-      $motdepasse = $_ENV['DB_PASS'];
-      $basededonnees = $_ENV['DB_NAME'];
-      // Connect to database
-      return new PDO('mysql:host=' . $serveur . ';dbname=' . $basededonnees, $utilisateur, $motdepasse);
-      }
-      $bdd=dbConnect();
-      var_dump($_POST);
 
       $Id_Statut=htmlspecialchars($_POST["categorie"]);
       $Id_Commande=htmlspecialchars($_POST["idCommande"]);
@@ -22,24 +12,17 @@ include_once __DIR__ . "/loadenv.php";
       }
       else if ($Id_Statut==3){
         // annulation donc on rend les produits et le producteur ne voit plus la commande
-        $updateCommande = "UPDATE COMMANDE SET Id_Statut = :Id_Statut WHERE Id_Commande = :Id_Commande";
-        $bindUpdateCommande = $bdd->prepare($updateCommande);
-        $bindUpdateCommande->bindParam(':Id_Statut', $Id_Statut, PDO::PARAM_INT); 
-        $bindUpdateCommande->bindParam(':Id_Commande', $Id_Commande, PDO::PARAM_INT);
-        $bindUpdateCommande->execute();
+        $db->query("UPDATE COMMANDE SET Id_Statut = ? WHERE Id_Commande = ?", 'ii', [$Id_Statut, $Id_Commande]);
 
-        $queryGetProduitCommande = $bdd->prepare(('SELECT Id_Produit, Qte_Produit_Commande FROM produits_commandes  WHERE Id_Commande = :Id_Commande;'));
-        $queryGetProduitCommande->bindParam(":Id_Commande", $Id_Commande, PDO::PARAM_INT);
-        $queryGetProduitCommande->execute();
-        $returnQueryGetProduitCommande = $queryGetProduitCommande->fetchAll(PDO::FETCH_ASSOC);
+        $returnQueryGetProduitCommande = $db->select('SELECT Id_Produit, Qte_Produit_Commande FROM produits_commandes  WHERE Id_Commande = ?', 'i', [$Id_Commande]);
         $iterateurProduit=0;
         $nbProduit=count($returnQueryGetProduitCommande);
         while ($iterateurProduit<$nbProduit){
           $Id_Produit=$returnQueryGetProduitCommande[$iterateurProduit]["Id_Produit"];
           $Qte_Produit_Commande=$returnQueryGetProduitCommande[$iterateurProduit]["Qte_Produit_Commande"];
-          $updateProduit="UPDATE PRODUIT SET Qte_Produit = Qte_Produit+".$Qte_Produit_Commande." WHERE Id_Produit = ".$Id_Produit .";";
-          $bdd->exec($updateProduit);
-
+          
+          $db->query('UPDATE PRODUIT SET Qte_Produit = Qte_Produit + ? WHERE Id_Produit = ?', 'ii', [$Qte_Produit_Commande, $Id_Produit]);
+          
           $iterateurProduit++;
         }
         //$bdd->query(('DELETE FROM CONTENU WHERE Id_Commande='.$Id_Commande.';'));
@@ -47,11 +30,7 @@ include_once __DIR__ . "/loadenv.php";
       }
       else{
         //reste, on insert
-        $updateCommande="UPDATE COMMANDE SET Id_Statut = :Id_Statut WHERE Id_Commande = :Id_Commande";
-        $bindUpdateCommande = $bdd->prepare($updateCommande);
-        $bindUpdateCommande->bindParam(':Id_Statut', $Id_Statut, PDO::PARAM_INT); 
-        $bindUpdateCommande->bindParam(':Id_Commande', $Id_Commande, PDO::PARAM_INT);
-        $bindUpdateCommande->execute();
+        $db->query("UPDATE COMMANDE SET Id_Statut = ? WHERE Id_Commande = ?", 'ii', [$Id_Statut, $Id_Commande]);
         /*echo '<br>';
         echo $updateCommande;
         echo '<br>';

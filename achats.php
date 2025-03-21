@@ -17,15 +17,6 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-function dbConnect() {
-    $utilisateur = $_ENV['DB_USER'];
-    $serveur = $_ENV['DB_HOST'];
-    $motdepasse = $_ENV['DB_PASS'];
-    $basededonnees = $_ENV['DB_NAME'];
-    return new PDO('mysql:host=' . $serveur . ';dbname=' . $basededonnees, $utilisateur, $motdepasse);
-}
-
-$bdd = dbConnect();
 $utilisateur = htmlspecialchars($_SESSION["Id_Uti"]);
 $filtreCategorie = isset($_POST["typeCategorie"]) ? htmlspecialchars($_POST["typeCategorie"]) : 0;
 ?>
@@ -106,18 +97,6 @@ $filtreCategorie = isset($_POST["typeCategorie"]) ? htmlspecialchars($_POST["typ
 
             $returnQueryGetCommande = $db->select($query, $types, $values);
 
-            /*
-            $queryGetCommande = $bdd->prepare($query);
-
-
-            $queryGetCommande->bindParam(":utilisateur", $utilisateur, PDO::PARAM_STR);
-            if ($filtreCategorie != 0) {
-                $queryGetCommande->bindParam(":filtreCategorie", $filtreCategorie, PDO::PARAM_STR);
-            }
-            $queryGetCommande->execute();
-            $returnQueryGetCommande = $queryGetCommande->fetchAll(PDO::FETCH_ASSOC);
-            */
-
 
 
 
@@ -133,15 +112,6 @@ $filtreCategorie = isset($_POST["typeCategorie"]) ? htmlspecialchars($_POST["typ
                     echo '<h3>Commande n°' . $commande["Id_Commande"] . ' chez ' . $commande["Prenom_Uti"] . ' ' . mb_strtoupper($commande["Nom_Uti"]) . '</h3>';
                     echo '<p class="statut">Statut : <strong>' . mb_strtoupper($commande["Desc_Statut"]) . '</strong></p>';
 
-
-
-                    /*$queryProduit = 'SELECT Nom_Produit, Qte_Produit_Commande, Nom_Unite_Prix, Prix_Produit_Unitaire 
-                                     FROM produits_commandes 
-                                     WHERE Id_Commande = :idCommande';
-                    $queryGetProduitCommande = $bdd->prepare($queryProduit);
-                    $queryGetProduitCommande->bindParam(':idCommande', $commande["Id_Commande"], PDO::PARAM_INT);
-                    $queryGetProduitCommande->execute();
-                    $produitsCommande = $queryGetProduitCommande->fetchAll(PDO::FETCH_ASSOC);*/
 
 
                     $produitsCommande = $db->select("SELECT Nom_Produit, Qte_Produit_Commande, Nom_Unite_Prix, Prix_Produit_Unitaire 

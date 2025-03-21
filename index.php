@@ -64,18 +64,6 @@ include_once __DIR__ . "/loadenv.php";
         $_SESSION["language"] = "fr";
     }
 
-
-    // récupération adresse du client
-    function dbConnect()
-    {
-        $utilisateur = $_ENV['DB_USER'];
-        $serveur = $_ENV['DB_HOST'];
-        $motdepasse = $_ENV['DB_PASS'];
-        $basededonnees = $_ENV['DB_NAME'];
-        // Connect to database
-        return new PDO('mysql:host=' . $serveur . ';dbname=' . $basededonnees, $utilisateur, $motdepasse);
-    }
-
     function latLongGps($url)
     {
         // Configuration de la requête cURL
@@ -86,8 +74,16 @@ include_once __DIR__ . "/loadenv.php";
         $customUserAgent = "LEtalEnLigne/1.0"; // Remplacez par le nom et la version de votre application
         curl_setopt($ch, CURLOPT_USERAGENT, $customUserAgent);
         // Ajout du Referrer
-        $customReferrer = "https://proxy.univ-lemans.fr:3128"; // Remplacez par l'URL de votre application
+        $customReferrer = "http://proxy.univ-lemans.fr:3128"; // Remplacez par l'URL de votre application
         curl_setopt($ch, CURLOPT_REFERER, $customReferrer);
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_PROXY, 'proxy.univ-lemans.fr');
+        curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
+        curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        
         // Exécution de la requête
         $response = curl_exec($ch);
         // Vérifier s'il y a eu une erreur cURL
@@ -176,11 +172,7 @@ include_once __DIR__ . "/loadenv.php";
                     <br>
                     <?php
                    
-                    $mabdd = dbConnect();
-                    $queryAdrUti = $mabdd->prepare(('SELECT Adr_Uti FROM UTILISATEUR WHERE Id_Uti= :utilisateur;'));
-                    $queryAdrUti->bindParam(":utilisateur", $utilisateur, PDO::PARAM_STR);
-                    $queryAdrUti->execute();
-                    $returnQueryAdrUti = $queryAdrUti->fetchAll(PDO::FETCH_ASSOC);
+                    $returnQueryAdrUti = $db->select('SELECT Adr_Uti FROM UTILISATEUR WHERE Id_Uti = ?', 'i', [$utilisateur]);
 
                     if (count($returnQueryAdrUti) > 0) {
                         $Adr_Uti_En_Cours = $returnQueryAdrUti[0]["Adr_Uti"];
