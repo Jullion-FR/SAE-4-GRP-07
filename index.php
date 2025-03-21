@@ -76,6 +76,14 @@ include_once __DIR__ . "/loadenv.php";
         // Ajout du Referrer
         $customReferrer = "http://proxy.univ-lemans.fr:3128"; // Remplacez par l'URL de votre application
         curl_setopt($ch, CURLOPT_REFERER, $customReferrer);
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_PROXY, 'proxy.univ-lemans.fr');
+        curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
+        curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        
         // Exécution de la requête
         $response = curl_exec($ch);
         // Vérifier s'il y a eu une erreur cURL
