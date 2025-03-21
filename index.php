@@ -145,7 +145,7 @@ include_once __DIR__ . "/loadenv.php";
         <div class="leftColumn">
             <a style="outline: none;" href="index.php"><img class="logo" href="index.php" src="img/logo.png"></a>
             <br><br>
-            <div class="contenuBarre filtre-container">
+            <div class="contenuBarre filtre-container filtre-container-accueil">
                 <center><p class="filtre-titre"><strong><?php echo $htmlFiltrerParDeuxPoints; ?></strong></p></center>
                 <form method="get" action="index.php">
                     <label><?php echo $htmlParProfession ?></label>

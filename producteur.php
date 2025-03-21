@@ -67,18 +67,20 @@
     <div class="container">
         <div class="leftColumn">
             <a href="index.php"><img class="logo" href="index.php" src="img/logo.png"></a>
-            <div class="contenuBarre">
+            <br><br>
+            <div class="contenuBarre filtre-container">
 
                 <center>
-                    <p><strong><?php echo $htmlRechercherPar; ?></strong></p>
+                    <p class="filtre-titre"><strong><?php echo $htmlRechercherPar; ?></strong></p>
                 </center>
                 <br>
                 <form action="producteur.php" method="get">
-                    <?php echo $htmlTiretNom; ?>
-                    <input type="text" name="rechercheNom" value="<?php echo $rechercheNom ?>" placeholder="<?php echo $htmlNom; ?>">
+                    Nom : 
+                    <br>
+                    <input class="filtre-container-producteur" type="text" name="rechercheNom" value="<?php echo $rechercheNom ?>" placeholder="<?php echo $htmlNom; ?>">
                     <br>
                     <br>
-                    - Type de produit :
+                    Type de produit :
                     <br>
                     <input type="hidden" name="Id_Prod" value="<?php echo $Id_Prod ?>">
                     <label>
@@ -116,7 +118,7 @@
                     <br>
                     <br>
                     <?php echo $htmlTri; ?>
-                    <select name="tri">
+                    <select class="filtre-container-producteur" name="tri">
                         <option value="No" <?php if ($tri == "No") echo 'selected="selected"'; ?>><?php echo $htmlAucunTri; ?></option>
                         <option value="PrixAsc" <?php if ($tri == "PrixAsc") echo 'selected="selected"'; ?>><?php echo $htmlPrixCroissant; ?></option>
                         <option value="PrixDesc" <?php if ($tri == "PrixDesc") echo 'selected="selected"'; ?>><?php echo $htmlPrixDecroissant; ?></option>
@@ -126,7 +128,7 @@
                     <br>
                     <br>
                     <center>
-                        <input type="submit" value="<?php echo $htmlRechercher; ?>">
+                        <input class="filtre-container-producteur" type="submit" value="<?php echo $htmlRechercher; ?>">
                     </center>
                 </form>
                 <br>
