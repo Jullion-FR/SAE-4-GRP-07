@@ -8,8 +8,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_POST['message'])) {
     exit();
 }
 
+
+
 // Check if connected
 if (isset($_SESSION['Id_Uti'])) {
+    $_POST['message'] = "<strong>Signalement de dysfonctionnement : </strong>".$_POST['message'];
     $db->query('CALL broadcast_admin(?, ?);', 'is', [$_SESSION['Id_Uti'], $_POST['message']]);
 } else {
 
@@ -18,6 +21,8 @@ if (isset($_SESSION['Id_Uti'])) {
         header('Location: ../index.php');
         exit();
     }
+
+    $_POST['email'] = "<strong>Signalement de dysfonctionnement : </strong>". $_POST['email'] ;
 
     $db->query('CALL broadcast_admin(0, ?);', 's', [$_POST['email'] . ': ' . $_POST['message']]);
 }
