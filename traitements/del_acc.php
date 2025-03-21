@@ -67,6 +67,6 @@ if (!$isProducteur) {
 
 // Redirection après traitement
 
-header('Location: ' . ($delParAdmin ? '/panel_admin.php' : '/traitements/logout.php'));
+header('Location: ' . ($delParAdmin ? 'panel_admin.php' : 'traitements/logout.php'));
 exit;
 ?>
