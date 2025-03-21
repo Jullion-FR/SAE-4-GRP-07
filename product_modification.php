@@ -54,178 +54,94 @@
                 <center>
                     <p><strong><?php echo $htmlModifierProduit ?></strong></p>
                     <form action="modify_product.php" method="post" enctype="multipart/form-data">
-
-                        <label for="pwd"><?php echo $htmlProduitDeuxPoints ?> </label>
+                        <label for="nomProduit"><?php echo $htmlProduitDeuxPoints ?> </label>
                         <input type="hidden" name="IdProductAModifier" value="<?php echo $Id_Produit_Update ?>">
-                        <input type="text" name="nomProduit" value="<?php echo $Nom_Produit ?>" required><br><br>
+                        <input type="text" name="nomProduit" value="<?php echo htmlspecialchars($Nom_Produit) ?>" required><br><br>
+
+                        <label for="categorie"><?php echo $htmlCategorie ?> :</label>
                         <select name="categorie">
+                            <option value="1" <?= $Id_Type_Produit == 1 ? "selected" : "" ?>>Fruits</option>
+                            <option value="2" <?= $Id_Type_Produit == 2 ? "selected" : "" ?>>Légumes</option>
+                            <option value="3" <?= $Id_Type_Produit == 3 ? "selected" : "" ?>>Graines</option>
+                            <option value="4" <?= $Id_Type_Produit == 4 ? "selected" : "" ?>>Viande</option>
+                            <option value="5" <?= $Id_Type_Produit == 5 ? "selected" : "" ?>>Vin</option>
+                            <option value="6" <?= $Id_Type_Produit == 6 ? "selected" : "" ?>>Animaux</option>
+                            <option value="7" <?= $Id_Type_Produit == 7 ? "selected" : "" ?>>Planches</option>
+                        </select>
+                        <br><br>
+
+                        <label><?php echo $htmlPrix ?> :</label>
+                        <input style="width: 50px;" value="<?= $Prix_Produit_Unitaire ?>" type="number" min="0" name="prix" step="0.01" required> €
+
+                        <label><input type="radio" name="unitPrix" value="1" <?= $Id_Unite_Prix == 1 ? "checked" : "" ?> onchange="updateStockUnit()"> Kg</label>
+                        <label><input type="radio" name="unitPrix" value="2" <?= $Id_Unite_Prix == 2 ? "checked" : "" ?> onchange="updateStockUnit()"> L</label>
+                        <label><input type="radio" name="unitPrix" value="3" <?= $Id_Unite_Prix == 3 ? "checked" : "" ?> onchange="updateStockUnit()"> m²</label>
+                        <label><input type="radio" name="unitPrix" value="4" <?= $Id_Unite_Prix == 4 ? "checked" : "" ?> onchange="updateStockUnit()"> Pièce</label>
+
+                        <br><br>
+
+                        <label><?php echo $htmlStockDeuxPoints ?> :</label>
+                        <input type="number" style="width: 50px;" name="quantite" id="stockQuantity" value="<?= $Qte_Produit ?>" step="0.01" required>
+                        <input type="hidden" name="unitQuantite" id="unitQuantite" value="<?= $Id_Unite_Prix ?>">
+                        <span id="selectedStockUnit">
                             <?php
-                            switch ($Id_Type_Produit) {
-                                case 1:
-                                    echo "";
-                                    echo "<option value=\"1\">" . $htmlFruit . "</option>";
-                                    echo "<option value=\"6\">" . $htmlAnimaux . "</option>";
-                                    echo "<option value=\"3\">" . $htmlGraine . "</option>";
-                                    echo "<option value=\"2\">" . $htmlLégume . "</option>";
-                                    echo "<option value=\"7\">" . $htmlPlanche . "</option>";
-                                    echo "<option value=\"4\">" . $htmlViande . "</option>";
-                                    echo "<option value=\"5\">" . $htmlVin . "</option>";
-                                    break;
-                                case 2:
-                                    echo "<option value=\"2\">" . $htmlLégume . "</option>";
-                                    echo "<option value=\"6\">" . $htmlAnimaux . "</option>";
-                                    echo "<option value=\"1\">" . $htmlFruit . "</option>";
-                                    echo "<option value=\"3\">" . $htmlGraine . "</option>";
-                                    echo "<option value=\"7\">" . $htmlPlanche . "</option>";
-                                    echo "<option value=\"4\">" . $htmlViande . "</option>";
-                                    echo "<option value=\"5\">" . $htmlVin . "</option>";
-                                    break;
-                                case 3:
-                                    echo "<option value=\"3\">" . $htmlGraine . "</option>";
-                                    echo "<option value=\"6\">" . $htmlAnimaux . "</option>";
-                                    echo "<option value=\"1\">" . $htmlFruit . "</option>";
-                                    echo "<option value=\"2\">" . $htmlLégume . "</option>";
-                                    echo "<option value=\"7\">" . $htmlPlanche . "</option>";
-                                    echo "<option value=\"4\">" . $htmlViande . "</option>";
-                                    echo "<option value=\"5\">" . $htmlVin . "</option>";
-                                    break;
-                                case 4:
-                                    echo "<option value=\"4\">" . $htmlViande . "</option>";
-                                    echo "<option value=\"6\">" . $htmlAnimaux . "</option>";
-                                    echo "<option value=\"1\">" . $htmlFruit . "</option>";
-                                    echo "<option value=\"3\">" . $htmlGraine . "</option>";
-                                    echo "<option value=\"2\">" . $htmlLégume . "</option>";
-                                    echo "<option value=\"7\">" . $htmlPlanche . "</option>";
-                                    echo "<option value=\"5\">" . $htmlVin . "</option>";
-                                    break;
-                                case 5:
-                                    echo "<option value=\"5\">Vin</option>";
-                                    echo "<option value=\"6\">" . $htmlAnimaux . "</option>";
-                                    echo "<option value=\"1\">" . $htmlFruit . "</option>";
-                                    echo "<option value=\"3\">" . $htmlGraine . "</option>";
-                                    echo "<option value=\"2\">" . $htmlLégume . "</option>";
-                                    echo "<option value=\"7\">" . $htmlPlanche . "</option>";
-                                    echo "<option value=\"4\">" . $htmlViande . "</option>";
-                                    break;
-                                case 6:
-                                    echo "<option value=\"6\">" . $htmlAnimaux . "</option>";
-                                    echo "<option value=\"1\">" . $htmlFruit . "</option>";
-                                    echo "<option value=\"3\">" . $htmlGraine . "</option>";
-                                    echo "<option value=\"2\">" . $htmlLégume . "</option>";
-                                    echo "<option value=\"7\">" . $htmlPlanche . "</option>";
-                                    echo "<option value=\"4\">" . $htmlViande . "</option>";
-                                    echo "<option value=\"5\">" . $htmlVin . "</option>";
-                                    break;
-                                case 7:
-                                    echo "<option value=\"7\">" . $htmlPlanche . "</option>";
-                                    echo "<option value=\"6\">" . $htmlAnimaux . "</option>";
-                                    echo "<option value=\"1\">" . $htmlFruit . "</option>";
-                                    echo "<option value=\"3\">" . $htmlGraine . "</option>";
-                                    echo "<option value=\"2\">" . $htmlLégume . "</option>";
-                                    echo "<option value=\"4\">" . $htmlViande . "</option>";
-                                    echo "<option value=\"5\">" . $htmlVin . "</option>";
-                                    break;
+                            switch ($Id_Unite_Prix) {
+                                case 1: echo "Kg"; break;
+                                case 2: echo "L"; break;
+                                case 3: echo "m²"; break;
+                                case 4: echo "Pièce"; break;
                             }
                             ?>
+                        </span>
 
-                        </select>
-                        <br>
-                        <br><?php echo $htmlPrix ?>
-                        <input style="width: 50px;" value="<?php echo $Prix_Produit_Unitaire ?>" type="number" min="0" name="prix" required>€
-                        <?php
-                        switch ($Id_Unite_Prix) {
-                            case 1:
-                                echo "<label>";
-                                echo "<input type=\"radio\" name=\"unitPrix\" value=\"1\" checked=\"checked\"> " . $htmlLeKilo;
-                                echo "</label>";
-                                echo "<label>";
-                                echo "<input type=\"radio\" name=\"unitPrix\" value=\"4\"> " . $htmlLaPiece;
-                                echo "</label>";
-                                break;
-                            case 4:
-                                echo "<label>";
-                                echo "<input type=\"radio\" name=\"unitPrix\" value=\"1\"> " . $htmlLeKilo;
-                                echo "</label>";
-                                echo "<label>";
-                                echo "<input type=\"radio\" name=\"unitPrix\" value=\"4\" checked=\"checked\"> " . $htmlLaPiece;
-                                echo "</label>";
-                                break;
-                        }
-                        ?>
-                        <br>
-                        <br>Stock :
-                        <input type="number" value="<?php echo $Qte_Produit ?>" style="width: 50px;" min="0" name="quantite" required>
-                        <?php
-                        switch ($Id_Unite_Stock) {
-                            case 1:
-                                echo "<label>";
-                                echo "<input type=\"radio\" name=\"unitQuantite\" value=\"1\" checked=\"checked\"> " . $htmlKg;
-                                echo "</label>";
-                                echo "<label>";
-                                echo "<input type=\"radio\" name=\"unitQuantite\" value=\"2\">" . $htmlL;
-                                echo "</label>";
-                                echo "<label>";
-                                echo "<input type=\"radio\" name=\"unitQuantite\" value=\"3\">" . $htmlM2;
-                                echo "</label>";
-                                echo "<label>";
-                                echo "<input type=\"radio\" name=\"unitQuantite\" value=\"4\">" . $htmlPiece;
-                                echo "</label>";
-                                break;
-                            case 2:
-                                echo "<label>";
-                                echo "<input type=\"radio\" name=\"unitQuantite\" value=\"1\"> " . $htmlKg;
-                                echo "</label>";
-                                echo "<label>";
-                                echo "<input type=\"radio\" name=\"unitQuantite\" value=\"2\" checked=\"checked\">" . $htmlL;
-                                echo "</label>";
-                                echo "<label>";
-                                echo "<input type=\"radio\" name=\"unitQuantite\" value=\"3\">" . $htmlM2;
-                                echo "</label>";
-                                echo "<label>";
-                                echo "<input type=\"radio\" name=\"unitQuantite\" value=\"4\">" . $htmlPiece;
-                                echo "</label>";
-                                break;
-                            case 3:
-                                echo "<label>";
-                                echo "<input type=\"radio\" name=\"unitQuantite\" value=\"1\"> " . $htmlKg;
-                                echo "</label>";
-                                echo "<label>";
-                                echo "<input type=\"radio\" name=\"unitQuantite\" value=\"2\">" . $htmlL;
-                                echo "</label>";
-                                echo "<label>";
-                                echo "<input type=\"radio\" name=\"unitQuantite\" value=\"3\" checked=\"checked\">" . $htmlM2;
-                                echo "</label>";
-                                echo "<label>";
-                                echo "<input type=\"radio\" name=\"unitQuantite\" value=\"4\">" . $htmlPiece;
-                                echo "</label>";
-                                break;
-                            case 4:
-                                echo "<label>";
-                                echo "<input type=\"radio\" name=\"unitQuantite\" value=\"1\">" . $htmlKg;
-                                echo "</label>";
-                                echo "<label>";
-                                echo "<input type=\"radio\" name=\"unitQuantite\" value=\"2\">" . $htmlL;
-                                echo "</label>";
-                                echo "<label>";
-                                echo "<input type=\"radio\" name=\"unitQuantite\" value=\"3\">" . $htmlM2;
-                                echo "</label>";
-                                echo "<label>";
-                                echo "<input type=\"radio\" name=\"unitQuantite\" value=\"4\" checked=\"checked\">" . $htmlPiece;
-                                echo "</label>";
-                                break;
-                        }
-                        ?>
-                        <br>
-                        <br>
-                        <input type="file" name="image" accept=".png">
-                        <br>
-                        <br>
+                        <br><br>
+                        <input type="file" name="image" accept=".png"><br><br>
                         <input type="submit" value="<?php echo $htmlConfirmerModifProd ?>">
                     </form>
-                    <br>
-                    <form action="produits.php" method="post">
-                        <input type="submit" value="<?php echo $htmlAnnulerModifProd ?>">
-                    </form>
+
+                    <script>
+                    function updateStockUnit() {
+                        let radios = document.querySelectorAll('input[name="unitPrix"]');
+                        let selectedValue;
+                        radios.forEach(radio => {
+                            if (radio.checked) {
+                                selectedValue = radio.value;
+                            }
+                        });
+
+                        let stockInput = document.getElementById("stockQuantity");
+                        let stockUnitText = document.getElementById("selectedStockUnit");
+                        let unitQuantiteHidden = document.getElementById("unitQuantite");
+
+                        switch (selectedValue) {
+                            case "1":
+                                stockUnitText.innerText = "Kg";
+                                stockInput.step = "0.01";
+                                stockInput.min = "0.01";
+                                unitQuantiteHidden.value = "1";
+                                break;
+                            case "2":
+                                stockUnitText.innerText = "L";
+                                stockInput.step = "0.01";
+                                stockInput.min = "0.01";
+                                unitQuantiteHidden.value = "2";
+                                break;
+                            case "3":
+                                stockUnitText.innerText = "m²";
+                                stockInput.step = "0.01";
+                                stockInput.min = "0.01";
+                                unitQuantiteHidden.value = "3";
+                                break;
+                            case "4":
+                                stockUnitText.innerText = "Pièce";
+                                stockInput.step = "1";
+                                stockInput.min = "1";
+                                unitQuantiteHidden.value = "4";
+                                break;
+                        }
+                    }
+                    </script>
+
                     <br>
                     <?php
                     //echo '<img class="img-produit" src="/~inf2pj02/img_produit/' . $Id_Produit_Update  . '.png" alt="Image non fournie" style="width: 100%; height: 85%;" ><br>';
@@ -233,9 +149,6 @@
                     <br>
                     <br>
                 </center>
-
-
-
 
             </div>
         </div>
