@@ -17,15 +17,6 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-function dbConnect() {
-    $utilisateur = $_ENV['DB_USER'];
-    $serveur = $_ENV['DB_HOST'];
-    $motdepasse = $_ENV['DB_PASS'];
-    $basededonnees = $_ENV['DB_NAME'];
-    return new PDO('mysql:host=' . $serveur . ';dbname=' . $basededonnees, $utilisateur, $motdepasse);
-}
-
-$bdd = dbConnect();
 $utilisateur = htmlspecialchars($_SESSION["Id_Uti"]);
 $filtreCategorie = isset($_POST["typeCategorie"]) ? htmlspecialchars($_POST["typeCategorie"]) : 0;
 ?>

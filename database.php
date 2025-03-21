@@ -83,12 +83,9 @@ class Database
 
     private static function cleanResults(array $results): array
     {
-        foreach ($results as $row){
-            foreach ($row as $key => $value){
-                $row[$key] = htmlspecialchars($value);
-            }
-        }
-        return $results;
+        return array_map(function ($row) {
+            return array_map('htmlspecialchars', $row);
+        }, $results);
     }
 
 }
