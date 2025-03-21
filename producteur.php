@@ -3,6 +3,10 @@
 
 <head>
     <?php
+    if(!$_SERVER["REQUEST_METHOD"] === "GET" || !isset($_GET["Id_Prod"])){
+        header("Location: index.php");
+        exit();
+    }
     require "language.php";
     include_once __DIR__ . "/loadenv.php";
     ?>
@@ -15,27 +19,11 @@
 <body>
     <?php
 
-    function dbConnect()
-    {
-        $utilisateur = $_ENV['DB_USER'];
-        $serveur = $_ENV['DB_HOST'];
-        $motdepasse = $_ENV['DB_PASS'];
-        $basededonnees = $_ENV['DB_NAME'];
-
-        // Connect to database
-        return new PDO('mysql:host=' . $serveur . ';dbname=' . $basededonnees, $utilisateur, $motdepasse);
-    }
-
-
-
     // variable utilisée plusieurs fois par la suite
     $Id_Prod = htmlspecialchars($_GET["Id_Prod"]);
     /*partie de droite avec les infos producteur*/
-    $bdd = dbConnect();
-    $queryInfoProd = $bdd->prepare(('SELECT UTILISATEUR.Id_Uti, UTILISATEUR.Adr_Uti, Prenom_Uti, Nom_Uti, Prof_Prod FROM UTILISATEUR INNER JOIN PRODUCTEUR ON UTILISATEUR.Id_Uti = PRODUCTEUR.Id_Uti WHERE PRODUCTEUR.Id_Prod= :Id_Prod ;'));
-    $queryInfoProd->bindParam(":Id_Prod", $Id_Prod, PDO::PARAM_STR);
-    $queryInfoProd->execute();
-    $returnQueryInfoProd = $queryInfoProd->fetchAll(PDO::FETCH_ASSOC);
+    
+    $returnQueryInfoProd = $db->select('SELECT UTILISATEUR.Id_Uti, UTILISATEUR.Adr_Uti, Prenom_Uti, Nom_Uti, Prof_Prod FROM UTILISATEUR INNER JOIN PRODUCTEUR ON UTILISATEUR.Id_Uti = PRODUCTEUR.Id_Uti WHERE PRODUCTEUR.Id_Prod= ?;', 'i', [$Id_Prod]);
 
     // recupération des paramètres de la requête qui contient 1 élément
     $idUti = $returnQueryInfoProd[0]["Id_Uti"];
@@ -139,7 +127,7 @@
         </div>
         <div class="rightColumn">
             
-            <?php include "topBanner.php"; ?>
+            <?php include "topbanner.php"; ?>
 
             <form method="get" action="insert_commande.php">
                 <input type="hidden" name="Id_Prod" value="<?php echo $Id_Prod ?>">
@@ -152,16 +140,22 @@
                         </p>
                         <div class="boutique-container">
                             <?php
-                            $bdd = dbConnect();
+                            
                             // Filtrage du type de produit
                             $query = 'SELECT Id_Produit, Id_Prod, Nom_Produit, Desc_Type_Produit, Prix_Produit_Unitaire, Nom_Unite_Prix, Qte_Produit 
-                                    FROM Produits_d_un_producteur WHERE Id_Prod= :Id_Prod';
+                                    FROM Produits_d_un_producteur WHERE Id_Prod= ?';
+                            $queryTypes = 'i';
+                            $queryValues = [$Id_Prod];
 
                             if ($filtreType != "TOUT") {
-                                $query .= ' AND Desc_Type_Produit= :filtreType';
+                                $query .= ' AND Desc_Type_Produit= ?';
+                                $queryTypes .= 's';
+                                array_push($queryValues, $filtreType);
                             }
                             if ($rechercheNom != "") {
-                                $query .= ' AND Nom_Produit LIKE CONCAT("%", :rechercheNom, "%")';
+                                $query .= ' AND Nom_Produit LIKE CONCAT(?)';
+                                $queryTypes .= 's';
+                                array_push($queryValues, "%" . $rechercheNom . "%");
                             }
 
                             // Tri des résultats
@@ -175,17 +169,7 @@
                                 $query .= ' ORDER BY Nom_Produit DESC';
                             }
 
-                            $queryGetProducts = $bdd->prepare($query);
-                            $queryGetProducts->bindParam(":Id_Prod", $Id_Prod, PDO::PARAM_STR);
-                            if ($filtreType != "TOUT") {
-                                $queryGetProducts->bindParam(":filtreType", $filtreType, PDO::PARAM_STR);
-                            }
-                            if ($rechercheNom != "") {
-                                $queryGetProducts->bindParam(":rechercheNom", $rechercheNom, PDO::PARAM_STR);
-                            }
-
-                            $queryGetProducts->execute();
-                            $returnQueryGetProducts = $queryGetProducts->fetchAll(PDO::FETCH_ASSOC);
+                            $returnQueryGetProducts = $db->select($query, $queryTypes, $queryValues);
 
                             if (count($returnQueryGetProducts) == 0) {
                                 echo $htmlAucunProduitEnStock;

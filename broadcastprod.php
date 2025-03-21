@@ -15,6 +15,10 @@
         if(!isset($_SESSION)){
             session_start();
         }
+        if (!isset($_SESSION['Id_Uti']) || !isset($_SESSION['isAdmin'])){
+            header("Location: index.php");
+            exit();
+        }
     ?>
     <div class="container">
         <div class="leftColumn">
