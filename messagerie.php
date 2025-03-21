@@ -18,6 +18,10 @@ require "language.php";
     if (!isset($_SESSION)) {
         session_start();
     }
+    if (!(isset($_SESSION['Id_Uti']))){
+        header("Location: index.php");
+        exit();
+    }
     ?>
     <div class="container">
         <div class="leftColumn" style="z-index: 6; overflow-y: auto;">
@@ -47,7 +51,7 @@ require "language.php";
         </div>
         <div class="rightColumn">
         
-            <?php include "topBanner.php"; ?>
+            <?php include "topbanner.php"; ?>
 
             <div class="contenuPage">
                 <?php if (isset($_GET['Id_Interlocuteur'])): ?>

@@ -17,7 +17,10 @@
     if (!isset($_SESSION)) {
         session_start();
     }
-   
+    if (!(isset($_SESSION['Id_Uti'])) || !isset($_SESSION['isProd'])){
+        header("Location: index.php");
+        exit();
+    }
     $utilisateur = htmlspecialchars($_SESSION["Id_Uti"]);
     $Id_Produit_Update = htmlspecialchars($_POST["modifyIdProduct"]);
     $_SESSION["Id_Produit"] = $Id_Produit_Update;

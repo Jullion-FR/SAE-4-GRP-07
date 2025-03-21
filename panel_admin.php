@@ -8,7 +8,7 @@ if (!isset($_SESSION)) {
 }
 
 // If user isn't admin, redirect to index
-if (!(isset($_SESSION['isAdmin']) && $_SESSION["isAdmin"] == true)){
+if (!isset($_SESSION['isAdmin']) || $_SESSION["isAdmin"] == false){
     header("Location: index.php");
     exit();
 }

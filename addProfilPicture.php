@@ -27,6 +27,10 @@ include_once __DIR__ . "/loadenv.php";
     if (!isset($_SESSION)) {
         session_start();
     }
+    if (!(isset($_SESSION['Id_Uti'])) || !isset($_SESSION['isProd'])){
+        header("Location: index.php");
+        exit();
+    }
     if (isset($_GET["rechercheVille"]) == true) {
         $rechercheVille = htmlspecialchars($_GET["rechercheVille"]);
     } else {
