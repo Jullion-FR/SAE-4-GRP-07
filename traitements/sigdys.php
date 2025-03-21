@@ -23,5 +23,5 @@ if (isset($_SESSION['Id_Uti'])) {
 }
 
 // Clean end
-$_SESSION['success'] = 'Le message a bien été envoyer.';
+$_SESSION['success'] = 'Le message a bien été envoyé.';
 header('Location: ../sigdys.php');
