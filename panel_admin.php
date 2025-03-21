@@ -51,8 +51,8 @@ $utilisateur = htmlspecialchars($_SESSION["Id_Uti"]);
                     $nom = addslashes($row["Nom_Uti"]);
                     $adresse = addslashes($row["Adr_Uti"]);
                     $profession = isset($row["Prof_Prod"]) ? addslashes($row["Prof_Prod"]) : "";
-                    $imageSrc = file_exists("img_producteur/".$row["Id_Prod"].".png") ? "/img_producteur/".$row["Id_Prod"].".png" : "/img/default_producteur.png";
-                    ?>
+                    $filename = "img_producteur/".$row["Id_Prod"].".png";
+                    $imageSrc = file_exists($filename) ? $filename : "img/default_producteur.png";?>
                         <?php
                         $isAdmin = $db->select("SELECT * FROM ADMINISTRATEUR WHERE Id_Uti = ?", 'i', [$targetID]);
                         $adminBtnText = count($isAdmin) > 0 ? "Rétrograder en membre" : "Promouvoir en admin";
