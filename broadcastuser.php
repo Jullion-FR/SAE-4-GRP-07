@@ -8,6 +8,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="css/style_general.css">
     <link rel="stylesheet" type="text/css" href="css/popup.css">
+    <link rel="stylesheet" type="text/css" href="css/messagerie.css">
 </head>
 <body>
     <?php
@@ -26,11 +27,11 @@
                 <?php if (isset($_SESSION["isAdmin"]) and ($_SESSION["isAdmin"] == true)) { ?>
                 <p><?php echo $htmlBroadcast ?></p>
                 <?php
-                    echo '<form method="post" action="broadcastuser.php" style="display:block; margin-bottom: 10px;">
-                            <input type="submit" value="' . $htmlbroadcastuser . '">
+                    echo '<form method="post" action="broadcastuser.php" style="display:block; margin-bottom: 10px;width:90%;">
+                            <input class="filtre-container-producteur" type="submit" value="' . $htmlbroadcastuser . '">
                         </form>';
-                    echo '<form method="post" action="broadcastprod.php" style="display:block;">
-                            <input type="submit" value="' . $htmlbroadcastprod . '">
+                    echo '<form method="post" action="broadcastprod.php" style="display:block;width:90%;">
+                            <input class="filtre-container-producteur" type="submit" value="' . $htmlbroadcastprod . '">
                         </form>';
                 }?>
                 <p><?php echo $htmlContactsRecentsDeuxPoints ?></p>
@@ -86,7 +87,7 @@
                         <textarea id="message" name="message" rows="10" cols="80" maxlength="5000" required></textarea>
                     </div>
                     <div style="text-align: center;">
-                        <input type="submit" value="<?php echo $htmlEnvoyerMessageATousUti; ?>" style="margin-top: 20px;">
+                        <input class="send-message-br" type="submit" value="<?php echo $htmlEnvoyerMessageATousUti; ?>" style="margin-top: 20px;">
                     </div>
                 </form>
             </div>
