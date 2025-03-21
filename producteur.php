@@ -3,6 +3,10 @@
 
 <head>
     <?php
+    if(!$_SERVER["REQUEST_METHOD"] === "GET" || !isset($_GET["Id_Prod"])){
+        header("Location: index.php");
+        exit();
+    }
     require "language.php";
     include_once __DIR__ . "/loadenv.php";
     ?>
@@ -123,7 +127,7 @@
         </div>
         <div class="rightColumn">
             
-            <?php include "topBanner.php"; ?>
+            <?php include "topbanner.php"; ?>
 
             <form method="get" action="insert_commande.php">
                 <input type="hidden" name="Id_Prod" value="<?php echo $Id_Prod ?>">
@@ -231,7 +235,7 @@
                         <?php
                         if (isset($_SESSION["Id_Uti"])  && $idUti != $_SESSION["Id_Uti"]) {
                         ?>
-                            <input type="button" onclick="window.location.href='messagerie.php?Id_Interlocuteur=<?php echo $idUti; ?>'" value="<?php echo $htmlEnvoyerMessage; ?>">
+                            <input class="filtre-container-producteur" type="button" onclick="window.location.href='messagerie.php?Id_Interlocuteur=<?php echo $idUti; ?>'" value="<?php echo $htmlEnvoyerMessage; ?>">
                             <br>
                         <?php
                         } ?>

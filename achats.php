@@ -16,6 +16,10 @@ include_once __DIR__ . "/loadenv.php";
 if (!isset($_SESSION)) {
     session_start();
 }
+if (!(isset($_SESSION['Id_Uti']))){
+    header("Location: index.php");
+    exit();
+}
 
 $utilisateur = htmlspecialchars($_SESSION["Id_Uti"]);
 $filtreCategorie = isset($_POST["typeCategorie"]) ? htmlspecialchars($_POST["typeCategorie"]) : 0;
@@ -57,7 +61,7 @@ $filtreCategorie = isset($_POST["typeCategorie"]) ? htmlspecialchars($_POST["typ
 
     <div class="rightColumn">
 
-        <?php include "topBanner.php"; ?>
+        <?php include "topbanner.php"; ?>
 
         <div class="contenuPage">
             <?php
